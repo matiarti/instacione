@@ -12,7 +12,8 @@ docs/
 │   ├── MONGODB_CONNECTION_SUCCESS.md
 │   └── SHADCN_INTEGRATION_SUCCESS.md
 ├── development/                 # Development guides and practices
-│   └── TESTING.md
+│   ├── TESTING.md
+│   └── OPERATOR_PAGES.md
 ├── project-status/              # Project planning and status updates
 │   ├── parking-hub-mvp-plan.md
 │   └── SPRINT_PLAN.md
@@ -82,5 +83,6 @@ docs/
 - [Project Overview](../README.md)
 - [Setup Status](./setup/)
 - [Development Guidelines](./development/)
+- [Operator Pages Guide](./development/OPERATOR_PAGES.md)
 - [Project Planning](./project-status/)
 - [Architecture Overview](./architecture/)
