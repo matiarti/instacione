@@ -1,0 +1,123 @@
+{
+  "common": {
+    "search": "Buscar",
+    "back": "Voltar",
+    "loading": "Carregando...",
+    "available": "Disponível",
+    "full": "Lotado",
+    "reserve": "Reservar",
+    "reserveSpot": "Reservar Vaga",
+    "findParking": "Encontrar Estacionamento",
+    "user": "Usuário"
+  },
+  "home": {
+    "badge": "🚀 Agora Disponível em São Paulo",
+    "title": "Encontre Estacionamento",
+    "titleHighlight": "Em Qualquer Lugar",
+    "subtitle": "Reserve sua vaga de estacionamento com antecedência e nunca mais se preocupe em encontrar onde estacionar.",
+    "searchForm": {
+      "title": "Encontre Sua Vaga de Estacionamento Perfeita",
+      "description": "Digite seu destino e mostraremos opções de estacionamento disponíveis nas proximidades",
+      "destinationLabel": "Para onde você está indo?",
+      "destinationPlaceholder": "Digite o destino ou endereço",
+      "locationLabel": "Localização atual",
+      "locationPlaceholder": "Sua localização atual",
+      "button": "Encontrar Estacionamento"
+    },
+    "features": {
+      "title": "Por que Escolher a Instacione?",
+      "subtitle": "A forma mais inteligente de encontrar e reservar estacionamento em São Paulo",
+      "easySearch": {
+        "title": "Busca Fácil",
+        "description": "Encontre estacionamentos próximos com disponibilidade e preços em tempo real."
+      },
+      "securePayment": {
+        "title": "Pagamento Seguro",
+        "description": "Pague uma pequena taxa de reserva para garantir sua vaga com antecedência."
+      },
+      "guaranteedSpot": {
+        "title": "Vaga Garantida",
+        "description": "Sua vaga de estacionamento está reservada e esperando por você quando chegar."
+      }
+    }
+  },
+  "search": {
+    "title": "Encontrar Estacionamento",
+    "description": "Busque estacionamentos próximos ao seu destino",
+    "destinationPlaceholder": "Para onde você está indo?",
+    "locationDetected": "Localização detectada",
+    "currentLocation": "Localização atual",
+    "searching": "Buscando...",
+    "filters": {
+      "maxDistance": "Distância Máxima",
+      "maxPrice": "Preço Máximo",
+      "minAvailability": "Disponibilidade Mínima",
+      "amenities": "Comodidades"
+    },
+    "results": {
+      "title": "{count} Estacionamentos Encontrados",
+      "sortedByDistance": "Ordenados por distância da sua localização",
+      "showingAll": "Mostrando todos os estacionamentos disponíveis",
+      "listView": "Lista",
+      "mapView": "Mapa"
+    },
+    "amenities": {
+      "24/7": "24 horas",
+      "covered": "Coberto",
+      "security": "Segurança",
+      "evCharging": "Carregamento EV"
+    }
+  },
+  "operator": {
+    "dashboard": {
+      "totalLots": "Total de Estacionamentos",
+      "totalSpots": "Total de Vagas",
+      "todayReservations": "Reservas de Hoje",
+      "revenue": "Receita",
+      "activeParkingLots": "Estacionamentos ativos",
+      "availableParkingSpots": "Vagas de estacionamento disponíveis",
+      "activeReservations": "Reservas ativas",
+      "todayEarnings": "Ganhos de hoje",
+      "recentReservations": "Reservas Recentes",
+      "noReservations": "Nenhuma reserva encontrada"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Entre na sua conta",
+      "description": "Digite seu email e senha para entrar na sua conta",
+      "email": "Email",
+      "emailPlaceholder": "m@exemplo.com",
+      "password": "Senha",
+      "showPassword": "Mostrar senha",
+      "hidePassword": "Ocultar senha",
+      "forgotPassword": "Esqueceu sua senha?",
+      "signInWithGoogle": "Entrar com Google",
+      "signInWithEmail": "Entrar com Email",
+      "signingIn": "Entrando...",
+      "button": "Entrar"
+    },
+    "signup": {
+      "title": "Crie sua conta",
+      "description": "Digite seus dados abaixo para criar sua conta",
+      "fullName": "Nome Completo",
+      "fullNamePlaceholder": "João Silva",
+      "creatingAccount": "Criando conta...",
+      "button": "Criar Conta"
+    },
+    "magicLink": {
+      "checkEmail": "Verifique seu email para o link mágico!",
+      "errorSending": "Erro ao enviar link mágico. Tente novamente."
+    },
+    "errors": {
+      "invalidCredentials": "Email ou senha inválidos.",
+      "failedToCreate": "Falha ao criar conta",
+      "accountCreated": "Conta criada com sucesso! Agora você pode entrar.",
+      "genericError": "Ocorreu um erro. Tente novamente."
+    }
+  },
+  "app": {
+    "title": "Instacione - Hub de Estacionamento",
+    "description": "Encontre e reserve vagas de estacionamento em qualquer lugar"
+  }
+}

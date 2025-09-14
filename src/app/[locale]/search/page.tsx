@@ -10,6 +10,7 @@ import { Slider } from '@/components/ui/slider';
 import { Checkbox } from '@/components/ui/checkbox';
 import Map from '@/components/map';
 import { AuthHeader } from '@/components/auth-header';
+import { useTranslations } from 'next-intl';
 import { 
   type ParkingLotMarker, 
   type Location,
@@ -20,6 +21,7 @@ import {
 } from '@/lib/maps';
 
 export default function SearchPage() {
+  const t = useTranslations();
   const [searchQuery, setSearchQuery] = useState('');
   const [userLocation, setUserLocation] = useState<Location | null>(null);
   const [parkingLots, setParkingLots] = useState<ParkingLotMarker[]>([]);
@@ -167,17 +169,17 @@ export default function SearchPage() {
           <Button variant="ghost" size="sm" asChild className="mr-4">
             <a href="/">
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back
+              {t('common.back')}
             </a>
           </Button>
-          <h1 className="text-2xl font-bold">Find Parking</h1>
+          <h1 className="text-2xl font-bold">{t('search.title')}</h1>
         </div>
         {/* Search Form */}
         <Card className="mb-8">
           <CardHeader>
-            <CardTitle>Find Parking</CardTitle>
+            <CardTitle>{t('search.title')}</CardTitle>
             <CardDescription>
-              Search for parking lots near your destination
+              {t('search.description')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -186,7 +188,7 @@ export default function SearchPage() {
                 <div className="relative">
                   <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                   <Input
-                    placeholder="Where are you going?"
+                    placeholder={t('search.destinationPlaceholder')}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="pl-10"
@@ -195,7 +197,7 @@ export default function SearchPage() {
                 <div className="relative">
                   <Navigation className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                   <Input
-                    placeholder={userLocation ? "Location detected" : "Current location"}
+                    placeholder={userLocation ? t('search.locationDetected') : t('search.currentLocation')}
                     value={userLocation ? "📍 Current location detected" : ""}
                     disabled
                     className="pl-10"
@@ -204,7 +206,7 @@ export default function SearchPage() {
                 <div className="flex gap-2">
                   <Button type="submit" className="flex-1" disabled={loading}>
                     <Search className="h-4 w-4 mr-2" />
-                    {loading ? 'Searching...' : 'Search'}
+                    {loading ? t('search.searching') : t('common.search')}
                   </Button>
                   <Button
                     type="button"
@@ -221,7 +223,7 @@ export default function SearchPage() {
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                     <div>
                       <label className="block text-sm font-medium mb-2">
-                        Max Distance: {filters.maxDistance}km
+                        {t('search.filters.maxDistance')}: {filters.maxDistance}km
                       </label>
                       <Slider
                         value={[filters.maxDistance]}
@@ -234,7 +236,7 @@ export default function SearchPage() {
                     </div>
                     <div>
                       <label className="block text-sm font-medium mb-2">
-                        Max Price: {formatCurrency(filters.maxPrice)}
+                        {t('search.filters.maxPrice')}: {formatCurrency(filters.maxPrice)}
                       </label>
                       <Slider
                         value={[filters.maxPrice]}
@@ -247,7 +249,7 @@ export default function SearchPage() {
                     </div>
                     <div>
                       <label className="block text-sm font-medium mb-2">
-                        Min Availability: {filters.minAvailability}
+                        {t('search.filters.minAvailability')}: {filters.minAvailability}
                       </label>
                       <Slider
                         value={[filters.minAvailability]}
@@ -260,21 +262,26 @@ export default function SearchPage() {
                     </div>
                     <div>
                       <label className="block text-sm font-medium mb-2">
-                        Amenities
+                        {t('search.filters.amenities')}
                       </label>
                       <div className="space-y-2">
-                        {['24/7', 'Covered', 'Security', 'EV Charging'].map(amenity => (
-                          <div key={amenity} className="flex items-center space-x-2">
-                            <Checkbox
-                              id={amenity}
-                              checked={filters.amenities.includes(amenity)}
-                              onCheckedChange={() => toggleAmenity(amenity)}
-                            />
-                            <label htmlFor={amenity} className="text-sm">
-                              {amenity}
-                            </label>
-                          </div>
-                        ))}
+                        {['24/7', 'Covered', 'Security', 'EV Charging'].map(amenity => {
+                          const amenityKey = amenity === '24/7' ? '24/7' : 
+                                           amenity === 'EV Charging' ? 'evCharging' : 
+                                           amenity.toLowerCase();
+                          return (
+                            <div key={amenity} className="flex items-center space-x-2">
+                              <Checkbox
+                                id={amenity}
+                                checked={filters.amenities.includes(amenity)}
+                                onCheckedChange={() => toggleAmenity(amenity)}
+                              />
+                              <label htmlFor={amenity} className="text-sm">
+                                {t(`search.amenities.${amenityKey}` as any)}
+                              </label>
+                            </div>
+                          );
+                        })}
                       </div>
                     </div>
                   </div>
@@ -288,10 +295,10 @@ export default function SearchPage() {
         <div className="flex items-center justify-between mb-6">
           <div>
             <h2 className="text-2xl font-bold">
-              {filteredLots.length} Parking Lots Found
+              {t('search.results.title', { count: filteredLots.length })}
             </h2>
             <p className="text-muted-foreground">
-              {userLocation ? 'Sorted by distance from your location' : 'Showing all available lots'}
+              {userLocation ? t('search.results.sortedByDistance') : t('search.results.showingAll')}
             </p>
           </div>
           <div className="flex gap-2">
@@ -301,7 +308,7 @@ export default function SearchPage() {
               size="sm"
             >
               <Car className="h-4 w-4 mr-2" />
-              List
+              {t('search.results.listView')}
             </Button>
             <Button
               variant={viewMode === 'map' ? 'default' : 'outline'}
@@ -309,7 +316,7 @@ export default function SearchPage() {
               size="sm"
             >
               <MapPin className="h-4 w-4 mr-2" />
-              Map
+              {t('search.results.mapView')}
             </Button>
           </div>
         </div>
@@ -360,7 +367,7 @@ export default function SearchPage() {
                         <div className={`font-medium ${
                           lot.availability > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
                         }`}>
-                          {lot.availability > 0 ? 'Available' : 'Full'}
+                          {lot.availability > 0 ? t('common.available') : t('common.full')}
                         </div>
                       </div>
                     </CardContent>
@@ -421,7 +428,7 @@ export default function SearchPage() {
                         <div className={`font-medium ${
                           lot.availability > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
                         }`}>
-                          {lot.availability > 0 ? 'Available' : 'Full'}
+                          {lot.availability > 0 ? t('common.available') : t('common.full')}
                         </div>
                       </div>
                     
@@ -436,7 +443,7 @@ export default function SearchPage() {
                     )}
                     
                     <Button className="w-full" size="sm">
-                      Reserve Spot
+                      {t('common.reserveSpot')}
                     </Button>
                   </div>
                 </CardContent>

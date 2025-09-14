@@ -14,7 +14,9 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { ModeToggle } from '@/components/mode-toggle';
+import { LanguageSwitcher } from '@/components/language-switcher';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 interface AuthHeaderProps {
   className?: string;
@@ -89,6 +91,9 @@ export function AuthHeader({ className = '' }: AuthHeaderProps) {
                   </Button>
                 )}
 
+                {/* Language switcher */}
+                <LanguageSwitcher />
+
                 {/* Theme toggle */}
                 <ModeToggle />
 
@@ -154,6 +159,7 @@ export function AuthHeader({ className = '' }: AuthHeaderProps) {
                 <Button variant="ghost" asChild>
                   <Link href="/search">Find Parking</Link>
                 </Button>
+                <LanguageSwitcher />
                 <ModeToggle />
                 <Button asChild>
                   <Link href="/auth/signin">Sign In</Link>

@@ -16,6 +16,7 @@ A modern, full-stack parking reservation platform built with Next.js, MongoDB, a
 - **User Dashboard**: Manage reservations, vehicles, and preferences
 - **Mobile Responsive**: Optimized for all device sizes
 - **Advanced Filtering**: Filter by distance, price, availability, and amenities
+- **Multi-Language Support**: English and Portuguese (pt-BR) with language switcher
 
 ### Operator Features
 - **Lot Management**: Create and manage parking lots
@@ -34,6 +35,8 @@ A modern, full-stack parking reservation platform built with Next.js, MongoDB, a
 - **Maps**: Google Maps JavaScript API
 - **Email**: Resend for transactional emails
 - **Analytics**: PostHog for user behavior tracking
+- **Internationalization**: next-intl for multi-language support
+- **UI Components**: shadcn/ui for modern, accessible components
 - **Deployment**: Vercel for serverless hosting
 
 ### Project Structure
@@ -41,6 +44,7 @@ A modern, full-stack parking reservation platform built with Next.js, MongoDB, a
 instacione/
 ├── src/
 │   ├── app/                 # Next.js App Router
+│   │   ├── [locale]/       # Internationalized routes
 │   │   ├── api/            # API routes
 │   │   ├── auth/           # Authentication pages
 │   │   ├── lot/            # Parking lot pages
@@ -48,8 +52,9 @@ instacione/
 │   │   ├── account/        # User account pages
 │   │   └── search/         # Search interface
 │   ├── components/         # React components
-│   │   ├── ui/            # Reusable UI components
+│   │   ├── ui/            # Reusable UI components (shadcn/ui)
 │   │   ├── map.tsx        # Google Maps component
+│   │   ├── language-switcher.tsx  # Language selection
 │   │   └── ...
 │   ├── lib/               # Utility libraries
 │   │   ├── mongodb.ts     # Database connection
@@ -58,7 +63,12 @@ instacione/
 │   │   ├── stripe.ts      # Payment utilities
 │   │   ├── email.ts       # Email utilities
 │   │   └── analytics.ts   # Analytics tracking
-│   └── hooks/             # Custom React hooks
+│   ├── hooks/             # Custom React hooks
+│   ├── i18n.ts           # Internationalization config
+│   ├── middleware.ts     # Locale routing middleware
+│   └── messages/         # Translation files
+│       ├── en.json       # English translations
+│       └── pt-BR.json    # Portuguese translations
 ├── models/                # MongoDB models
 ├── scripts/               # Database and utility scripts
 ├── types/                 # TypeScript definitions

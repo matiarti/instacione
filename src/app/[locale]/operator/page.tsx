@@ -11,6 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { MapPin, Clock, Car, DollarSign, TrendingUp, Users, AlertCircle } from 'lucide-react'
+import { useTranslations } from 'next-intl';
 
 interface DashboardStats {
   totalLots: number;
@@ -44,6 +45,7 @@ interface Reservation {
 }
 
 export default function OperatorDashboard() {
+  const t = useTranslations();
   const [stats, setStats] = useState<DashboardStats>({
     totalLots: 0,
     totalSpots: 0,
@@ -140,49 +142,49 @@ export default function OperatorDashboard() {
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                   <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">Total Lots</CardTitle>
+                      <CardTitle className="text-sm font-medium">{t('operator.dashboard.totalLots')}</CardTitle>
                       <MapPin className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                       <div className="text-2xl font-bold">{stats.totalLots}</div>
                       <p className="text-xs text-muted-foreground">
-                        Active parking lots
+                        {t('operator.dashboard.activeParkingLots')}
                       </p>
                     </CardContent>
                   </Card>
                   <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">Total Spots</CardTitle>
+                      <CardTitle className="text-sm font-medium">{t('operator.dashboard.totalSpots')}</CardTitle>
                       <Car className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                       <div className="text-2xl font-bold">{stats.totalSpots}</div>
                       <p className="text-xs text-muted-foreground">
-                        Available parking spots
+                        {t('operator.dashboard.availableParkingSpots')}
                       </p>
                     </CardContent>
                   </Card>
                   <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">Today&apos;s Reservations</CardTitle>
+                      <CardTitle className="text-sm font-medium">{t('operator.dashboard.todayReservations')}</CardTitle>
                       <Users className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                       <div className="text-2xl font-bold">{stats.todayReservations}</div>
                       <p className="text-xs text-muted-foreground">
-                        Active reservations
+                        {t('operator.dashboard.activeReservations')}
                       </p>
                     </CardContent>
                   </Card>
                   <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">Revenue</CardTitle>
+                      <CardTitle className="text-sm font-medium">{t('operator.dashboard.revenue')}</CardTitle>
                       <DollarSign className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                       <div className="text-2xl font-bold">{formatCurrency(stats.todayRevenue)}</div>
                       <p className="text-xs text-muted-foreground">
-                        Today&apos;s earnings
+                        {t('operator.dashboard.todayEarnings')}
                       </p>
                     </CardContent>
                   </Card>
@@ -191,7 +193,7 @@ export default function OperatorDashboard() {
               <div className="px-4 lg:px-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Recent Reservations</CardTitle>
+                    <CardTitle>{t('operator.dashboard.recentReservations')}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     {loading ? (
@@ -226,7 +228,7 @@ export default function OperatorDashboard() {
                     ) : (
                       <div className="text-center py-8">
                         <AlertCircle className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
-                        <p className="text-muted-foreground">No reservations found</p>
+                        <p className="text-muted-foreground">{t('operator.dashboard.noReservations')}</p>
                       </div>
                     )}
                   </CardContent>

@@ -7,8 +7,10 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { AuthHeader } from '@/components/auth-header';
+import { useTranslations } from 'next-intl';
 
 export default function HomePage() {
+  const t = useTranslations();
   const [searchQuery, setSearchQuery] = useState('');
   const [location, setLocation] = useState('');
 
@@ -26,14 +28,14 @@ export default function HomePage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center">
           <Badge variant="secondary" className="mb-4">
-            🚀 Now Available in São Paulo
+            {t('home.badge')}
           </Badge>
           <h2 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-            Find Parking
-            <span className="block text-primary">Anywhere</span>
+            {t('home.title')}
+            <span className="block text-primary">{t('home.titleHighlight')}</span>
           </h2>
           <p className="mt-3 max-w-md mx-auto text-base text-muted-foreground sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-            Reserve your parking spot in advance and never worry about finding parking again.
+            {t('home.subtitle')}
           </p>
         </div>
 
@@ -41,9 +43,9 @@ export default function HomePage() {
         <div className="mt-10 max-w-3xl mx-auto">
           <Card>
             <CardHeader>
-              <CardTitle>Find Your Perfect Parking Spot</CardTitle>
+              <CardTitle>{t('home.searchForm.title')}</CardTitle>
               <CardDescription>
-                Enter your destination and we&apos;ll show you available parking options nearby
+                {t('home.searchForm.description')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -51,30 +53,30 @@ export default function HomePage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label htmlFor="destination" className="text-sm font-medium">
-                      Where are you going?
+                      {t('home.searchForm.destinationLabel')}
                     </label>
                     <Input
                       id="destination"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="Enter destination or address"
+                      placeholder={t('home.searchForm.destinationPlaceholder')}
                     />
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="location" className="text-sm font-medium">
-                      Current location
+                      {t('home.searchForm.locationLabel')}
                     </label>
                     <Input
                       id="location"
                       value={location}
                       onChange={(e) => setLocation(e.target.value)}
-                      placeholder="Your current location"
+                      placeholder={t('home.searchForm.locationPlaceholder')}
                     />
                   </div>
                 </div>
                 <Button type="submit" className="w-full" size="lg">
                   <Search className="w-4 h-4 mr-2" />
-                  Find Parking
+                  {t('home.searchForm.button')}
                 </Button>
               </form>
             </CardContent>
@@ -84,9 +86,9 @@ export default function HomePage() {
         {/* Features */}
         <div className="mt-20">
           <div className="text-center mb-12">
-            <h3 className="text-2xl font-bold tracking-tight">Why Choose Instacione?</h3>
+            <h3 className="text-2xl font-bold tracking-tight">{t('home.features.title')}</h3>
             <p className="mt-2 text-muted-foreground">
-              The smartest way to find and reserve parking in São Paulo
+              {t('home.features.subtitle')}
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -95,11 +97,11 @@ export default function HomePage() {
                 <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary text-primary-foreground mx-auto">
                   <Search className="h-6 w-6" />
                 </div>
-                <CardTitle>Easy Search</CardTitle>
+                <CardTitle>{t('home.features.easySearch.title')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Find nearby parking lots with real-time availability and pricing.
+                  {t('home.features.easySearch.description')}
                 </p>
               </CardContent>
             </Card>
@@ -108,11 +110,11 @@ export default function HomePage() {
                 <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary text-primary-foreground mx-auto">
                   <CreditCard className="h-6 w-6" />
                 </div>
-                <CardTitle>Secure Payment</CardTitle>
+                <CardTitle>{t('home.features.securePayment.title')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Pay a small reservation fee to secure your spot in advance.
+                  {t('home.features.securePayment.description')}
                 </p>
               </CardContent>
             </Card>
@@ -121,11 +123,11 @@ export default function HomePage() {
                 <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary text-primary-foreground mx-auto">
                   <CheckCircle className="h-6 w-6" />
                 </div>
-                <CardTitle>Guaranteed Spot</CardTitle>
+                <CardTitle>{t('home.features.guaranteedSpot.title')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Your parking spot is reserved and waiting for you when you arrive.
+                  {t('home.features.guaranteedSpot.description')}
                 </p>
               </CardContent>
             </Card>

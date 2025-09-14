@@ -1,0 +1,123 @@
+{
+  "common": {
+    "search": "Search",
+    "back": "Back",
+    "loading": "Loading...",
+    "available": "Available",
+    "full": "Full",
+    "reserve": "Reserve",
+    "reserveSpot": "Reserve Spot",
+    "findParking": "Find Parking",
+    "user": "User"
+  },
+  "home": {
+    "badge": "🚀 Now Available in São Paulo",
+    "title": "Find Parking",
+    "titleHighlight": "Anywhere",
+    "subtitle": "Reserve your parking spot in advance and never worry about finding parking again.",
+    "searchForm": {
+      "title": "Find Your Perfect Parking Spot",
+      "description": "Enter your destination and we'll show you available parking options nearby",
+      "destinationLabel": "Where are you going?",
+      "destinationPlaceholder": "Enter destination or address",
+      "locationLabel": "Current location",
+      "locationPlaceholder": "Your current location",
+      "button": "Find Parking"
+    },
+    "features": {
+      "title": "Why Choose Instacione?",
+      "subtitle": "The smartest way to find and reserve parking in São Paulo",
+      "easySearch": {
+        "title": "Easy Search",
+        "description": "Find nearby parking lots with real-time availability and pricing."
+      },
+      "securePayment": {
+        "title": "Secure Payment",
+        "description": "Pay a small reservation fee to secure your spot in advance."
+      },
+      "guaranteedSpot": {
+        "title": "Guaranteed Spot",
+        "description": "Your parking spot is reserved and waiting for you when you arrive."
+      }
+    }
+  },
+  "search": {
+    "title": "Find Parking",
+    "description": "Search for parking lots near your destination",
+    "destinationPlaceholder": "Where are you going?",
+    "locationDetected": "Location detected",
+    "currentLocation": "Current location",
+    "searching": "Searching...",
+    "filters": {
+      "maxDistance": "Max Distance",
+      "maxPrice": "Max Price",
+      "minAvailability": "Min Availability",
+      "amenities": "Amenities"
+    },
+    "results": {
+      "title": "{count} Parking Lots Found",
+      "sortedByDistance": "Sorted by distance from your location",
+      "showingAll": "Showing all available lots",
+      "listView": "List",
+      "mapView": "Map"
+    },
+    "amenities": {
+      "24/7": "24/7",
+      "covered": "Covered",
+      "security": "Security",
+      "evCharging": "EV Charging"
+    }
+  },
+  "operator": {
+    "dashboard": {
+      "totalLots": "Total Lots",
+      "totalSpots": "Total Spots",
+      "todayReservations": "Today's Reservations",
+      "revenue": "Revenue",
+      "activeParkingLots": "Active parking lots",
+      "availableParkingSpots": "Available parking spots",
+      "activeReservations": "Active reservations",
+      "todayEarnings": "Today's earnings",
+      "recentReservations": "Recent Reservations",
+      "noReservations": "No reservations found"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Login to your account",
+      "description": "Enter your email and password to login to your account",
+      "email": "Email",
+      "emailPlaceholder": "m@example.com",
+      "password": "Password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "forgotPassword": "Forgot your password?",
+      "signInWithGoogle": "Sign in with Google",
+      "signInWithEmail": "Sign in with Email",
+      "signingIn": "Signing in...",
+      "button": "Login"
+    },
+    "signup": {
+      "title": "Create your account",
+      "description": "Enter your details below to create your account",
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "John Doe",
+      "creatingAccount": "Creating account...",
+      "button": "Create Account"
+    },
+    "magicLink": {
+      "checkEmail": "Check your email for the magic link!",
+      "errorSending": "Error sending magic link. Please try again."
+    },
+    "errors": {
+      "invalidCredentials": "Invalid email or password.",
+      "failedToCreate": "Failed to create account",
+      "accountCreated": "Account created successfully! You can now sign in.",
+      "genericError": "An error occurred. Please try again."
+    }
+  },
+  "app": {
+    "title": "Instacione - Parking Hub",
+    "description": "Find and reserve parking spots anywhere"
+  }
+}

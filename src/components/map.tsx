@@ -33,15 +33,6 @@ export default function Map({
 }: MapProps) {
   console.log('Map component rendered with lots:', lots.length);
   const mapRef = useRef<HTMLDivElement>(null);
-  
-  // Test if we can access the ref manually
-  useEffect(() => {
-    console.log('useEffect: mapRef.current =', mapRef.current);
-    if (mapRef.current) {
-      console.log('Found mapRef in useEffect, calling setMapRef manually');
-      setMapRef(mapRef.current);
-    }
-  }, []);
   const mapInstanceRef = useRef<any>(null);
   const markersRef = useRef<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -50,7 +41,6 @@ export default function Map({
   // Callback ref to initialize map when DOM element is ready
   const setMapRef = (element: HTMLDivElement | null) => {
     console.log('setMapRef called with:', element);
-    mapRef.current = element;
     if (element && !mapInstanceRef.current) {
       console.log('Map DOM element is ready, initializing map...');
       console.log('Element dimensions:', {

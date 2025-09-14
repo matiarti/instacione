@@ -13,11 +13,13 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useTranslations } from 'next-intl';
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const t = useTranslations();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -142,11 +144,11 @@ export function LoginForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle>{isSignUp ? 'Create your account' : 'Login to your account'}</CardTitle>
+          <CardTitle>{isSignUp ? t('auth.signup.title') : t('auth.login.title')}</CardTitle>
           <CardDescription>
             {isSignUp 
-              ? 'Enter your details below to create your account'
-              : 'Enter your email and password to login to your account'
+              ? t('auth.signup.description')
+              : t('auth.login.description')
             }
           </CardDescription>
         </CardHeader>
@@ -155,11 +157,11 @@ export function LoginForm({
             <div className="flex flex-col gap-6">
               {isSignUp && (
                 <div className="grid gap-3">
-                  <Label htmlFor="name">Full Name</Label>
+                  <Label htmlFor="name">{t('auth.signup.fullName')}</Label>
                   <Input
                     id="name"
                     type="text"
-                    placeholder="John Doe"
+                    placeholder={t('auth.signup.fullNamePlaceholder')}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
@@ -168,11 +170,11 @@ export function LoginForm({
               )}
               
               <div className="grid gap-3">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{t('auth.login.email')}</Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="m@example.com"
+                  placeholder={t('auth.login.emailPlaceholder')}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -181,13 +183,13 @@ export function LoginForm({
               
               <div className="grid gap-3">
                 <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password">{t('auth.login.password')}</Label>
                   {!isSignUp && (
                     <a
                       href="#"
                       className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                     >
-                      Forgot your password?
+                      {t('auth.login.forgotPassword')}
                     </a>
                   )}
                 </div>
@@ -216,8 +218,8 @@ export function LoginForm({
               <div className="flex flex-col gap-3">
                 <Button type="submit" className="w-full" disabled={isLoading}>
                   {isLoading 
-                    ? (isSignUp ? 'Creating account...' : 'Signing in...') 
-                    : (isSignUp ? 'Create Account' : 'Login')
+                    ? (isSignUp ? t('auth.signup.creatingAccount') : t('auth.login.signingIn')) 
+                    : (isSignUp ? t('auth.signup.button') : t('auth.login.button'))
                   }
                 </Button>
                 {/* Google sign in temporarily disabled */}
