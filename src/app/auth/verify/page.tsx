@@ -18,7 +18,7 @@ export default function VerifyRequestPage() {
           </p>
         </div>
 
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="bg-white py-8 px-4 shadow-sm sm:rounded-lg sm:px-10">
           <div className="space-y-6">
             <div className="text-center">
               <p className="text-sm text-gray-600">

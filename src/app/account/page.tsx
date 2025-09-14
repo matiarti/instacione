@@ -374,7 +374,7 @@ export default function AccountPage() {
                     <input
                       type="text"
                       value={session.data?.user?.name || ''}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-hidden focus:ring-2 focus:ring-blue-500"
                       readOnly
                     />
                   </div>
@@ -385,7 +385,7 @@ export default function AccountPage() {
                     <input
                       type="email"
                       value={session.data?.user?.email || ''}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-hidden focus:ring-2 focus:ring-blue-500"
                       readOnly
                     />
                   </div>
@@ -398,7 +398,7 @@ export default function AccountPage() {
                   <input
                     type="tel"
                     placeholder="+55 11 99999-9999"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-hidden focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
 

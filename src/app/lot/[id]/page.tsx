@@ -250,7 +250,7 @@ export default function LotDetailsPage() {
                   
                   <button
                     onClick={() => setShowReservationForm(true)}
-                    className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium"
+                    className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 font-medium"
                   >
                     Reserve Now
                   </button>
@@ -267,7 +267,7 @@ export default function LotDetailsPage() {
                       value={reservationData.carPlate}
                       onChange={(e) => setReservationData({ ...reservationData, carPlate: e.target.value.toUpperCase() })}
                       placeholder="ABC-1234"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-hidden focus:ring-2 focus:ring-blue-500"
                       required
                     />
                   </div>
@@ -280,7 +280,7 @@ export default function LotDetailsPage() {
                       id="expectedHours"
                       value={reservationData.expectedHours}
                       onChange={(e) => setReservationData({ ...reservationData, expectedHours: parseInt(e.target.value) })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-hidden focus:ring-2 focus:ring-blue-500"
                     >
                       <option value={1}>1 hour</option>
                       <option value={2}>2 hours</option>
@@ -299,7 +299,7 @@ export default function LotDetailsPage() {
                       id="arrivalTime"
                       value={reservationData.arrivalTime}
                       onChange={(e) => setReservationData({ ...reservationData, arrivalTime: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-hidden focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
 
@@ -322,14 +322,14 @@ export default function LotDetailsPage() {
                     <button
                       type="button"
                       onClick={() => setShowReservationForm(false)}
-                      className="flex-1 bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                      className="flex-1 bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400 focus:outline-hidden focus:ring-2 focus:ring-gray-500"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
                       disabled={reservationLoading}
-                      className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+                      className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
                     >
                       {reservationLoading ? 'Creating...' : 'Confirm'}
                     </button>
