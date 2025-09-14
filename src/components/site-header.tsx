@@ -2,7 +2,7 @@
 
 import { Bell, Search, User, CreditCard, Settings, LogOut } from "lucide-react"
 import { useTranslations } from 'next-intl'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 
 import {
@@ -34,9 +34,32 @@ import { Logo } from "@/components/logo"
 
 export function SiteHeader() {
   const t = useTranslations('common');
+  const { data: session, status } = useSession();
 
   const handleSignOut = async () => {
     await signOut({ callbackUrl: '/' });
+  };
+
+  const getUserInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(word => word[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
+  const getRoleBadgeVariant = (role: string) => {
+    switch (role) {
+      case 'ADMIN':
+        return 'destructive';
+      case 'OPERATOR':
+        return 'default';
+      case 'DRIVER':
+        return 'secondary';
+      default:
+        return 'outline';
+    }
   };
   
   return (
@@ -75,22 +98,36 @@ export function SiteHeader() {
           <Bell className="h-4 w-4" />
         </Button>
         <ModeToggle />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="relative h-8 w-8 rounded-full">
-              <Avatar className="h-8 w-8">
-                <AvatarImage src="/avatars/01.png" alt="@shadcn" />
-                <AvatarFallback>OP</AvatarFallback>
-              </Avatar>
-            </Button>
-          </DropdownMenuTrigger>
+        {status === 'loading' ? (
+          <div className="flex items-center justify-center h-8 w-8">
+            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-primary"></div>
+          </div>
+        ) : (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="relative h-8 w-8 rounded-full hover:bg-accent transition-colors">
+                <Avatar className="h-8 w-8">
+                  <AvatarImage src={session?.user?.image || ''} alt={session?.user?.name || ''} />
+                  <AvatarFallback className="bg-primary/10 text-primary font-medium">
+                    {session?.user?.name ? getUserInitials(session.user.name) : 'U'}
+                  </AvatarFallback>
+                </Avatar>
+              </Button>
+            </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="end" forceMount>
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium leading-none">Operator</p>
-                <p className="text-xs leading-none text-muted-foreground">
-                  operator@instacione.com
+                <p className="text-sm font-medium leading-none">
+                  {session?.user?.name || 'User'}
                 </p>
+                <p className="text-xs leading-none text-muted-foreground">
+                  {session?.user?.email}
+                </p>
+                {session?.user?.role && (
+                  <Badge variant={getRoleBadgeVariant(session.user.role)} className="w-fit mt-1">
+                    {session.user.role === 'DRIVER' ? t('driver') : session.user.role}
+                  </Badge>
+                )}
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
@@ -113,12 +150,13 @@ export function SiteHeader() {
               </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={handleSignOut} className="text-red-600">
+            <DropdownMenuItem onClick={handleSignOut} className="text-red-600 focus:text-red-600">
               <LogOut className="mr-2 h-4 w-4" />
               {t('logOut')}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+        )}
       </div>
     </header>
   )
