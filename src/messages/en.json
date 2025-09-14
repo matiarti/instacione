@@ -74,17 +74,29 @@
     }
   },
   "operator": {
+    "dashboard": "Dashboard",
+    "operatorDashboard": "Operator Dashboard",
+    "platform": "Platform",
+    "account": "Account",
+    "parkingLots": "Parking Lots",
+    "allLots": "All Lots",
+    "addNewLot": "Add New Lot",
+    "reservations": "Reservations",
+    "todaysReservations": "Today's Reservations",
+    "allReservations": "All Reservations",
+    "analytics": "Analytics",
+    "customers": "Customers",
     "dashboard": {
       "totalLots": "Total Lots",
-      "totalSpots": "Total Spots",
-      "todayReservations": "Today's Reservations",
-      "revenue": "Revenue",
       "activeParkingLots": "Active parking lots",
+      "totalSpots": "Total Spots",
       "availableParkingSpots": "Available parking spots",
+      "todayReservations": "Today's Reservations",
       "activeReservations": "Active reservations",
+      "revenue": "Revenue",
       "todayEarnings": "Today's earnings",
       "recentReservations": "Recent Reservations",
-      "noReservations": "No reservations found"
+      "noReservations": "No reservations yet"
     },
     "registration": {
       "title": "Register as Operator",
@@ -130,19 +142,6 @@
       "creating": "Creating...",
       "success": "Parking lot created successfully!",
       "error": "Failed to create parking lot"
-    },
-    "lots": {
-      "title": "Parking Lots",
-      "description": "Manage your parking lots and monitor their performance",
-      "addNew": "Add New Lot",
-      "noLots": "No parking lots yet",
-      "noLotsDescription": "Get started by adding your first parking lot to begin accepting reservations.",
-      "addFirst": "Add Your First Lot",
-      "available": "Available",
-      "amenities": "Amenities",
-      "view": "View",
-      "edit": "Edit",
-      "delete": "Delete"
     }
   },
   "auth": {
@@ -292,32 +291,6 @@
     "reservationId": "Reservation ID",
     "findMoreParking": "Find More Parking",
     "printReservation": "Print Reservation"
-  },
-  "operator": {
-    "dashboard": "Dashboard",
-    "operatorDashboard": "Operator Dashboard",
-    "platform": "Platform",
-    "account": "Account",
-    "parkingLots": "Parking Lots",
-    "allLots": "All Lots",
-    "addNewLot": "Add New Lot",
-    "reservations": "Reservations",
-    "todaysReservations": "Today's Reservations",
-    "allReservations": "All Reservations",
-    "analytics": "Analytics",
-    "customers": "Customers",
-    "dashboard": {
-      "totalLots": "Total Lots",
-      "activeParkingLots": "Active parking lots",
-      "totalSpots": "Total Spots",
-      "availableParkingSpots": "Available parking spots",
-      "todayReservations": "Today's Reservations",
-      "activeReservations": "Active reservations",
-      "revenue": "Revenue",
-      "todayEarnings": "Today's earnings",
-      "recentReservations": "Recent Reservations",
-      "noReservations": "No reservations yet"
-    }
   },
   "vehicle": {
     "addVehicle": "Add Vehicle",
