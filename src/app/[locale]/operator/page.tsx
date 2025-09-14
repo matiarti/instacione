@@ -142,49 +142,49 @@ export default function OperatorDashboard() {
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                   <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">{t('operator.dashboard.totalLots')}</CardTitle>
+                      <CardTitle className="text-sm font-medium">{t('operator.dashboards.totalLots')}</CardTitle>
                       <MapPin className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                       <div className="text-2xl font-bold">{stats.totalLots}</div>
                       <p className="text-xs text-muted-foreground">
-                        {t('operator.dashboard.activeParkingLots')}
+                        {t('operator.dashboards.activeParkingLots')}
                       </p>
                     </CardContent>
                   </Card>
                   <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">{t('operator.dashboard.totalSpots')}</CardTitle>
+                      <CardTitle className="text-sm font-medium">{t('operator.dashboards.totalSpots')}</CardTitle>
                       <Car className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                       <div className="text-2xl font-bold">{stats.totalSpots}</div>
                       <p className="text-xs text-muted-foreground">
-                        {t('operator.dashboard.availableParkingSpots')}
+                        {t('operator.dashboards.availableParkingSpots')}
                       </p>
                     </CardContent>
                   </Card>
                   <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">{t('operator.dashboard.todayReservations')}</CardTitle>
+                      <CardTitle className="text-sm font-medium">{t('operator.dashboards.todayReservations')}</CardTitle>
                       <Users className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                       <div className="text-2xl font-bold">{stats.todayReservations}</div>
                       <p className="text-xs text-muted-foreground">
-                        {t('operator.dashboard.activeReservations')}
+                        {t('operator.dashboards.activeReservations')}
                       </p>
                     </CardContent>
                   </Card>
                   <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">{t('operator.dashboard.revenue')}</CardTitle>
+                      <CardTitle className="text-sm font-medium">{t('operator.dashboards.revenue')}</CardTitle>
                       <DollarSign className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                       <div className="text-2xl font-bold">{formatCurrency(stats.todayRevenue)}</div>
                       <p className="text-xs text-muted-foreground">
-                        {t('operator.dashboard.todayEarnings')}
+                        {t('operator.dashboards.todayEarnings')}
                       </p>
                     </CardContent>
                   </Card>
@@ -193,7 +193,7 @@ export default function OperatorDashboard() {
               <div className="px-4 lg:px-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle>{t('operator.dashboard.recentReservations')}</CardTitle>
+                    <CardTitle>{t('operator.dashboards.recentReservations')}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     {loading ? (
@@ -228,7 +228,7 @@ export default function OperatorDashboard() {
                     ) : (
                       <div className="text-center py-8">
                         <AlertCircle className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
-                        <p className="text-muted-foreground">{t('operator.dashboard.noReservations')}</p>
+                        <p className="text-muted-foreground">{t('operator.dashboards.noReservations')}</p>
                       </div>
                     )}
                   </CardContent>

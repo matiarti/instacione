@@ -74,17 +74,29 @@
     }
   },
   "operator": {
+    "dashboard": "Painel",
+    "operatorDashboard": "Painel do Operador",
+    "platform": "Plataforma",
+    "account": "Conta",
+    "parkingLots": "Estacionamentos",
+    "allLots": "Todos os Estacionamentos",
+    "addNewLot": "Adicionar Novo Estacionamento",
+    "reservations": "Reservas",
+    "todaysReservations": "Reservas de Hoje",
+    "allReservations": "Todas as Reservas",
+    "analytics": "Análises",
+    "customers": "Clientes",
     "dashboard": {
       "totalLots": "Total de Estacionamentos",
-      "totalSpots": "Total de Vagas",
-      "todayReservations": "Reservas de Hoje",
-      "revenue": "Receita",
       "activeParkingLots": "Estacionamentos ativos",
+      "totalSpots": "Total de Vagas",
       "availableParkingSpots": "Vagas de estacionamento disponíveis",
+      "todayReservations": "Reservas de Hoje",
       "activeReservations": "Reservas ativas",
+      "revenue": "Receita",
       "todayEarnings": "Ganhos de hoje",
       "recentReservations": "Reservas Recentes",
-      "noReservations": "Nenhuma reserva encontrada"
+      "noReservations": "Nenhuma reserva ainda"
     },
     "registration": {
       "title": "Registrar como Operador",
@@ -130,19 +142,6 @@
       "creating": "Criando...",
       "success": "Estacionamento criado com sucesso!",
       "error": "Falha ao criar estacionamento"
-    },
-    "lots": {
-      "title": "Estacionamentos",
-      "description": "Gerencie seus estacionamentos e monitore seu desempenho",
-      "addNew": "Adicionar Novo",
-      "noLots": "Nenhum estacionamento ainda",
-      "noLotsDescription": "Comece adicionando seu primeiro estacionamento para aceitar reservas.",
-      "addFirst": "Adicionar Seu Primeiro Estacionamento",
-      "available": "Disponível",
-      "amenities": "Comodidades",
-      "view": "Ver",
-      "edit": "Editar",
-      "delete": "Excluir"
     }
   },
   "auth": {
@@ -292,32 +291,6 @@
     "reservationId": "ID da Reserva",
     "findMoreParking": "Encontrar Mais Estacionamentos",
     "printReservation": "Imprimir Reserva"
-  },
-  "operator": {
-    "dashboard": "Painel",
-    "operatorDashboard": "Painel do Operador",
-    "platform": "Plataforma",
-    "account": "Conta",
-    "parkingLots": "Estacionamentos",
-    "allLots": "Todos os Estacionamentos",
-    "addNewLot": "Adicionar Novo Estacionamento",
-    "reservations": "Reservas",
-    "todaysReservations": "Reservas de Hoje",
-    "allReservations": "Todas as Reservas",
-    "analytics": "Análises",
-    "customers": "Clientes",
-    "dashboard": {
-      "totalLots": "Total de Estacionamentos",
-      "activeParkingLots": "Estacionamentos ativos",
-      "totalSpots": "Total de Vagas",
-      "availableParkingSpots": "Vagas de estacionamento disponíveis",
-      "todayReservations": "Reservas de Hoje",
-      "activeReservations": "Reservas ativas",
-      "revenue": "Receita",
-      "todayEarnings": "Ganhos de hoje",
-      "recentReservations": "Reservas Recentes",
-      "noReservations": "Nenhuma reserva ainda"
-    }
   },
   "vehicle": {
     "addVehicle": "Adicionar Veículo",
