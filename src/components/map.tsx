@@ -50,7 +50,7 @@ export default function Map({
       });
       // Small delay to ensure element is fully mounted
       setTimeout(() => {
-        initializeMap();
+        initializeMap(element);
       }, 50);
     }
   };
@@ -71,7 +71,7 @@ export default function Map({
     }
   }, [lots]);
 
-  const initializeMap = async () => {
+  const initializeMap = async (element?: HTMLDivElement) => {
     try {
       setIsLoading(true);
       setError(null);
@@ -80,16 +80,17 @@ export default function Map({
       const google = await initializeGoogleMaps();
       console.log('Google Maps loaded successfully:', google);
       
-      if (!mapRef.current) {
-        console.error('Map ref is null');
+      const mapElement = element || mapRef.current;
+      if (!mapElement) {
+        console.error('Map element is null');
         return;
       }
-      console.log('Map ref found, creating map instance...');
+      console.log('Map element found, creating map instance...');
 
       // Default center (São Paulo, Brazil)
       const defaultCenter = { lat: -23.5505, lng: -46.6333 };
       
-      mapInstanceRef.current = new google.maps.Map(mapRef.current, {
+      mapInstanceRef.current = new google.maps.Map(mapElement, {
         center: defaultCenter,
         zoom: 13,
         mapTypeControl: true,
@@ -241,7 +242,7 @@ export default function Map({
           <div className="text-center">
             <MapPin className="h-12 w-12 text-gray-400 mx-auto mb-4" />
             <p className="text-red-600 mb-2">{error}</p>
-            <Button onClick={initializeMap} variant="outline">
+            <Button onClick={() => initializeMap()} variant="outline">
               Try Again
             </Button>
           </div>

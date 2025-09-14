@@ -33,6 +33,8 @@ export async function initializeGoogleMaps(): Promise<typeof google> {
       throw new Error('Google Maps API key is not configured');
     }
     
+    console.log('Loading Google Maps with API key:', process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY.substring(0, 10) + '...');
+    
     return await loader.load();
   } catch (error) {
     console.error('Error loading Google Maps:', error);
@@ -44,7 +46,7 @@ export async function initializeGoogleMaps(): Promise<typeof google> {
       } else if (error.message.includes('quota')) {
         throw new Error('Google Maps API quota exceeded');
       } else if (error.message.includes('blocked') || error.message.includes('ERR_BLOCKED_BY_CLIENT')) {
-        throw new Error('Google Maps is being blocked by browser extension. Please disable ad blockers or whitelist this site.');
+        throw new Error('Google Maps is being blocked. Please disable ad blockers, browser extensions, or try in incognito mode.');
       }
     }
     
