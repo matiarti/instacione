@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../../../lib/auth';
+import { requireActiveSubscription } from '../../../../../lib/subscription-middleware';
 import connectDB from '../../../../../lib/mongodb';
 import ParkingLot from '../../../../../models/ParkingLot';
 import User from '../../../../../models/User';
@@ -16,6 +17,12 @@ export async function GET(request: NextRequest) {
         { error: 'Unauthorized' },
         { status: 401 }
       );
+    }
+
+    // Check subscription status
+    const subscriptionResponse = await requireActiveSubscription(request, session.user.id);
+    if (subscriptionResponse) {
+      return subscriptionResponse;
     }
 
     await connectDB();
@@ -70,6 +77,12 @@ export async function POST(request: NextRequest) {
         { error: 'Unauthorized' },
         { status: 401 }
       );
+    }
+
+    // Check subscription status
+    const subscriptionResponse = await requireActiveSubscription(request, session.user.id);
+    if (subscriptionResponse) {
+      return subscriptionResponse;
     }
 
     await connectDB();

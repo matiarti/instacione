@@ -92,6 +92,7 @@
     "allReservations": "Todas as Reservas",
     "analytics": "Análises",
     "customers": "Clientes",
+    "subscription": "Assinatura",
     "dashboards": {
       "totalLots": "Total de Estacionamentos",
       "activeParkingLots": "Estacionamentos ativos",
@@ -448,5 +449,14 @@
   "app": {
     "title": "Instacione - Hub de Estacionamento",
     "description": "Encontre e reserve vagas de estacionamento em qualquer lugar"
+  },
+  "paymentSuccess": {
+    "processing": "Processando Pagamento...",
+    "processingDescription": "Aguarde enquanto confirmamos seu pagamento",
+    "error": "Erro no Pagamento",
+    "success": "Pagamento Realizado com Sucesso!",
+    "successDescription": "Sua assinatura está agora ativa. Redirecionando para seu painel...",
+    "redirectMessage": "Você será redirecionado automaticamente em alguns segundos.",
+    "goToDashboard": "Ir para o Painel"
   }
 }

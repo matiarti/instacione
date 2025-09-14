@@ -92,6 +92,7 @@
     "allReservations": "All Reservations",
     "analytics": "Analytics",
     "customers": "Customers",
+    "subscription": "Subscription",
     "dashboards": {
       "totalLots": "Total Lots",
       "activeParkingLots": "Active parking lots",
@@ -448,5 +449,14 @@
   "app": {
     "title": "Instacione - Parking Hub",
     "description": "Find and reserve parking spots anywhere"
+  },
+  "paymentSuccess": {
+    "processing": "Processing Payment...",
+    "processingDescription": "Please wait while we confirm your payment",
+    "error": "Payment Error",
+    "success": "Payment Successful!",
+    "successDescription": "Your subscription is now active. Redirecting to your dashboard...",
+    "redirectMessage": "You will be redirected automatically in a few seconds.",
+    "goToDashboard": "Go to Dashboard"
   }
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { OperatorRegistrationForm } from '@/components/operator-registration-form';
+import { OperatorRegistrationStepper } from '@/components/operator-registration-stepper';
 import { AuthHeader } from '@/components/auth-header';
 
 export default function OperatorRegistrationPage() {
@@ -9,14 +9,14 @@ export default function OperatorRegistrationPage() {
 
   const handleSuccess = () => {
     // Redirect to login page after successful registration
-    router.push('/auth/signin');
+    router.push('/auth/signin?message=registration-success');
   };
 
   return (
     <div className="min-h-screen flex flex-col">
       <AuthHeader />
       <div className="flex-1 flex items-center justify-center p-4">
-        <OperatorRegistrationForm onSuccess={handleSuccess} />
+        <OperatorRegistrationStepper onSuccess={handleSuccess} />
       </div>
     </div>
   );

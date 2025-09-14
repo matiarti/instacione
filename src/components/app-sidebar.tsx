@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Car, Home, Settings, Users, BarChart3, MapPin } from "lucide-react"
+import { Car, Home, Settings, Users, BarChart3, MapPin, CreditCard } from "lucide-react"
 import { useTranslations } from 'next-intl'
 
 import {
@@ -71,6 +71,11 @@ const getData = (t: any) => ({
     },
   ],
   secondary: [
+    {
+      title: t('operator.subscription'),
+      url: "/operator/subscription",
+      icon: CreditCard,
+    },
     {
       title: t('common.settings'),
       url: "/operator/settings",

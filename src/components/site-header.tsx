@@ -1,7 +1,9 @@
 "use client"
 
-import { Bell, Search } from "lucide-react"
+import { Bell, Search, User, CreditCard, Settings, LogOut } from "lucide-react"
 import { useTranslations } from 'next-intl'
+import { signOut } from 'next-auth/react'
+import Link from 'next/link'
 
 import {
   Breadcrumb,
@@ -32,6 +34,10 @@ import { Logo } from "@/components/logo"
 
 export function SiteHeader() {
   const t = useTranslations('common');
+
+  const handleSignOut = async () => {
+    await signOut({ callbackUrl: '/' });
+  };
   
   return (
     <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
@@ -88,17 +94,27 @@ export function SiteHeader() {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              Profile
+            <DropdownMenuItem asChild>
+              <Link href="/operator/profile" className="flex items-center">
+                <User className="mr-2 h-4 w-4" />
+                Profile
+              </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              Billing
+            <DropdownMenuItem asChild>
+              <Link href="/operator/billing" className="flex items-center">
+                <CreditCard className="mr-2 h-4 w-4" />
+                Billing
+              </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              {t('settings')}
+            <DropdownMenuItem asChild>
+              <Link href="/operator/settings" className="flex items-center">
+                <Settings className="mr-2 h-4 w-4" />
+                {t('settings')}
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleSignOut} className="text-red-600">
+              <LogOut className="mr-2 h-4 w-4" />
               {t('logOut')}
             </DropdownMenuItem>
           </DropdownMenuContent>

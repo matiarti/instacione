@@ -3,6 +3,8 @@ import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import connectDB from '../../../../../lib/mongodb';
 import User from '../../../../../models/User';
+import SubscriptionPlan from '../../../../../models/SubscriptionPlan';
+import OperatorSubscription from '../../../../../models/OperatorSubscription';
 
 const registerOperatorSchema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -10,12 +12,13 @@ const registerOperatorSchema = z.object({
   password: z.string().min(6, 'Password must be at least 6 characters'),
   phone: z.string().min(1, 'Phone number is required'),
   companyName: z.string().min(1, 'Company name is required'),
+  selectedPlanId: z.string().min(1, 'Subscription plan is required'),
 });
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, password, phone, companyName } = registerOperatorSchema.parse(body);
+    const { name, email, password, phone, companyName, selectedPlanId } = registerOperatorSchema.parse(body);
 
     await connectDB();
 
@@ -24,6 +27,18 @@ export async function POST(request: NextRequest) {
     if (existingUser) {
       return NextResponse.json(
         { error: 'User with this email already exists' },
+        { status: 400 }
+      );
+    }
+
+    // Verify subscription plan exists
+    const subscriptionPlan = await SubscriptionPlan.findOne({ 
+      _id: selectedPlanId, 
+      isActive: true 
+    });
+    if (!subscriptionPlan) {
+      return NextResponse.json(
+        { error: 'Invalid subscription plan selected' },
         { status: 400 }
       );
     }
@@ -37,11 +52,27 @@ export async function POST(request: NextRequest) {
       email: email.toLowerCase(),
       password: hashedPassword,
       phone,
+      companyName,
       role: 'OPERATOR',
       provider: 'credentials',
+      subscriptionStatus: 'trial', // Start with trial status
     });
 
     await user.save();
+
+    // Create subscription record (will be activated after payment)
+    const subscription = new OperatorSubscription({
+      operatorId: user._id,
+      planId: selectedPlanId,
+      stripeSubscriptionId: '', // Will be set after Stripe subscription creation
+      stripeCustomerId: '', // Will be set after Stripe customer creation
+      status: 'trialing',
+      currentPeriodStart: new Date(),
+      currentPeriodEnd: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days trial
+      trialEnd: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days trial
+    });
+
+    await subscription.save();
 
     return NextResponse.json({
       success: true,
@@ -51,7 +82,14 @@ export async function POST(request: NextRequest) {
         name: user.name,
         email: user.email,
         role: user.role,
-        companyName,
+        companyName: user.companyName,
+        subscriptionStatus: user.subscriptionStatus,
+      },
+      subscription: {
+        id: subscription._id,
+        planId: subscription.planId,
+        status: subscription.status,
+        trialEnd: subscription.trialEnd,
       },
     });
 

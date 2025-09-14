@@ -6,6 +6,8 @@ export interface IUser extends Document {
   name: string;
   email: string;
   phone?: string;
+  companyName?: string; // For operators
+  address?: string;
   cars?: Array<{
     _id?: string;
     plate?: string;
@@ -24,6 +26,7 @@ export interface IUser extends Document {
   password?: string;
   provider?: 'credentials' | 'google' | 'email';
   providerId?: string;
+  subscriptionStatus?: 'active' | 'inactive' | 'trial' | 'canceled'; // For operators
   createdAt: Date;
   updatedAt: Date;
 }
@@ -45,6 +48,8 @@ const UserSchema = new Schema<IUser>({
     lowercase: true
   },
   phone: String,
+  companyName: String, // For operators
+  address: String,
   cars: [{
     plate: String,
     model: String,
@@ -65,7 +70,12 @@ const UserSchema = new Schema<IUser>({
     enum: ['credentials', 'google', 'email'],
     default: 'credentials'
   },
-  providerId: String
+  providerId: String,
+  subscriptionStatus: {
+    type: String,
+    enum: ['active', 'inactive', 'trial', 'canceled'],
+    default: 'inactive'
+  }
 }, {
   timestamps: true
 });

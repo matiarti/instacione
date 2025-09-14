@@ -34,12 +34,6 @@ export default function BottomNav() {
       icon: User,
       label: t('nav.account'),
       isActive: pathname.includes('/account')
-    },
-    {
-      href: '/account', // For now, settings will be part of account
-      icon: Settings,
-      label: t('nav.settings'),
-      isActive: pathname.includes('/account')
     }
   ];
 
