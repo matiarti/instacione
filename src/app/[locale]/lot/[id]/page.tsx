@@ -298,6 +298,7 @@ export default function LotDetailsPage() {
                         arrivalTime: date ? date.toISOString() : '' 
                       });
                     }}
+                    label={`${t('lot.arrivalTime')} (${t('lot.optional')})`}
                     placeholder="dd/mm/yyyy, --:--"
                   />
 

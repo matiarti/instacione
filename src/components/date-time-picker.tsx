@@ -1,9 +1,10 @@
 "use client"
 
 import * as React from "react"
-import { ChevronDownIcon } from "lucide-react"
-import { useTranslations } from "next-intl"
+import { format } from "date-fns"
+import { Calendar as CalendarIcon } from "lucide-react"
 
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import { Input } from "@/components/ui/input"
@@ -18,104 +19,92 @@ interface DateTimePickerProps {
   value?: Date
   onChange?: (date: Date | undefined) => void
   placeholder?: string
+  label?: string
   className?: string
-  disabled?: boolean
 }
 
 export function DateTimePicker({
   value,
   onChange,
-  placeholder = "dd/mm/yyyy, --:--",
-  className,
-  disabled = false,
+  placeholder = "Pick a date and time",
+  label,
+  className
 }: DateTimePickerProps) {
-  const t = useTranslations();
   const [open, setOpen] = React.useState(false)
   const [date, setDate] = React.useState<Date | undefined>(value)
-  const [time, setTime] = React.useState<string>(
-    value ? value.toTimeString().slice(0, 5) : ""
+  const [timeValue, setTimeValue] = React.useState(
+    value ? format(value, "HH:mm") : ""
   )
 
   React.useEffect(() => {
     if (value) {
       setDate(value)
-      setTime(value.toTimeString().slice(0, 5))
+      setTimeValue(format(value, "HH:mm"))
     }
   }, [value])
 
   const handleDateSelect = (selectedDate: Date | undefined) => {
-    setDate(selectedDate)
-    if (selectedDate && time) {
-      const [hours, minutes] = time.split(":").map(Number)
-      const newDateTime = new Date(selectedDate)
-      newDateTime.setHours(hours, minutes, 0, 0)
-      onChange?.(newDateTime)
-    } else if (selectedDate) {
-      // If no time is selected, use current time
-      const now = new Date()
-      const newDateTime = new Date(selectedDate)
-      newDateTime.setHours(now.getHours(), now.getMinutes(), 0, 0)
-      setTime(now.toTimeString().slice(0, 5))
-      onChange?.(newDateTime)
+    if (selectedDate) {
+      // Combine selected date with current time
+      const [hours, minutes] = timeValue.split(":").map(Number)
+      const combinedDate = new Date(selectedDate)
+      combinedDate.setHours(hours || 0, minutes || 0, 0, 0)
+      
+      setDate(combinedDate)
+      onChange?.(combinedDate)
     } else {
+      setDate(undefined)
       onChange?.(undefined)
     }
-    setOpen(false)
   }
 
-  const handleTimeChange = (timeValue: string) => {
-    setTime(timeValue)
-    if (date && timeValue) {
-      const [hours, minutes] = timeValue.split(":").map(Number)
-      const newDateTime = new Date(date)
-      newDateTime.setHours(hours, minutes, 0, 0)
-      onChange?.(newDateTime)
+  const handleTimeChange = (time: string) => {
+    setTimeValue(time)
+    
+    if (date && time) {
+      const [hours, minutes] = time.split(":").map(Number)
+      const combinedDate = new Date(date)
+      combinedDate.setHours(hours || 0, minutes || 0, 0, 0)
+      
+      setDate(combinedDate)
+      onChange?.(combinedDate)
     }
   }
 
   return (
-    <div className={className}>
-      <div className="flex gap-4">
-        <div className="flex flex-col gap-3">
-          <Label htmlFor="date-picker" className="px-1">
-            Date
-          </Label>
-          <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                id="date-picker"
-                className="w-32 justify-between font-normal"
-                disabled={disabled}
-              >
-                {date ? date.toLocaleDateString() : "Select date"}
-                <ChevronDownIcon />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto overflow-hidden p-0" align="start">
-              <Calendar
-                mode="single"
-                selected={date}
-                captionLayout="dropdown"
-                onSelect={handleDateSelect}
-              />
-            </PopoverContent>
-          </Popover>
-        </div>
-        <div className="flex flex-col gap-3">
-          <Label htmlFor="time-picker" className="px-1">
-            Time
-          </Label>
-          <Input
-            type="time"
-            id="time-picker"
-            step="1"
-            value={time}
-            onChange={(e) => handleTimeChange(e.target.value)}
-            className="bg-background appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
-            disabled={disabled}
-          />
-        </div>
+    <div className={cn("space-y-2", className)}>
+      {label && <Label>{label}</Label>}
+      <div className="flex gap-2">
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              className={cn(
+                "w-[200px] justify-start text-left font-normal",
+                !date && "text-muted-foreground"
+              )}
+            >
+              <CalendarIcon className="mr-2 h-4 w-4" />
+              {date ? format(date, "PPP") : "Pick a date"}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="start">
+            <Calendar
+              mode="single"
+              selected={date}
+              onSelect={handleDateSelect}
+              initialFocus
+            />
+          </PopoverContent>
+        </Popover>
+        
+        <Input
+          type="time"
+          value={timeValue}
+          onChange={(e) => handleTimeChange(e.target.value)}
+          className="w-[120px]"
+          placeholder="--:--"
+        />
       </div>
     </div>
   )
