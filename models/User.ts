@@ -6,11 +6,21 @@ export interface IUser extends Document {
   name: string;
   email: string;
   phone?: string;
-  car?: {
+  cars?: Array<{
+    _id?: string;
     plate?: string;
     model?: string;
     color?: string;
-  };
+    brand?: string;
+    modelVersion?: string;
+    manufacturingYear?: number;
+    modelYear?: number;
+    numberOfDoors?: number;
+    fuelType?: string;
+    accessoryPackage?: string;
+    estimatedValue?: number;
+    isDefault?: boolean;
+  }>;
   password?: string;
   provider?: 'credentials' | 'google' | 'email';
   providerId?: string;
@@ -35,11 +45,20 @@ const UserSchema = new Schema<IUser>({
     lowercase: true
   },
   phone: String,
-  car: {
+  cars: [{
     plate: String,
     model: String,
-    color: String
-  },
+    color: String,
+    brand: String,
+    modelVersion: String,
+    manufacturingYear: Number,
+    modelYear: Number,
+    numberOfDoors: Number,
+    fuelType: String,
+    accessoryPackage: String,
+    estimatedValue: Number,
+    isDefault: { type: Boolean, default: false }
+  }],
   password: String,
   provider: {
     type: String,

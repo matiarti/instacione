@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { Car, MapPin, Clock, DollarSign, Settings, User, CreditCard, History } from 'lucide-react';
+import { Car, MapPin, Clock, DollarSign, Settings, User, CreditCard, History, Plus } from 'lucide-react';
+import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -15,6 +16,14 @@ interface Vehicle {
   plate: string;
   model?: string;
   color?: string;
+  brand?: string;
+  modelVersion?: string;
+  manufacturingYear?: number;
+  modelYear?: number;
+  numberOfDoors?: number;
+  fuelType?: string;
+  accessoryPackage?: string;
+  estimatedValue?: number;
   isDefault: boolean;
 }
 
@@ -78,6 +87,29 @@ export default function AccountPage() {
       console.error('Error fetching user data:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleSetDefault = async (vehicleId: string) => {
+    try {
+      const response = await fetch('/api/user/vehicles', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ vehicleId }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Refresh the vehicles list
+        await fetchUserData();
+      } else {
+        console.error('Failed to set default vehicle:', result.error);
+      }
+    } catch (error) {
+      console.error('Error setting default vehicle:', error);
     }
   };
 
@@ -297,9 +329,11 @@ export default function AccountPage() {
                       Manage your registered vehicles for faster reservations
                     </CardDescription>
                   </div>
-                  <Button>
-                    <Car className="h-4 w-4 mr-2" />
-                    Add Vehicle
+                  <Button asChild>
+                    <Link href="/account/add-vehicle">
+                      <Plus className="h-4 w-4 mr-2" />
+                      Add Vehicle
+                    </Link>
                   </Button>
                 </div>
               </CardHeader>
@@ -311,9 +345,11 @@ export default function AccountPage() {
                     <p className="text-muted-foreground mb-4">
                       Add your vehicles to make reservations faster.
                     </p>
-                    <Button>
-                      <Car className="h-4 w-4 mr-2" />
-                      Add Your First Vehicle
+                    <Button asChild>
+                      <Link href="/account/add-vehicle">
+                        <Car className="h-4 w-4 mr-2" />
+                        Add Your First Vehicle
+                      </Link>
                     </Button>
                   </div>
                 ) : (
@@ -329,19 +365,49 @@ export default function AccountPage() {
                                   <Badge variant="default">Default</Badge>
                                 )}
                               </div>
-                              {vehicle.model && (
-                                <p className="text-muted-foreground text-sm">{vehicle.model}</p>
+                              {vehicle.brand && vehicle.model && (
+                                <p className="text-muted-foreground text-sm font-medium">
+                                  {vehicle.brand} {vehicle.model}
+                                </p>
                               )}
-                              {vehicle.color && (
-                                <p className="text-muted-foreground text-xs">{vehicle.color}</p>
+                              {vehicle.modelVersion && (
+                                <p className="text-muted-foreground text-xs">
+                                  {vehicle.modelVersion}
+                                </p>
+                              )}
+                              <div className="flex items-center gap-4 text-xs text-muted-foreground mt-1">
+                                {vehicle.color && (
+                                  <span>Cor: {vehicle.color}</span>
+                                )}
+                                {vehicle.modelYear && (
+                                  <span>Ano: {vehicle.modelYear}</span>
+                                )}
+                                {vehicle.fuelType && (
+                                  <span>Combustível: {vehicle.fuelType}</span>
+                                )}
+                              </div>
+                              {vehicle.estimatedValue && (
+                                <p className="text-green-600 text-sm font-medium mt-1">
+                                  Valor estimado: {formatCurrency(vehicle.estimatedValue)}
+                                </p>
                               )}
                             </div>
                             <div className="flex gap-2">
-                              <Button size="sm" variant="outline">
-                                Edit
+                              <Button 
+                                size="sm" 
+                                variant="outline"
+                                asChild
+                              >
+                                <Link href={`/account/edit-vehicle/${vehicle.id}`}>
+                                  Edit
+                                </Link>
                               </Button>
                               {!vehicle.isDefault && (
-                                <Button size="sm" variant="outline">
+                                <Button 
+                                  size="sm" 
+                                  variant="outline"
+                                  onClick={() => handleSetDefault(vehicle.id)}
+                                >
                                   Set Default
                                 </Button>
                               )}
