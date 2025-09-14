@@ -28,10 +28,27 @@ export interface ParkingLotMarker {
 // Initialize Google Maps
 export async function initializeGoogleMaps(): Promise<typeof google> {
   try {
+    // Check if API key is available
+    if (!process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY) {
+      throw new Error('Google Maps API key is not configured');
+    }
+    
     return await loader.load();
   } catch (error) {
     console.error('Error loading Google Maps:', error);
-    throw new Error('Failed to load Google Maps');
+    
+    // Provide more specific error messages
+    if (error instanceof Error) {
+      if (error.message.includes('API key')) {
+        throw new Error('Google Maps API key is invalid or missing');
+      } else if (error.message.includes('quota')) {
+        throw new Error('Google Maps API quota exceeded');
+      } else if (error.message.includes('blocked') || error.message.includes('ERR_BLOCKED_BY_CLIENT')) {
+        throw new Error('Google Maps is being blocked by browser extension. Please disable ad blockers or whitelist this site.');
+      }
+    }
+    
+    throw new Error('Failed to load Google Maps. Please check your internet connection and try again.');
   }
 }
 
@@ -125,7 +142,10 @@ export async function getCurrentLocation(): Promise<Location | null> {
         });
       },
       (error) => {
-        console.error('Error getting location:', error);
+        // Only log detailed errors in development
+        if (process.env.NODE_ENV === 'development') {
+          console.error('Error getting location:', error);
+        }
         resolve(null);
       },
       {

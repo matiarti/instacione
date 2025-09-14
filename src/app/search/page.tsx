@@ -54,7 +54,7 @@ export default function SearchPage() {
   // Apply filters when they change
   useEffect(() => {
     applyFilters();
-  }, [parkingLots, userLocation, filters]);
+  }, [parkingLots, userLocation, filters]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadParkingLots = async () => {
     try {
@@ -63,7 +63,7 @@ export default function SearchPage() {
       if (!response.ok) throw new Error('Failed to fetch lots');
       
       const data = await response.json();
-      const lots: ParkingLotMarker[] = data.lots.map((lot: any) => ({
+      const lots: ParkingLotMarker[] = data.map((lot: any) => ({
         id: lot._id,
         position: {
           lat: lot.location.geo.coordinates[1],

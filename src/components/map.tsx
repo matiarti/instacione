@@ -31,16 +31,41 @@ export default function Map({
   onLocationUpdate,
   className = '',
 }: MapProps) {
+  console.log('Map component rendered with lots:', lots.length);
   const mapRef = useRef<HTMLDivElement>(null);
+  
+  // Test if we can access the ref manually
+  useEffect(() => {
+    console.log('useEffect: mapRef.current =', mapRef.current);
+    if (mapRef.current) {
+      console.log('Found mapRef in useEffect, calling setMapRef manually');
+      setMapRef(mapRef.current);
+    }
+  }, []);
   const mapInstanceRef = useRef<any>(null);
   const markersRef = useRef<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Initialize map
-  useEffect(() => {
-    initializeMap();
-  }, []);
+  // Callback ref to initialize map when DOM element is ready
+  const setMapRef = (element: HTMLDivElement | null) => {
+    console.log('setMapRef called with:', element);
+    mapRef.current = element;
+    if (element && !mapInstanceRef.current) {
+      console.log('Map DOM element is ready, initializing map...');
+      console.log('Element dimensions:', {
+        width: element.offsetWidth,
+        height: element.offsetHeight,
+        visible: element.offsetParent !== null
+      });
+      // Small delay to ensure element is fully mounted
+      setTimeout(() => {
+        initializeMap();
+      }, 50);
+    }
+  };
+
+  // Remove the useEffect - we'll use callback ref only
 
   // Update markers when lots change
   useEffect(() => {
@@ -61,9 +86,15 @@ export default function Map({
       setIsLoading(true);
       setError(null);
 
+      console.log('Initializing Google Maps...');
       const google = await initializeGoogleMaps();
+      console.log('Google Maps loaded successfully:', google);
       
-      if (!mapRef.current) return;
+      if (!mapRef.current) {
+        console.error('Map ref is null');
+        return;
+      }
+      console.log('Map ref found, creating map instance...');
 
       // Default center (São Paulo, Brazil)
       const defaultCenter = { lat: -23.5505, lng: -46.6333 };
@@ -84,6 +115,8 @@ export default function Map({
         ]
       });
 
+      console.log('Map instance created successfully');
+
       // Add click listener to map
       mapInstanceRef.current.addListener('click', (event: any) => {
         if (event.latLng) {
@@ -95,6 +128,7 @@ export default function Map({
         }
       });
 
+      console.log('Map initialization complete');
       setIsLoading(false);
     } catch (err) {
       console.error('Error initializing map:', err);
@@ -208,18 +242,7 @@ export default function Map({
     }
   };
 
-  if (isLoading) {
-    return (
-      <Card className={className}>
-        <CardContent className="flex items-center justify-center h-96">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading map...</p>
-          </div>
-        </CardContent>
-      </Card>
-    );
-  }
+  // Always render the map container, show loading overlay when needed
 
   if (error) {
     return (
@@ -260,7 +283,21 @@ export default function Map({
       </CardHeader>
       <CardContent className="p-0">
         <div className="relative">
-          <div ref={mapRef} className="h-96 w-full rounded-b-lg" />
+          <div 
+            ref={setMapRef} 
+            className="h-96 w-full rounded-b-lg bg-gray-100" 
+            style={{ minHeight: '384px', minWidth: '100%' }}
+          />
+          
+          {/* Loading overlay */}
+          {isLoading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-b-lg">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                <p className="text-gray-600">Loading map...</p>
+              </div>
+            </div>
+          )}
           
           {/* Map Legend */}
           <div className="absolute bottom-4 left-4 bg-white rounded-lg shadow-lg p-3">
