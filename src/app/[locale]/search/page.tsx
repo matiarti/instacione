@@ -61,10 +61,18 @@ export default function SearchPage() {
   const loadParkingLots = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/lots');
+      const response = await fetch(`/api/lots?t=${Date.now()}`, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache'
+        }
+      });
       if (!response.ok) throw new Error('Failed to fetch lots');
       
       const data = await response.json();
+      console.log('API Response:', data);
+      console.log('Data length:', data.length);
+      
       const lots: ParkingLotMarker[] = data.map((lot: any) => ({
         id: lot._id,
         position: {
@@ -82,8 +90,10 @@ export default function SearchPage() {
       // Add distance if user location is available
       if (userLocation) {
         const lotsWithDistance = sortLotsByDistance(lots, userLocation);
+        console.log('Lots with distance:', lotsWithDistance);
         setParkingLots(lotsWithDistance);
       } else {
+        console.log('Lots without distance:', lots);
         setParkingLots(lots);
       }
     } catch (error) {
