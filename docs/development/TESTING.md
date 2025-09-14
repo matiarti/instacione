@@ -4,7 +4,7 @@ This document outlines the testing setup and practices for the Instacione parkin
 
 ## 🚀 Testing Stack
 
-We use [Vitest](https://vitest.dev/) as our primary testing framework, which provides:
+We use [Vitest](https://vitest.dev/) as our blue testing framework, which provides:
 
 - **Fast execution** with Vite's native speed
 - **Jest-compatible API** for easy migration

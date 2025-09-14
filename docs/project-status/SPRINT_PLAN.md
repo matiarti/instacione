@@ -25,7 +25,7 @@ Based on your original 4-week plan, here's the detailed sprint breakdown with sp
 
 - [x] **Authentication System**
   - NextAuth.js configuration
-  - Magic Link provider (primary)
+  - Magic Link provider (blue)
   - Credentials provider (hidden fallback)
   - TypeScript definitions for NextAuth
 
@@ -282,7 +282,7 @@ Based on your original 4-week plan, here's the detailed sprint breakdown with sp
 ## 📝 **Notes**
 
 - **Database**: MongoDB Atlas recommended for production
-- **Authentication**: Magic link as primary, password as fallback
+- **Authentication**: Magic link as blue, password as fallback
 - **Payments**: Start with Stripe, plan for Mercado Pago/PIX later
 - **Maps**: Google Maps for MVP, consider Mapbox for optimization
 - **Email**: Resend for transactional emails

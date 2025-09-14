@@ -94,14 +94,211 @@ export default function Map({
         center: defaultCenter,
         zoom: 13,
         mapTypeControl: true,
+        mapTypeControlOptions: {
+          style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+          position: google.maps.ControlPosition.TOP_CENTER,
+        },
         streetViewControl: false,
         fullscreenControl: true,
+        fullscreenControlOptions: {
+          position: google.maps.ControlPosition.BOTTOM_RIGHT,
+        },
         zoomControl: true,
+        zoomControlOptions: {
+          position: google.maps.ControlPosition.RIGHT_CENTER,
+        },
         styles: [
           {
-            featureType: 'poi',
-            elementType: 'labels',
-            stylers: [{ visibility: 'off' }]
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#212121"
+              }
+            ]
+          },
+          {
+            "elementType": "labels.icon",
+            "stylers": [
+              {
+                "visibility": "off"
+              }
+            ]
+          },
+          {
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#757575"
+              }
+            ]
+          },
+          {
+            "elementType": "labels.text.stroke",
+            "stylers": [
+              {
+                "color": "#212121"
+              }
+            ]
+          },
+          {
+            "featureType": "administrative",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#757575"
+              }
+            ]
+          },
+          {
+            "featureType": "administrative.country",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#9e9e9e"
+              }
+            ]
+          },
+          {
+            "featureType": "administrative.land_parcel",
+            "stylers": [
+              {
+                "visibility": "off"
+              }
+            ]
+          },
+          {
+            "featureType": "administrative.locality",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#bdbdbd"
+              }
+            ]
+          },
+          {
+            "featureType": "poi",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#757575"
+              }
+            ]
+          },
+          {
+            "featureType": "poi.business",
+            "stylers": [
+              {
+                "visibility": "off"
+              }
+            ]
+          },
+          {
+            "featureType": "poi.park",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#181818"
+              }
+            ]
+          },
+          {
+            "featureType": "poi.park",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#616161"
+              }
+            ]
+          },
+          {
+            "featureType": "poi.park",
+            "elementType": "labels.text.stroke",
+            "stylers": [
+              {
+                "color": "#1b1b1b"
+              }
+            ]
+          },
+          {
+            "featureType": "road",
+            "elementType": "geometry.fill",
+            "stylers": [
+              {
+                "color": "#2c2c2c"
+              }
+            ]
+          },
+          {
+            "featureType": "road",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#8a8a8a"
+              }
+            ]
+          },
+          {
+            "featureType": "road.arterial",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#373737"
+              }
+            ]
+          },
+          {
+            "featureType": "road.highway",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#3c3c3c"
+              }
+            ]
+          },
+          {
+            "featureType": "road.highway.controlled_access",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#4e4e4e"
+              }
+            ]
+          },
+          {
+            "featureType": "road.local",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#616161"
+              }
+            ]
+          },
+          {
+            "featureType": "transit",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#757575"
+              }
+            ]
+          },
+          {
+            "featureType": "water",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#000000"
+              }
+            ]
+          },
+          {
+            "featureType": "water",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#3d3d3d"
+              }
+            ]
           }
         ]
       });
@@ -143,8 +340,8 @@ export default function Map({
         title: lot.name,
         icon: {
           url: createMarkerIcon(lot),
-          scaledSize: new (window as any).google.maps.Size(40, 40),
-          anchor: new (window as any).google.maps.Point(20, 40),
+          scaledSize: new (window as any).google.maps.Size(48, 48),
+          anchor: new (window as any).google.maps.Point(24, 48),
         },
       });
 
@@ -195,12 +392,30 @@ export default function Map({
     const availabilityColor = lot.availability > 0 ? '#10b981' : '#ef4444'; // green or red
     const selectedColor = selectedLotId === lot.id ? '#3b82f6' : availabilityColor; // blue if selected
     
+    // Create a more sophisticated marker with shadow and better styling
     return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`
-      <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="20" cy="20" r="18" fill="${selectedColor}" stroke="white" stroke-width="2"/>
-        <text x="20" y="26" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="12" font-weight="bold">
+      <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <!-- Shadow -->
+        <ellipse cx="24" cy="42" rx="8" ry="3" fill="rgba(0,0,0,0.3)"/>
+        <!-- Main marker body -->
+        <path d="M24 4C16.27 4 10 10.27 10 18c0 6.5 4.5 12.5 14 20 9.5-7.5 14-13.5 14-20 0-7.73-6.27-14-14-14z" 
+              fill="${selectedColor}" 
+              stroke="white" 
+              stroke-width="2"/>
+        <!-- Inner circle for number -->
+        <circle cx="24" cy="20" r="12" fill="white" opacity="0.9"/>
+        <!-- Number -->
+        <text x="24" y="26" text-anchor="middle" fill="${selectedColor}" 
+              font-family="Arial, sans-serif" font-size="14" font-weight="bold">
           ${lot.availability}
         </text>
+        <!-- Pulse effect for selected marker -->
+        ${selectedLotId === lot.id ? `
+          <circle cx="24" cy="20" r="20" fill="none" stroke="${selectedColor}" stroke-width="2" opacity="0.6">
+            <animate attributeName="r" values="20;30;20" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.6;0;0.6" dur="2s" repeatCount="indefinite"/>
+          </circle>
+        ` : ''}
       </svg>
     `)}`;
   };
@@ -211,14 +426,14 @@ export default function Map({
       : null;
 
     return `
-      <div style="padding: 8px; min-width: 200px;">
-        <h3 style="margin: 0 0 8px 0; font-size: 16px; font-weight: bold;">${lot.name}</h3>
-        <p style="margin: 0 0 8px 0; color: #666; font-size: 14px;">${lot.address}</p>
-        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-          <span style="color: #059669; font-weight: bold;">R$ ${lot.hourlyRate.toFixed(2)}/h</span>
-          <span style="color: #666;">${lot.availability}/${lot.capacity} spots</span>
+      <div style="padding: 12px; min-width: 220px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #333; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+        <h3 style="margin: 0 0 8px 0; font-size: 16px; font-weight: 600; color: #f9fafb;">${lot.name}</h3>
+        <p style="margin: 0 0 10px 0; color: #d1d5db; font-size: 13px; line-height: 1.4;">${lot.address}</p>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span style="color: #10b981; font-weight: 600; font-size: 14px;">R$ ${lot.hourlyRate.toFixed(2)}/h</span>
+          <span style="color: #f9fafb; font-size: 13px; background: #374151; padding: 2px 8px; border-radius: 12px;">${lot.availability}/${lot.capacity} spots</span>
         </div>
-        ${distance ? `<p style="margin: 0; color: #666; font-size: 12px;">📍 ${distance} away</p>` : ''}
+        ${distance ? `<p style="margin: 0; color: #d1d5db; font-size: 12px; display: flex; align-items: center; gap: 4px;">📍 ${distance} away</p>` : ''}
       </div>
     `;
   };
@@ -240,7 +455,7 @@ export default function Map({
       <Card className={className}>
         <CardContent className="flex items-center justify-center h-96">
           <div className="text-center">
-            <MapPin className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <MapPin className="h-12 w-12 text-zinc-400 mx-auto mb-4" />
             <p className="text-red-600 mb-2">{error}</p>
             <Button onClick={() => initializeMap()} variant="outline">
               Try Again
@@ -252,8 +467,40 @@ export default function Map({
   }
 
   return (
-    <Card className={className}>
-      <CardHeader>
+    <>
+      <style jsx global>{`
+        .gm-style .gm-style-cc {
+          background: rgba(31, 41, 55, 0.9) !important;
+          color: #d1d5db !important;
+        }
+        .gm-style .gm-style-cc a {
+          color: #d1d5db !important;
+        }
+        .gm-style .gm-style-cc a:hover {
+          color: #f9fafb !important;
+        }
+        .gm-style .gm-style-mtc {
+          background: rgba(31, 41, 55, 0.9) !important;
+          border-radius: 8px !important;
+          border: 1px solid #374151 !important;
+        }
+        .gm-style .gm-style-mtc button {
+          background: transparent !important;
+          color: #d1d5db !important;
+          border: none !important;
+          padding: 8px 12px !important;
+        }
+        .gm-style .gm-style-mtc button:hover {
+          background: rgba(55, 65, 81, 0.8) !important;
+          color: #f9fafb !important;
+        }
+        .gm-style .gm-style-mtc button[aria-pressed="true"] {
+          background: rgba(55, 65, 81, 0.8) !important;
+          color: #f9fafb !important;
+        }
+      `}</style>
+      <Card className={className}>
+        <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
             <MapPin className="h-5 w-5" />
@@ -276,47 +523,48 @@ export default function Map({
         <div className="relative">
           <div 
             ref={setMapRef} 
-            className="h-96 w-full rounded-b-lg bg-gray-100" 
+            className="h-96 w-full rounded-b-lg bg-zinc-100" 
             style={{ minHeight: '384px', minWidth: '100%' }}
           />
           
           {/* Loading overlay */}
           {isLoading && (
-            <div className="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-b-lg">
+            <div className="absolute inset-0 flex items-center justify-center bg-zinc-100 rounded-b-lg">
               <div className="text-center">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                <p className="text-gray-600">Loading map...</p>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto mb-4"></div>
+                <p className="text-zinc-600">Loading map...</p>
               </div>
             </div>
           )}
           
           {/* Map Legend */}
-          <div className="absolute bottom-4 left-4 bg-white rounded-lg shadow-lg p-3">
+          <div className="absolute bottom-4 left-4 bg-zinc-800/90 backdrop-blur-sm rounded-lg shadow-lg p-3 border border-zinc-700">
             <div className="flex items-center gap-4 text-sm">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                <span>Available</span>
+                <span className="text-zinc-200">Available</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                <span>Full</span>
+                <span className="text-zinc-200">Full</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-blue-500"></div>
-                <span>Selected</span>
+                <div className="w-3 h-3 rounded-full bg-primary-500"></div>
+                <span className="text-zinc-200">Selected</span>
               </div>
             </div>
           </div>
 
           {/* Lot Count */}
-          <div className="absolute top-4 right-4 bg-white rounded-lg shadow-lg px-3 py-2">
+          <div className="absolute top-4 right-4 bg-zinc-800/90 rounded-lg shadow-lg px-3 py-2 border border-zinc-700">
             <div className="flex items-center gap-2 text-sm">
-              <Car className="h-4 w-4" />
-              <span>{lots.length} lots found</span>
+              <Car className="h-4 w-4 text-zinc-200" />
+              <span className="text-zinc-200">{lots.length} lots found</span>
             </div>
           </div>
         </div>
       </CardContent>
     </Card>
+    </>
   );
 }

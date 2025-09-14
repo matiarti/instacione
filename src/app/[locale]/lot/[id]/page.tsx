@@ -9,11 +9,6 @@ import { CheckCircle, XCircle } from 'lucide-react';
 import { AuthHeader } from '@/components/auth-header';
 import { useTranslations } from 'next-intl';
 import VehicleSelector from '@/components/vehicle-selector';
-import { Calendar } from '@/components/ui/calendar';
-import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { CalendarIcon } from 'lucide-react';
-import { format } from 'date-fns';
 
 interface ParkingLot {
   _id: string;
@@ -295,36 +290,16 @@ export default function LotDetailsPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-1">
+                    <label htmlFor="arrivalTime" className="block text-sm font-medium mb-1">
                       {t('lot.arrivalTime')} ({t('lot.optional')})
                     </label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className="w-full justify-start text-left font-normal"
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {reservationData.arrivalTime ? 
-                            format(new Date(reservationData.arrivalTime), "PPP") : 
-                            "Pick a date"
-                          }
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={reservationData.arrivalTime ? new Date(reservationData.arrivalTime) : undefined}
-                          onSelect={(date) => {
-                            setReservationData({ 
-                              ...reservationData, 
-                              arrivalTime: date ? date.toISOString() : '' 
-                            });
-                          }}
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
+                    <input
+                      type="datetime-local"
+                      id="arrivalTime"
+                      value={reservationData.arrivalTime}
+                      onChange={(e) => setReservationData({ ...reservationData, arrivalTime: e.target.value })}
+                      className="w-full px-3 py-2 border border-input rounded-md focus:outline-hidden focus:ring-2 focus:ring-primary bg-background"
+                    />
                   </div>
 
                   <div className="pt-4 border-t">

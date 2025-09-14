@@ -15,6 +15,12 @@
     "driver": "DRIVER",
     "signOut": "Sign Out"
   },
+  "nav": {
+    "home": "Home",
+    "search": "Search",
+    "account": "Account",
+    "settings": "Settings"
+  },
   "home": {
     "badge": "🚀 Now Available in São Paulo",
     "title": "Find Parking",

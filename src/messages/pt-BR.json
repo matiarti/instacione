@@ -15,6 +15,12 @@
     "driver": "MOTORISTA",
     "signOut": "Sair"
   },
+  "nav": {
+    "home": "Início",
+    "search": "Buscar",
+    "account": "Conta",
+    "settings": "Configurações"
+  },
   "home": {
     "badge": "🚀 Agora Disponível em São Paulo",
     "title": "Encontre Estacionamento",

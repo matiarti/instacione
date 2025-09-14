@@ -303,7 +303,7 @@ export default function VehicleForm({ onSubmit, loading = false, initialData }: 
               <Input
                 value={`R$ ${watch('estimatedValue')?.toLocaleString('pt-BR')}`}
                 disabled
-                className="bg-gray-50"
+                className="bg-muted-50"
               />
             </div>
           )}

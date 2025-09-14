@@ -614,7 +614,7 @@
     "name": "BMW",
     "slug": "bmw",
     "image": {
-      "source": "https://www.carlogos.org/car-logos/bmw-logo-2020-gray.png",
+      "source": "https://www.carlogos.org/car-logos/bmw-logo-2020-muted.png",
       "thumb": "https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/master/logos/thumb/bmw.png",
       "optimized": "https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/master/logos/optimized/bmw.png",
       "original": "https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/master/logos/original/bmw.png",
@@ -3682,7 +3682,7 @@
     "name": "Praga",
     "slug": "praga",
     "image": {
-      "source": "https://www.carlogos.org/logo/Praga-logo-blue-1920x1080.png",
+      "source": "https://www.carlogos.org/logo/Praga-logo-primary-1920x1080.png",
       "thumb": "https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/master/logos/thumb/praga.png",
       "optimized": "https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/master/logos/optimized/praga.png",
       "original": "https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/master/logos/original/praga.png",

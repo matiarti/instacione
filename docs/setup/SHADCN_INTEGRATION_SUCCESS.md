@@ -44,7 +44,7 @@ Your **Instacione** project now features a beautiful, modern interface built wit
 - **Interactive states** with hover and focus effects
 
 ### **Component Library:**
-- **Button variants** (primary, secondary, ghost, outline)
+- **Button variants** (blue, secondary, ghost, outline)
 - **Card components** with header, content, and description
 - **Badge components** for status indicators
 - **Input fields** with proper styling and validation states

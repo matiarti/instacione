@@ -59,7 +59,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
       }
 
       return (
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+        <div className="min-h-screen bg-muted-50 flex items-center justify-center p-4">
           <Card className="max-w-md w-full">
             <CardHeader className="text-center">
               <div className="flex justify-center mb-4">
@@ -72,8 +72,8 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
             </CardHeader>
             <CardContent className="space-y-4">
               {process.env.NODE_ENV === 'development' && this.state.error && (
-                <div className="bg-gray-100 p-3 rounded-md">
-                  <p className="text-sm font-mono text-gray-700">
+                <div className="bg-muted-100 p-3 rounded-md">
+                  <p className="text-sm font-mono text-muted-700">
                     {this.state.error.message}
                   </p>
                 </div>

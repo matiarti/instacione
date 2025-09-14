@@ -135,11 +135,11 @@ export default function OperatorAnalytics() {
       case 'reservation':
         return <Calendar className="h-4 w-4 text-green-500" />;
       case 'checkin':
-        return <Clock className="h-4 w-4 text-blue-500" />;
+        return <Clock className="h-4 w-4 text-primary-500" />;
       case 'checkout':
         return <Car className="h-4 w-4 text-purple-500" />;
       default:
-        return <Activity className="h-4 w-4 text-gray-500" />;
+        return <Activity className="h-4 w-4 text-muted-500" />;
     }
   };
 

@@ -176,12 +176,12 @@ function ReservationSuccessContent() {
             <CardContent className="space-y-4">
               <div>
                 <p className="text-muted-foreground mb-2">{t('reservation.arriveBetween')}:</p>
-                <div className="bg-blue-50 dark:bg-blue-950 p-4 rounded-lg">
-                  <p className="font-medium text-blue-900 dark:text-blue-100">
+                <div className="bg-primary-50 dark:bg-primary-950 p-4 rounded-lg">
+                  <p className="font-medium text-primary-900 dark:text-primary-100">
                     {formatDateTime(reservation.arrivalWindow.start)}
                   </p>
-                  <p className="text-blue-700 dark:text-blue-300 text-sm">{t('reservation.and')}</p>
-                  <p className="font-medium text-blue-900 dark:text-blue-100">
+                  <p className="text-primary-700 dark:text-primary-300 text-sm">{t('reservation.and')}</p>
+                  <p className="font-medium text-primary-900 dark:text-primary-100">
                     {formatDateTime(reservation.arrivalWindow.end)}
                   </p>
                 </div>

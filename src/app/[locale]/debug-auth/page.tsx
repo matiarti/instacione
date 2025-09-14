@@ -19,7 +19,7 @@ export default function DebugAuthPage() {
             </div>
             <div>
               <strong>Session:</strong>
-              <pre className="bg-gray-100 p-4 rounded mt-2 overflow-auto">
+              <pre className="bg-muted-100 p-4 rounded mt-2 overflow-auto">
                 {JSON.stringify(session, null, 2)}
               </pre>
             </div>

@@ -342,10 +342,13 @@ export default function SearchPage() {
                     key={lot.id} 
                     className={`cursor-pointer transition-all ${
                       selectedLot?.id === lot.id 
-                        ? 'ring-2 ring-blue-500 shadow-md' 
+                        ? 'border-2 border-primary-500 shadow-md' 
                         : 'hover:shadow-md'
                     }`}
-                    onClick={() => handleLotSelect(lot)}
+                    onClick={() => {
+                      handleLotSelect(lot);
+                      window.open(`/lot/${lot.id}`, '_blank');
+                    }}
                   >
                     <CardHeader className="pb-3">
                       <div className="flex justify-between items-start">
@@ -405,7 +408,7 @@ export default function SearchPage() {
               <Card 
                 key={lot.id} 
                 className="cursor-pointer hover:shadow-md transition-shadow"
-                onClick={() => window.location.href = `/lot/${lot.id}`}
+                onClick={() => window.open(`/lot/${lot.id}`, '_blank')}
               >
                 <CardHeader className="pb-3">
                   <div className="flex justify-between items-start">

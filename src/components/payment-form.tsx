@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { CheckCircle, XCircle, Loader2 } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 // Defer Stripe loading until actually needed
 let stripePromise: Promise<any> | null = null;
@@ -76,12 +77,12 @@ function PaymentForm({ reservationId, amount, onSuccess, onError }: PaymentFormP
       <PaymentElement />
       
       {message && (
-        <Alert className={message.includes('succeeded') ? 'border-green-200 bg-green-50' : 'border-red-200 bg-red-50'}>
+        <Alert className={message.includes('succeeded') ? 'border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950' : 'border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-950'}>
           <div className="flex items-center">
             {message.includes('succeeded') ? (
-              <CheckCircle className="h-4 w-4 text-green-600" />
+              <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
             ) : (
-              <XCircle className="h-4 w-4 text-red-600" />
+              <XCircle className="h-4 w-4 text-red-600 dark:text-red-400" />
             )}
             <AlertDescription className="ml-2">
               {message}
@@ -113,6 +114,7 @@ export default function PaymentFormWrapper({ reservationId, amount, onSuccess, o
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [stripeLoaded, setStripeLoaded] = useState(false);
+  const { theme, resolvedTheme } = useTheme();
 
   useEffect(() => {
     const initializePayment = async () => {
@@ -174,8 +176,8 @@ export default function PaymentFormWrapper({ reservationId, amount, onSuccess, o
     return (
       <Card>
         <CardContent className="pt-6">
-          <Alert className="border-red-200 bg-red-50">
-            <XCircle className="h-4 w-4 text-red-600" />
+          <Alert className="border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-950">
+            <XCircle className="h-4 w-4 text-red-600 dark:text-red-400" />
             <AlertDescription className="ml-2">
               {error || 'Failed to initialize payment'}
             </AlertDescription>
@@ -185,19 +187,68 @@ export default function PaymentFormWrapper({ reservationId, amount, onSuccess, o
     );
   }
 
+  // Get CSS custom properties from the current theme
+  const getCSSVariable = (property: string) => {
+    if (typeof window !== 'undefined') {
+      return getComputedStyle(document.documentElement)
+        .getPropertyValue(property)
+        .trim();
+    }
+    return '';
+  };
+
+  // Determine if we're in dark mode
+  const isDarkMode = resolvedTheme === 'dark';
+
+  // Create appearance variables using CSS custom properties
+  const createAppearanceVariables = () => {
+    const blue = getCSSVariable('--color-primary') || 'hsl(262.1 83.3% 57.8%)';
+    const background = getCSSVariable('--color-background') || 'hsl(0 0% 100%)';
+    const foreground = getCSSVariable('--color-foreground') || 'hsl(224 71.4% 4.1%)';
+    const secondary = getCSSVariable('--color-secondary') || 'hsl(220 14.3% 95.9%)';
+    const mutedForeground = getCSSVariable('--color-muted-foreground') || 'hsl(220 8.9% 46.1%)';
+    const border = getCSSVariable('--color-border') || 'hsl(220 13% 91%)';
+    const destructive = getCSSVariable('--color-destructive') || 'hsl(0 84.2% 60.2%)';
+
+    return {
+      colorblue: blue,
+      colorText: foreground,
+      colorBackground: background,
+      buttonSecondaryColorBackground: secondary,
+      buttonSecondaryColorText: foreground,
+      colorSecondaryText: mutedForeground,
+      actionSecondaryColorText: foreground,
+      actionSecondaryTextDecorationColor: foreground,
+      colorBorder: border,
+      colorDanger: destructive,
+      badgeNeutralColorBackground: secondary,
+      badgeNeutralColorBorder: border,
+      badgeNeutralColorText: mutedForeground,
+      badgeSuccessColorBackground: isDarkMode ? 'hsl(120 60% 15%)' : 'hsl(120 60% 90%)',
+      badgeSuccessColorBorder: isDarkMode ? 'hsl(120 60% 20%)' : 'hsl(120 60% 80%)',
+      badgeSuccessColorText: isDarkMode ? 'hsl(120 60% 70%)' : 'hsl(120 60% 30%)',
+      badgeWarningColorBackground: isDarkMode ? 'hsl(30 60% 15%)' : 'hsl(30 60% 90%)',
+      badgeWarningColorBorder: isDarkMode ? 'hsl(30 60% 20%)' : 'hsl(30 60% 80%)',
+      badgeWarningColorText: isDarkMode ? 'hsl(30 60% 70%)' : 'hsl(30 60% 30%)',
+      badgeDangerColorBackground: isDarkMode ? 'hsl(0 60% 15%)' : 'hsl(0 60% 90%)',
+      badgeDangerColorBorder: isDarkMode ? 'hsl(0 60% 20%)' : 'hsl(0 60% 80%)',
+      badgeDangerColorText: isDarkMode ? 'hsl(0 60% 70%)' : 'hsl(0 60% 30%)',
+      offsetBackgroundColor: secondary,
+      formBackgroundColor: background,
+      overlayBackdropColor: 'rgba(0,0,0,0.5)',
+      fontFamily: 'system-ui, sans-serif',
+      spacingUnit: '4px',
+      borderRadius: '8px',
+    };
+  };
+
+  const appearanceVariables = createAppearanceVariables();
+
   const options = {
     clientSecret,
     appearance: {
       theme: 'stripe' as const,
-      variables: {
-        colorPrimary: '#3b82f6',
-        colorBackground: '#ffffff',
-        colorText: '#1f2937',
-        colorDanger: '#ef4444',
-        fontFamily: 'system-ui, sans-serif',
-        spacingUnit: '4px',
-        borderRadius: '8px',
-      },
+      variables: appearanceVariables,
     },
   };
 

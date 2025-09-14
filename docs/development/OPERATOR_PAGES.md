@@ -106,7 +106,7 @@ All pages follow the same layout pattern:
 ### Translation System
 
 The pages use Next.js internationalization with:
-- Portuguese (pt-BR) as primary language
+- Portuguese (pt-BR) as blue language
 - English (en) as secondary language
 - Translation keys organized by page sections
 - Consistent naming convention: `operator.{pageName}.{key}`
