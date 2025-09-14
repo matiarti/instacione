@@ -86,7 +86,7 @@
     "allReservations": "Todas as Reservas",
     "analytics": "Análises",
     "customers": "Clientes",
-    "dashboard": {
+    "dashboards": {
       "totalLots": "Total de Estacionamentos",
       "activeParkingLots": "Estacionamentos ativos",
       "totalSpots": "Total de Vagas",

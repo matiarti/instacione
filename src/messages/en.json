@@ -86,7 +86,7 @@
     "allReservations": "All Reservations",
     "analytics": "Analytics",
     "customers": "Customers",
-    "dashboard": {
+    "dashboards": {
       "totalLots": "Total Lots",
       "activeParkingLots": "Active parking lots",
       "totalSpots": "Total Spots",
