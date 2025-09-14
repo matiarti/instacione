@@ -78,7 +78,7 @@ export function DateTimePicker({
       <div className="flex gap-4">
         <div className="flex flex-col gap-3">
           <Label htmlFor="date-picker" className="px-1">
-            {t('lot.arrivalTime')} ({t('lot.optional')})
+            Date
           </Label>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
