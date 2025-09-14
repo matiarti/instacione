@@ -305,7 +305,19 @@
     "todaysReservations": "Today's Reservations",
     "allReservations": "All Reservations",
     "analytics": "Analytics",
-    "customers": "Customers"
+    "customers": "Customers",
+    "dashboard": {
+      "totalLots": "Total Lots",
+      "activeParkingLots": "Active parking lots",
+      "totalSpots": "Total Spots",
+      "availableParkingSpots": "Available parking spots",
+      "todayReservations": "Today's Reservations",
+      "activeReservations": "Active reservations",
+      "revenue": "Revenue",
+      "todayEarnings": "Today's earnings",
+      "recentReservations": "Recent Reservations",
+      "noReservations": "No reservations yet"
+    }
   },
   "vehicle": {
     "addVehicle": "Add Vehicle",

@@ -305,7 +305,19 @@
     "todaysReservations": "Reservas de Hoje",
     "allReservations": "Todas as Reservas",
     "analytics": "Análises",
-    "customers": "Clientes"
+    "customers": "Clientes",
+    "dashboard": {
+      "totalLots": "Total de Estacionamentos",
+      "activeParkingLots": "Estacionamentos ativos",
+      "totalSpots": "Total de Vagas",
+      "availableParkingSpots": "Vagas de estacionamento disponíveis",
+      "todayReservations": "Reservas de Hoje",
+      "activeReservations": "Reservas ativas",
+      "revenue": "Receita",
+      "todayEarnings": "Ganhos de hoje",
+      "recentReservations": "Reservas Recentes",
+      "noReservations": "Nenhuma reserva ainda"
+    }
   },
   "vehicle": {
     "addVehicle": "Adicionar Veículo",
