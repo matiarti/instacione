@@ -429,7 +429,15 @@
     "updateError": "Error updating vehicle",
     "notFound": "Vehicle not found",
     "addedSuccessfully": "Vehicle added successfully! Redirecting...",
-    "updatedSuccessfully": "Vehicle updated successfully! Redirecting..."
+    "updatedSuccessfully": "Vehicle updated successfully! Redirecting...",
+    "selector": {
+      "selectVehicle": "Select one of your vehicles or enter a plate manually",
+      "noVehicles": "You don't have any vehicles registered yet. Enter a plate or add a vehicle.",
+      "myVehicles": "My Vehicles",
+      "default": "Default",
+      "orEnterManually": "Or enter a plate manually",
+      "addNewVehicle": "Add New Vehicle"
+    }
   },
   "app": {
     "title": "Instacione - Parking Hub",

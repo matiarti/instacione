@@ -429,7 +429,15 @@
     "updateError": "Erro ao atualizar veículo",
     "notFound": "Veículo não encontrado",
     "addedSuccessfully": "Veículo adicionado com sucesso! Redirecionando...",
-    "updatedSuccessfully": "Veículo atualizado com sucesso! Redirecionando..."
+    "updatedSuccessfully": "Veículo atualizado com sucesso! Redirecionando...",
+    "selector": {
+      "selectVehicle": "Selecione um de seus veículos ou digite uma placa manualmente",
+      "noVehicles": "Você ainda não tem veículos cadastrados. Digite uma placa ou adicione um veículo.",
+      "myVehicles": "Meus Veículos",
+      "default": "Padrão",
+      "orEnterManually": "Ou digite uma placa manualmente",
+      "addNewVehicle": "Adicionar Novo Veículo"
+    }
   },
   "app": {
     "title": "Instacione - Hub de Estacionamento",

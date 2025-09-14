@@ -8,6 +8,8 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { CheckCircle, XCircle } from 'lucide-react';
 import { AuthHeader } from '@/components/auth-header';
 import { useTranslations } from 'next-intl';
+import VehicleSelector from '@/components/vehicle-selector';
+import { DateTimePicker } from '@/components/date-time-picker';
 
 interface ParkingLot {
   _id: string;
@@ -259,20 +261,16 @@ export default function LotDetailsPage() {
                 </div>
               ) : (
                 <form onSubmit={handleReservationSubmit} className="space-y-4">
-                  <div>
-                    <label htmlFor="carPlate" className="block text-sm font-medium mb-1">
-                      {t('lot.licensePlate')}
-                    </label>
-                    <input
-                      type="text"
-                      id="carPlate"
-                      value={reservationData.carPlate}
-                      onChange={(e) => setReservationData({ ...reservationData, carPlate: e.target.value.toUpperCase() })}
-                      placeholder="ABC-1234"
-                      className="w-full px-3 py-2 border border-input rounded-md focus:outline-hidden focus:ring-2 focus:ring-primary bg-background"
-                      required
-                    />
-                  </div>
+                  <VehicleSelector
+                    selectedVehicleId={reservationData.carPlate}
+                    onVehicleSelect={(vehicle) => {
+                      setReservationData({ 
+                        ...reservationData, 
+                        carPlate: vehicle?.plate || '' 
+                      });
+                    }}
+                    showAddNew={true}
+                  />
 
                   <div>
                     <label htmlFor="expectedHours" className="block text-sm font-medium mb-1">
@@ -292,18 +290,16 @@ export default function LotDetailsPage() {
                     </select>
                   </div>
 
-                  <div>
-                    <label htmlFor="arrivalTime" className="block text-sm font-medium mb-1">
-                      {t('lot.arrivalTime')} ({t('lot.optional')})
-                    </label>
-                    <input
-                      type="datetime-local"
-                      id="arrivalTime"
-                      value={reservationData.arrivalTime}
-                      onChange={(e) => setReservationData({ ...reservationData, arrivalTime: e.target.value })}
-                      className="w-full px-3 py-2 border border-input rounded-md focus:outline-hidden focus:ring-2 focus:ring-primary bg-background"
-                    />
-                  </div>
+                  <DateTimePicker
+                    value={reservationData.arrivalTime ? new Date(reservationData.arrivalTime) : undefined}
+                    onChange={(date) => {
+                      setReservationData({ 
+                        ...reservationData, 
+                        arrivalTime: date ? date.toISOString() : '' 
+                      });
+                    }}
+                    placeholder="dd/mm/yyyy, --:--"
+                  />
 
                   <div className="pt-4 border-t">
                     <div className="flex justify-between text-sm mb-2">
