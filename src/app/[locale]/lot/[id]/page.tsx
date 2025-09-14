@@ -80,7 +80,7 @@ export default function LotDetailsPage() {
           lotId: params.id,
           carPlate: reservationData.carPlate,
           expectedHours: reservationData.expectedHours,
-          arrivalTime: reservationData.arrivalTime || undefined,
+          arrivalTime: reservationData.arrivalTime ? new Date(reservationData.arrivalTime).toISOString() : undefined,
         }),
       });
 

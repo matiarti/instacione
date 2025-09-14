@@ -149,11 +149,20 @@ export async function POST(request: NextRequest) {
           { error: 'Invalid ID format' },
           { status: 400 }
         );
+      } else if (error.name === 'ZodError') {
+        return NextResponse.json(
+          { error: 'Invalid request data', details: error.message },
+          { status: 400 }
+        );
       }
     }
     
     return NextResponse.json(
-      { error: 'Failed to create reservation', details: error instanceof Error ? error.message : 'Unknown error' },
+      { 
+        error: 'Failed to create reservation', 
+        details: error instanceof Error ? error.message : 'Unknown error',
+        stack: process.env.NODE_ENV === 'development' ? (error instanceof Error ? error.stack : undefined) : undefined
+      },
       { status: 500 }
     );
   }

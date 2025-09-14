@@ -260,28 +260,56 @@ PENDING_PAYMENT_TTL_MIN=10
 
 ## 📅 Milestones (4 Weeks)
 
-**Week 1**  
-- Setup repo, CI/CD, Tailwind.  
-- Mongo models (users, lots, reservations).  
-- Auth with Magic Link + hidden password UI.  
-- Public search & details.  
+**Week 1** ✅ **COMPLETED**  
+- ✅ Setup repo, CI/CD, Tailwind.  
+- ✅ Mongo models (users, lots, reservations).  
+- ✅ Auth with Magic Link + hidden password UI.  
+- ✅ Public search & details.  
 
-**Week 2**  
-- Reservation flow + Stripe payments.  
-- Reservation state machine + cron sweeper.  
-- Operator dashboard (availability, reservations).  
-- Email confirmations.  
+**Week 2** ✅ **COMPLETED**  
+- ✅ Reservation flow + Stripe payments.  
+- ✅ Reservation state machine + cron sweeper.  
+- ✅ Operator dashboard (availability, reservations).  
+- ✅ Email confirmations.  
 
-**Week 3**  
-- Map-based search.  
-- Cancellation/no-show policies.  
-- Analytics/logging.  
-- QA + edge cases.  
+**Week 3** 🔄 **IN PROGRESS**  
+- ✅ Map-based search.  
+- ✅ Cancellation/no-show policies.  
+- 🔄 Analytics/logging.  
+- ✅ QA + edge cases.  
 
-**Week 4**  
-- Operator subscriptions (Stripe Billing OR manual).  
-- Empty states, 404/500 pages.  
-- Soft launch with pilot lots.  
+**Week 4** 📋 **PLANNED**  
+- 📋 Operator subscriptions (Stripe Billing OR manual).  
+- 📋 Empty states, 404/500 pages.  
+- 📋 Soft launch with pilot lots.  
+
+---
+
+## 🐛 Recent Fixes & Improvements
+
+### **Stripe Integration Issues (Fixed)**
+- **Problem**: Stripe was loading immediately on page load, causing `ERR_BLOCKED_BY_CLIENT` errors from ad blockers
+- **Solution**: Implemented deferred Stripe loading - only loads when payment form is actually shown
+- **Files**: `src/components/payment-form.tsx`, `src/lib/stripe.ts`
+- **Result**: No more console errors when viewing parking lot pages
+
+### **Reservation API Issues (Fixed)**
+- **Problem**: 500 Internal Server Error when creating reservations due to datetime format mismatch
+- **Solution**: Fixed datetime-local input conversion to ISO format for API compatibility
+- **Files**: `src/app/[locale]/lot/[id]/page.tsx`, `src/app/api/reservations/route.ts`
+- **Result**: Reservation creation now works correctly
+
+### **Success Page Issues (Fixed)**
+- **Problem**: Success page showed "Reservation not found" after successful payment
+- **Solution**: Fixed API response structure mismatch between backend and frontend
+- **Files**: `src/app/[locale]/reservation/success/page.tsx`
+- **Result**: Success page now properly displays reservation details
+
+### **Current Status**
+- ✅ **Core Flow Working**: Search → Reserve → Pay → Success page
+- ✅ **Stripe Integration**: Payment processing functional
+- ✅ **Error Handling**: Improved error messages and debugging
+- ✅ **Data Consistency**: Frontend/backend data structures aligned
 
 ---
 

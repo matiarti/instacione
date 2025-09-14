@@ -1,7 +1,14 @@
 import { loadStripe } from '@stripe/stripe-js';
 
-// Initialize Stripe
-export const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+// Defer Stripe loading until actually needed
+let stripePromise: Promise<any> | null = null;
+
+export const getStripePromise = () => {
+  if (!stripePromise) {
+    stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+  }
+  return stripePromise;
+};
 
 // Payment intent creation
 export async function createPaymentIntent(reservationId: string) {
@@ -22,7 +29,7 @@ export async function createPaymentIntent(reservationId: string) {
 
 // Process payment with Stripe
 export async function processPayment(clientSecret: string, elements: any, confirmParams?: any) {
-  const stripe = await stripePromise;
+  const stripe = await getStripePromise();
   
   if (!stripe) {
     throw new Error('Stripe not loaded');

@@ -13,7 +13,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { CheckCircle, XCircle, Loader2 } from 'lucide-react';
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+// Defer Stripe loading until actually needed
+let stripePromise: Promise<any> | null = null;
+
+const getStripePromise = () => {
+  if (!stripePromise) {
+    stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+  }
+  return stripePromise;
+};
 
 interface PaymentFormProps {
   reservationId: string;
@@ -104,10 +112,16 @@ export default function PaymentFormWrapper({ reservationId, amount, onSuccess, o
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [stripeLoaded, setStripeLoaded] = useState(false);
 
   useEffect(() => {
-    const createPaymentIntent = async () => {
+    const initializePayment = async () => {
       try {
+        // First, try to load Stripe
+        await getStripePromise();
+        setStripeLoaded(true);
+
+        // Then create payment intent
         const response = await fetch('/api/payments/create-intent', {
           method: 'POST',
           headers: {
@@ -123,13 +137,24 @@ export default function PaymentFormWrapper({ reservationId, amount, onSuccess, o
         const data = await response.json();
         setClientSecret(data.clientSecret);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to initialize payment');
+        console.error('Payment initialization error:', err);
+        
+        // Check if it's a blocked request error
+        if (err instanceof Error && (
+          err.message.includes('Failed to fetch') || 
+          err.message.includes('ERR_BLOCKED_BY_CLIENT') ||
+          err.message.includes('blocked')
+        )) {
+          setError('Payment system is being blocked. Please disable ad blockers or browser extensions and try again.');
+        } else {
+          setError(err instanceof Error ? err.message : 'Failed to initialize payment');
+        }
       } finally {
         setIsLoading(false);
       }
     };
 
-    createPaymentIntent();
+    initializePayment();
   }, [reservationId]);
 
   if (isLoading) {
@@ -145,7 +170,7 @@ export default function PaymentFormWrapper({ reservationId, amount, onSuccess, o
     );
   }
 
-  if (error || !clientSecret) {
+  if (error || !clientSecret || !stripeLoaded) {
     return (
       <Card>
         <CardContent className="pt-6">
@@ -182,7 +207,7 @@ export default function PaymentFormWrapper({ reservationId, amount, onSuccess, o
         <CardTitle>Complete Your Payment</CardTitle>
       </CardHeader>
       <CardContent>
-        <Elements options={options} stripe={stripePromise}>
+        <Elements options={options} stripe={getStripePromise()}>
           <PaymentForm 
             reservationId={reservationId}
             amount={amount}

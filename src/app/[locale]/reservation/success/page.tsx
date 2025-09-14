@@ -8,13 +8,12 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
 interface Reservation {
-  _id: string;
-  lotId: {
-    _id: string;
+  id: string;
+  lot: {
+    id: string;
     name: string;
-    location: {
-      address: string;
-    };
+    address: string;
+    hourlyRate: number;
   };
   state: string;
   arrivalWindow: {
@@ -55,7 +54,8 @@ function ReservationSuccessContent() {
         throw new Error('Failed to fetch reservation details');
       }
       const data = await response.json();
-      setReservation(data.reservation);
+      // The API returns the reservation data directly, not wrapped in a 'reservation' property
+      setReservation(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch reservation');
     } finally {
@@ -135,12 +135,12 @@ function ReservationSuccessContent() {
             <CardContent className="space-y-4">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Parking Lot:</span>
-                <span className="font-medium">{reservation.lotId.name}</span>
+                <span className="font-medium">{reservation.lot.name}</span>
               </div>
               
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Address:</span>
-                <span className="font-medium text-right max-w-xs">{reservation.lotId.location.address}</span>
+                <span className="font-medium text-right max-w-xs">{reservation.lot.address}</span>
               </div>
               
               <div className="flex justify-between">
@@ -210,7 +210,7 @@ function ReservationSuccessContent() {
                 Show this QR code to the parking operator when you arrive.
               </p>
               <p className="text-sm text-muted-foreground">
-                Reservation ID: {reservation._id}
+                Reservation ID: {reservation.id}
               </p>
             </div>
           </CardContent>
