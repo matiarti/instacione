@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
+import { authOptions } from '../../../../../lib/auth';
 import connectDB from '../../../../../lib/mongodb';
 import Reservation from '../../../../../models/Reservation';
 import User from '../../../../../models/User';
@@ -9,7 +10,7 @@ export const dynamic = 'force-dynamic';
 // GET /api/user/reservations - Get user's reservations
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     if (!session?.user?.email) {
       return NextResponse.json(
         { error: 'Unauthorized' },

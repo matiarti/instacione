@@ -80,6 +80,51 @@
       "todayEarnings": "Today's earnings",
       "recentReservations": "Recent Reservations",
       "noReservations": "No reservations found"
+    },
+    "registration": {
+      "title": "Register as Operator",
+      "description": "Create your parking lot company account to start managing parking spaces",
+      "companyName": "Company Name",
+      "fullName": "Full Name",
+      "email": "Email",
+      "phone": "Phone Number",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "createAccount": "Create Operator Account",
+      "creatingAccount": "Creating Account...",
+      "success": "Operator account created successfully! You can now sign in.",
+      "error": "Failed to create operator account"
+    },
+    "lots": {
+      "title": "Parking Lots",
+      "description": "Manage your parking lots and monitor their performance",
+      "addNew": "Add New Lot",
+      "noLots": "No parking lots yet",
+      "noLotsDescription": "Get started by adding your first parking lot to begin accepting reservations.",
+      "addFirst": "Add Your First Lot",
+      "available": "Available",
+      "amenities": "Amenities",
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "addLot": {
+      "title": "Add New Parking Lot",
+      "description": "Register a new parking lot to start accepting reservations",
+      "name": "Parking Lot Name",
+      "namePlaceholder": "e.g., Downtown Plaza Parking",
+      "address": "Address",
+      "addressPlaceholder": "123 Main St, City, State 12345",
+      "capacity": "Total Capacity",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "hourlyRate": "Hourly Rate ($)",
+      "dailyMax": "Daily Maximum ($)",
+      "amenities": "Amenities",
+      "create": "Create Parking Lot",
+      "creating": "Creating...",
+      "success": "Parking lot created successfully!",
+      "error": "Failed to create parking lot"
     }
   },
   "auth": {

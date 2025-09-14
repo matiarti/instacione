@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../../../../../lib/auth';
 import connectDB from '../../../../../lib/mongodb';
 import ParkingLot from '../../../../../models/ParkingLot';
 import User from '../../../../../models/User';
@@ -7,12 +9,27 @@ import { z } from 'zod';
 // GET /api/operator/lots - List operator's lots
 export async function GET(request: NextRequest) {
   try {
+    const session = await getServerSession(authOptions);
+    
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     await connectDB();
     
-    // TODO: Get operator ID from session/auth
-    const operatorId = '68c63f29bd2cc35b576495aa'; // Hardcoded for now
+    // Verify user is an operator
+    const user = await User.findById(session.user.id);
+    if (!user || user.role !== 'OPERATOR') {
+      return NextResponse.json(
+        { error: 'Access denied. Operator role required.' },
+        { status: 403 }
+      );
+    }
     
-    const lots = await ParkingLot.find({ operatorUserId: operatorId })
+    const lots = await ParkingLot.find({ operatorUserId: session.user.id })
       .populate('operatorUserId', 'name email')
       .sort({ createdAt: -1 });
     
@@ -26,6 +43,7 @@ export async function GET(request: NextRequest) {
         capacity: lot.capacity,
         availability: lot.availabilityManual,
         status: lot.status,
+        amenities: lot.amenities || [],
         subscription: lot.subscription,
         createdAt: lot.createdAt,
       }))
@@ -43,6 +61,17 @@ export async function GET(request: NextRequest) {
 // POST /api/operator/lots - Create new lot
 export async function POST(request: NextRequest) {
   try {
+    const session = await getServerSession(authOptions);
+    console.log('Session:', session);
+    
+    if (!session?.user?.id) {
+      console.log('No session or user ID found');
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     await connectDB();
     
     const createLotSchema = z.object({
@@ -57,24 +86,24 @@ export async function POST(request: NextRequest) {
     });
     
     const body = await request.json();
+    console.log('Request body:', body);
     const { name, address, latitude, longitude, hourlyRate, dailyMax, capacity, amenities } = createLotSchema.parse(body);
     
-    // TODO: Get operator ID from session/auth
-    const operatorId = '68c63f29bd2cc35b576495aa'; // Hardcoded for now
-    
-    // Check if operator exists
-    const operator = await User.findById(operatorId);
+    // Verify user is an operator
+    const operator = await User.findById(session.user.id);
+    console.log('Found operator:', operator);
     if (!operator || operator.role !== 'OPERATOR') {
+      console.log('User not found or not an operator:', { operator: operator?.role });
       return NextResponse.json(
-        { error: 'Operator not found' },
-        { status: 404 }
+        { error: 'Access denied. Operator role required.' },
+        { status: 403 }
       );
     }
     
     // Create parking lot
     const lot = new ParkingLot({
       name,
-      operatorUserId: operatorId,
+      operatorUserId: session.user.id,
       location: {
         address,
         geo: {
@@ -115,6 +144,12 @@ export async function POST(request: NextRequest) {
     
   } catch (error) {
     console.error('Error creating lot:', error);
+    console.error('Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      name: error instanceof Error ? error.name : undefined
+    });
+    
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid input data', details: error.errors },
@@ -122,7 +157,7 @@ export async function POST(request: NextRequest) {
       );
     }
     return NextResponse.json(
-      { error: 'Failed to create lot' },
+      { error: 'Failed to create lot', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }

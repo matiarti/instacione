@@ -14,6 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 
 export function LoginForm({
   className,
@@ -264,6 +265,18 @@ export function LoginForm({
                   </button>
                 </>
               )}
+            </div>
+            
+            <div className="mt-4 text-center">
+              <div className="text-sm text-muted-foreground mb-2">
+                Are you a parking lot operator?
+              </div>
+              <Link 
+                href="/auth/register-operator"
+                className="text-sm text-primary hover:underline"
+              >
+                Register as Operator
+              </Link>
             </div>
           </form>
           

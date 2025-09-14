@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../../../../lib/auth';
 import connectDB from '../../../../lib/mongodb';
 import Reservation from '../../../../models/Reservation';
 import ParkingLot from '../../../../models/ParkingLot';
@@ -16,6 +18,15 @@ const createReservationSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    const session = await getServerSession(authOptions);
+    
+    if (!session?.user?.email) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     await connectDB();
     
     const body = await request.json();
@@ -60,31 +71,16 @@ export async function POST(request: NextRequest) {
     // Ensure minimum fee of R$ 0.50 to meet Stripe requirements
     reservationFeeAmount = Math.max(reservationFeeAmount, 0.50);
     
-    // Get or create a temporary user for testing
-    // TODO: Replace with proper authentication
-    let userId;
-    try {
-      // Try to find an existing user or create a temporary one
-      const existingUser = await User.findOne({ email: 'test@example.com' });
-      if (existingUser) {
-        userId = existingUser._id;
-      } else {
-        const tempUser = new User({
-          name: 'Test User',
-          email: 'test@example.com',
-          role: 'DRIVER',
-          provider: 'credentials'
-        });
-        await tempUser.save();
-        userId = tempUser._id;
-      }
-    } catch (userError) {
-      console.error('Error handling user:', userError);
+    // Get the authenticated user
+    const user = await User.findOne({ email: session.user.email });
+    if (!user) {
       return NextResponse.json(
-        { error: 'Failed to process user authentication' },
-        { status: 500 }
+        { error: 'User not found' },
+        { status: 404 }
       );
     }
+    
+    const userId = user._id;
 
     // Create reservation
     const reservation = new Reservation({

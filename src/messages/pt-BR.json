@@ -80,6 +80,51 @@
       "todayEarnings": "Ganhos de hoje",
       "recentReservations": "Reservas Recentes",
       "noReservations": "Nenhuma reserva encontrada"
+    },
+    "registration": {
+      "title": "Registrar como Operador",
+      "description": "Crie sua conta de empresa de estacionamento para começar a gerenciar vagas",
+      "companyName": "Nome da Empresa",
+      "fullName": "Nome Completo",
+      "email": "Email",
+      "phone": "Telefone",
+      "password": "Senha",
+      "confirmPassword": "Confirmar Senha",
+      "createAccount": "Criar Conta de Operador",
+      "creatingAccount": "Criando Conta...",
+      "success": "Conta de operador criada com sucesso! Agora você pode fazer login.",
+      "error": "Falha ao criar conta de operador"
+    },
+    "lots": {
+      "title": "Estacionamentos",
+      "description": "Gerencie seus estacionamentos e monitore seu desempenho",
+      "addNew": "Adicionar Novo",
+      "noLots": "Nenhum estacionamento ainda",
+      "noLotsDescription": "Comece adicionando seu primeiro estacionamento para aceitar reservas.",
+      "addFirst": "Adicionar Seu Primeiro Estacionamento",
+      "available": "Disponível",
+      "amenities": "Comodidades",
+      "view": "Ver",
+      "edit": "Editar",
+      "delete": "Excluir"
+    },
+    "addLot": {
+      "title": "Adicionar Novo Estacionamento",
+      "description": "Registre um novo estacionamento para começar a aceitar reservas",
+      "name": "Nome do Estacionamento",
+      "namePlaceholder": "ex: Estacionamento Plaza Centro",
+      "address": "Endereço",
+      "addressPlaceholder": "Rua Principal, 123, Cidade, Estado 12345",
+      "capacity": "Capacidade Total",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "hourlyRate": "Taxa por Hora (R$)",
+      "dailyMax": "Máximo Diário (R$)",
+      "amenities": "Comodidades",
+      "create": "Criar Estacionamento",
+      "creating": "Criando...",
+      "success": "Estacionamento criado com sucesso!",
+      "error": "Falha ao criar estacionamento"
     }
   },
   "auth": {

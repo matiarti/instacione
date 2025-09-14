@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../../../../../../lib/auth';
 import connectDB from '../../../../../../lib/mongodb';
 import ParkingLot from '../../../../../../models/ParkingLot';
+import User from '../../../../../../models/User';
 import { z } from 'zod';
 
 // GET /api/operator/lots/[id] - Get lot details
@@ -59,6 +62,15 @@ export async function PATCH(
   { params }: { params: { id: string } }
 ) {
   try {
+    const session = await getServerSession(authOptions);
+    
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     await connectDB();
     
     const updateLotSchema = z.object({
@@ -76,13 +88,19 @@ export async function PATCH(
     const body = await request.json();
     const updates = updateLotSchema.parse(body);
     
-    // TODO: Get operator ID from session/auth
-    const operatorId = '68c63f29bd2cc35b576495aa'; // Hardcoded for now
+    // Verify user is an operator
+    const user = await User.findById(session.user.id);
+    if (!user || user.role !== 'OPERATOR') {
+      return NextResponse.json(
+        { error: 'Access denied. Operator role required.' },
+        { status: 403 }
+      );
+    }
     
     // Check if lot exists and belongs to operator
     const lot = await ParkingLot.findOne({ 
       _id: params.id, 
-      operatorUserId: operatorId 
+      operatorUserId: session.user.id 
     });
     
     if (!lot) {

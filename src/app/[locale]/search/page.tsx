@@ -34,7 +34,7 @@ export default function SearchPage() {
   // Filters
   const [filters, setFilters] = useState({
     maxDistance: 5, // km
-    maxPrice: 50, // R$
+    maxPrice: 150, // R$ - Increased to show expensive lots
     minAvailability: 1,
     amenities: [] as string[],
   });
