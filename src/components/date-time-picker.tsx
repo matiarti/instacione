@@ -55,6 +55,7 @@ export function DateTimePicker({
       
       setDate(newDateTime);
       onChange(newDateTime);
+      setOpen(false);
     } else {
       setDate(undefined);
       onChange(undefined);
@@ -72,11 +73,6 @@ export function DateTimePicker({
       setDate(newDateTime);
       onChange(newDateTime);
     }
-  };
-
-  const formatDateTime = (date: Date | undefined) => {
-    if (!date) return "";
-    return format(date, "dd/MM/yyyy, HH:mm");
   };
 
   return (
@@ -118,12 +114,6 @@ export function DateTimePicker({
           <Clock className="absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground pointer-events-none" />
         </div>
       </div>
-      
-      {date && (
-        <div className="text-sm text-muted-foreground">
-          {formatDateTime(date)}
-        </div>
-      )}
     </div>
   );
 }
