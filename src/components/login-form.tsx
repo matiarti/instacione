@@ -128,6 +128,7 @@ export function LoginForm({
         setMessage('Account created successfully! You can now sign in.');
         setMessageType('success');
         setIsSignUp(false);
+        setEmail('');
         setPassword('');
         setName('');
         setPhone('');

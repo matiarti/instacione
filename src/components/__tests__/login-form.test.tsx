@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { NextIntlClientProvider } from 'next-intl'
 import { LoginForm } from '../login-form'
 
 // Mock next-auth
@@ -11,6 +12,36 @@ vi.mock('next-auth/react', () => ({
 // Mock fetch
 global.fetch = vi.fn()
 
+// Mock translations
+const mockMessages = {
+  auth: {
+    login: {
+      title: 'Login to your account',
+      description: 'Enter your credentials to access your account',
+      email: 'Email',
+      emailPlaceholder: 'Enter your email',
+      password: 'Password',
+      forgotPassword: 'Forgot password?',
+      button: 'Login',
+      signingIn: 'Signing in...'
+    },
+    signup: {
+      title: 'Create your account',
+      description: 'Enter your information to create an account',
+      fullName: 'Full Name',
+      fullNamePlaceholder: 'Enter your full name',
+      button: 'Create Account',
+      creatingAccount: 'Creating account...'
+    }
+  }
+}
+
+const TestWrapper = ({ children }: { children: React.ReactNode }) => (
+  <NextIntlClientProvider locale="en" messages={mockMessages}>
+    {children}
+  </NextIntlClientProvider>
+)
+
 describe('LoginForm', () => {
   const user = userEvent.setup()
 
@@ -20,7 +51,7 @@ describe('LoginForm', () => {
   })
 
   it('should render login form by default', () => {
-    render(<LoginForm />)
+    render(<TestWrapper><LoginForm /></TestWrapper>)
     
     expect(screen.getByText('Login to your account')).toBeInTheDocument()
     expect(screen.getByLabelText('Email')).toBeInTheDocument()
@@ -30,7 +61,7 @@ describe('LoginForm', () => {
   })
 
   it('should switch to sign up mode when clicking sign up link', async () => {
-    render(<LoginForm />)
+    render(<TestWrapper><LoginForm /></TestWrapper>)
     
     const signUpLink = screen.getByText('Sign up')
     await user.click(signUpLink)
@@ -43,7 +74,7 @@ describe('LoginForm', () => {
   })
 
   it('should switch back to login mode when clicking sign in link', async () => {
-    render(<LoginForm />)
+    render(<TestWrapper><LoginForm /></TestWrapper>)
     
     // Switch to sign up mode
     const signUpLink = screen.getByText('Sign up')
@@ -72,7 +103,7 @@ describe('LoginForm', () => {
       })
     })
 
-    render(<LoginForm />)
+    render(<TestWrapper><LoginForm /></TestWrapper>)
     
     // Switch to sign up mode
     const signUpLink = screen.getByText('Sign up')
@@ -119,7 +150,7 @@ describe('LoginForm', () => {
       })
     })
 
-    render(<LoginForm />)
+    render(<TestWrapper><LoginForm /></TestWrapper>)
     
     // Switch to sign up mode
     const signUpLink = screen.getByText('Sign up')
@@ -144,7 +175,7 @@ describe('LoginForm', () => {
     const { signIn } = await import('next-auth/react')
     ;(signIn as any).mockImplementation(mockSignIn)
 
-    render(<LoginForm />)
+    render(<TestWrapper><LoginForm /></TestWrapper>)
     
     // Fill out the form
     await user.type(screen.getByLabelText('Email'), 'test@example.com')
@@ -169,7 +200,7 @@ describe('LoginForm', () => {
     const { signIn } = await import('next-auth/react')
     ;(signIn as any).mockImplementation(mockSignIn)
 
-    render(<LoginForm />)
+    render(<TestWrapper><LoginForm /></TestWrapper>)
     
     // Fill out the form
     await user.type(screen.getByLabelText('Email'), 'test@example.com')
@@ -192,7 +223,7 @@ describe('LoginForm', () => {
       }), 100))
     )
 
-    render(<LoginForm />)
+    render(<TestWrapper><LoginForm /></TestWrapper>)
     
     // Switch to sign up mode
     const signUpLink = screen.getByText('Sign up')
@@ -219,7 +250,7 @@ describe('LoginForm', () => {
     const { signIn } = await import('next-auth/react')
     ;(signIn as any).mockImplementation(mockSignIn)
 
-    render(<LoginForm />)
+    render(<TestWrapper><LoginForm /></TestWrapper>)
     
     // Fill out the form
     await user.type(screen.getByLabelText('Email'), 'test@example.com')
@@ -235,7 +266,7 @@ describe('LoginForm', () => {
   })
 
   it('should validate required fields in sign up form', async () => {
-    render(<LoginForm />)
+    render(<TestWrapper><LoginForm /></TestWrapper>)
     
     // Switch to sign up mode
     const signUpLink = screen.getByText('Sign up')
@@ -265,7 +296,7 @@ describe('LoginForm', () => {
       })
     })
 
-    render(<LoginForm />)
+    render(<TestWrapper><LoginForm /></TestWrapper>)
     
     // Switch to sign up mode
     const signUpLink = screen.getByText('Sign up')
