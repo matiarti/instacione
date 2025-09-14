@@ -19,7 +19,10 @@ export async function POST(request: NextRequest) {
     await connectDB();
     
     const body = await request.json();
+    console.log('Reservation request body:', body);
+    
     const { lotId, carPlate, expectedHours, arrivalTime } = createReservationSchema.parse(body);
+    console.log('Parsed reservation data:', { lotId, carPlate, expectedHours, arrivalTime });
     
     // Get parking lot details
     const lot = await ParkingLot.findById(lotId);
@@ -57,10 +60,36 @@ export async function POST(request: NextRequest) {
     // Ensure minimum fee of R$ 0.50 to meet Stripe requirements
     reservationFeeAmount = Math.max(reservationFeeAmount, 0.50);
     
+    // Get or create a temporary user for testing
+    // TODO: Replace with proper authentication
+    let userId;
+    try {
+      // Try to find an existing user or create a temporary one
+      const existingUser = await User.findOne({ email: 'test@example.com' });
+      if (existingUser) {
+        userId = existingUser._id;
+      } else {
+        const tempUser = new User({
+          name: 'Test User',
+          email: 'test@example.com',
+          role: 'DRIVER',
+          provider: 'credentials'
+        });
+        await tempUser.save();
+        userId = tempUser._id;
+      }
+    } catch (userError) {
+      console.error('Error handling user:', userError);
+      return NextResponse.json(
+        { error: 'Failed to process user authentication' },
+        { status: 500 }
+      );
+    }
+
     // Create reservation
     const reservation = new Reservation({
       lotId: lot._id,
-      userId: '68c63f29bd2cc35b576495aa', // TODO: Get from session/auth
+      userId: userId,
       state: 'PENDING_PAYMENT',
       arrivalWindow: {
         start: arrivalStart,
@@ -107,8 +136,24 @@ export async function POST(request: NextRequest) {
     
   } catch (error) {
     console.error('Error creating reservation:', error);
+    
+    // Provide more specific error messages
+    if (error instanceof Error) {
+      if (error.name === 'ValidationError') {
+        return NextResponse.json(
+          { error: 'Invalid reservation data', details: error.message },
+          { status: 400 }
+        );
+      } else if (error.name === 'CastError') {
+        return NextResponse.json(
+          { error: 'Invalid ID format' },
+          { status: 400 }
+        );
+      }
+    }
+    
     return NextResponse.json(
-      { error: 'Failed to create reservation' },
+      { error: 'Failed to create reservation', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }
