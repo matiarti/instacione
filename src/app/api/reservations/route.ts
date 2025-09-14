@@ -51,8 +51,11 @@ export async function POST(request: NextRequest) {
     
     // Calculate pricing
     const hourlyRate = lot.pricing.hourly;
-    const reservationFeePercentage = parseFloat(process.env.RESERVATION_FEE_PCT || '0.12');
-    const reservationFeeAmount = hourlyRate * reservationFeePercentage;
+    const reservationFeePercentage = parseFloat(process.env.RESERVATION_FEE_PCT || '0.20');
+    let reservationFeeAmount = hourlyRate * reservationFeePercentage;
+    
+    // Ensure minimum fee of R$ 0.50 to meet Stripe requirements
+    reservationFeeAmount = Math.max(reservationFeeAmount, 0.50);
     
     // Create reservation
     const reservation = new Reservation({

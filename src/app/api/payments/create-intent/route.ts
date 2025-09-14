@@ -4,7 +4,7 @@ import Reservation from '../../../../../models/Reservation';
 import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-02-24.acacia',
+  apiVersion: '2023-10-16',
 });
 
 export async function POST(request: NextRequest) {
@@ -38,8 +38,11 @@ export async function POST(request: NextRequest) {
     }
     
     // Create Stripe payment intent
+    // Ensure minimum amount for Stripe (50 cents = 50 BRL cents)
+    const amountInCents = Math.max(Math.round(reservation.fees.reservationFeeAmount * 100), 50);
+    
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: Math.round(reservation.fees.reservationFeeAmount * 100), // Convert to cents
+      amount: amountInCents,
       currency: 'brl', // Brazilian Real
       metadata: {
         reservationId: reservation._id.toString(),
@@ -61,8 +64,13 @@ export async function POST(request: NextRequest) {
     
   } catch (error) {
     console.error('Error creating payment intent:', error);
+    console.error('Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      name: error instanceof Error ? error.name : undefined
+    });
     return NextResponse.json(
-      { error: 'Failed to create payment intent' },
+      { error: 'Failed to create payment intent', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }

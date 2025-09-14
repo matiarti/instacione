@@ -84,7 +84,7 @@ export default function HomePage() {
         {/* Features */}
         <div className="mt-20">
           <div className="text-center mb-12">
-            <h3 className="text-2xl font-bold tracking-tight">Why Choose Parcin?</h3>
+            <h3 className="text-2xl font-bold tracking-tight">Why Choose Instacione?</h3>
             <p className="mt-2 text-muted-foreground">
               The smartest way to find and reserve parking in São Paulo
             </p>

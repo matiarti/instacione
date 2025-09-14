@@ -1,4 +1,4 @@
-# 🚗 Parcin - Smart Parking Platform
+# 🚗 Instacione - Smart Parking Platform
 
 A modern, full-stack parking reservation platform built with Next.js, MongoDB, and Google Maps integration.
 
@@ -38,7 +38,7 @@ A modern, full-stack parking reservation platform built with Next.js, MongoDB, a
 
 ### Project Structure
 ```
-parcin/
+instacione/
 ├── src/
 │   ├── app/                 # Next.js App Router
 │   │   ├── api/            # API routes
@@ -78,8 +78,8 @@ parcin/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/parcin.git
-   cd parcin
+   git clone https://github.com/yourusername/instacione.git
+   cd instacione
    ```
 
 2. **Install dependencies**
@@ -290,9 +290,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Support
 
 For support and questions:
-- **Email**: support@parcin.com
-- **Documentation**: [docs.parcin.com](https://docs.parcin.com)
-- **Issues**: [GitHub Issues](https://github.com/yourusername/parcin/issues)
+- **Email**: support@instacione.com
+- **Documentation**: [docs.instacione.com](https://docs.instacione.com)
+- **Issues**: [GitHub Issues](https://github.com/yourusername/instacione/issues)
 
 ---
 

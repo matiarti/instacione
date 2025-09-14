@@ -43,7 +43,7 @@ export function useRealtimeAvailability(lotIds: string[]) {
     // Set up WebSocket connection for real-time updates (if available)
     const wsUrl = process.env.NODE_ENV === 'development' 
       ? 'ws://localhost:3001/ws/availability'
-      : 'wss://parcin.vercel.app/ws/availability';
+      : 'wss://instacione.vercel.app/ws/availability';
 
     let ws: WebSocket | null = null;
     

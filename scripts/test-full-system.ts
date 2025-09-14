@@ -1,7 +1,7 @@
 import { MongoClient } from 'mongodb';
 import fetch from 'node-fetch';
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/parcin';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/instacione';
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3001';
 
 interface TestResult {
@@ -16,7 +16,7 @@ class SystemTester {
   private client: MongoClient | null = null;
 
   async runAllTests() {
-    console.log('🧪 Starting Parcin System Tests...\n');
+    console.log('🧪 Starting Instacione System Tests...\n');
 
     try {
       // Database tests

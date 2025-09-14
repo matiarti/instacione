@@ -1,6 +1,6 @@
-# 🧪 Testing Guide - Parcin
+# 🧪 Testing Guide - Instacione
 
-This document outlines the testing setup and practices for the Parcin parking hub application.
+This document outlines the testing setup and practices for the Instacione parking hub application.
 
 ## 🚀 Testing Stack
 

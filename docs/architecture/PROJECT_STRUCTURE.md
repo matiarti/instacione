@@ -1,9 +1,9 @@
-# 🚗 Parcin - Project Structure
+# 🚗 Instacione - Project Structure
 
 ## 📁 Current Folder Structure
 
 ```
-parcin/                          # ← Root project directory
+instacione/                          # ← Root project directory
 ├── 📄 parking-hub-mvp-plan.md   # Original implementation plan
 ├── 📄 README.md                 # Project documentation
 ├── 📄 SPRINT_PLAN.md           # Detailed sprint breakdown
@@ -45,16 +45,16 @@ parcin/                          # ← Root project directory
 ## 🎯 Key Changes Made
 
 ### ✅ **Folder Structure Reorganization**
-- **Before:** `parcin/parking-hub/` (nested structure)
-- **After:** `parcin/` (root structure)
-- Moved all project files from `parking-hub/` to `parcin/` root
+- **Before:** `instacione/parking-hub/` (nested structure)
+- **After:** `instacione/` (root structure)
+- Moved all project files from `parking-hub/` to `instacione/` root
 - Removed the nested `parking-hub` folder
 
 ### ✅ **Project Name Updates**
-- Updated `package.json` name from `"parking-hub"` to `"parcin"`
+- Updated `package.json` name from `"parking-hub"` to `"instacione"`
 - Updated all documentation to reflect new project name
-- Updated UI text from "Parking Hub" to "Parcin"
-- Updated database name from `parking-hub` to `parcin`
+- Updated UI text from "Parking Hub" to "Instacione"
+- Updated database name from `parking-hub` to `instacione`
 
 ### ✅ **File References Updated**
 - `README.md` - Project structure and setup instructions
@@ -65,7 +65,7 @@ parcin/                          # ← Root project directory
 
 ## 🚀 **Ready to Use**
 
-The project is now properly organized with `parcin` as the root directory:
+The project is now properly organized with `instacione` as the root directory:
 
 ### **Current Status:**
 - ✅ Project structure reorganized

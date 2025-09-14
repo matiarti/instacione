@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Parcin - Parking Hub",
+  title: "Instacione - Parking Hub",
   description: "Find and reserve parking spots anywhere",
 };
 

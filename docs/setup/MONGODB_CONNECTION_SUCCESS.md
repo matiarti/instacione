@@ -2,7 +2,7 @@
 
 ## 🎉 **Connection Status: CONNECTED**
 
-Your **Parcin** project is now successfully connected to MongoDB Atlas! 🚀
+Your **Instacione** project is now successfully connected to MongoDB Atlas! 🚀
 
 ---
 
@@ -167,7 +167,7 @@ If you encounter any issues:
 
 ## 🎉 **Congratulations!**
 
-Your **Parcin** parking hub MVP now has a fully functional database backend! The foundation is solid and ready for Sprint 2 development.
+Your **Instacione** parking hub MVP now has a fully functional database backend! The foundation is solid and ready for Sprint 2 development.
 
 **Database Status: 🟢 CONNECTED & OPERATIONAL**
 

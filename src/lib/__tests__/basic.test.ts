@@ -10,11 +10,11 @@ describe('Basic functionality', () => {
 
   it('should handle string operations', () => {
     const greeting = 'Hello'
-    const name = 'Parcin'
+    const name = 'Instacione'
     
-    expect(`${greeting} ${name}`).toBe('Hello Parcin')
+    expect(`${greeting} ${name}`).toBe('Hello Instacione')
     expect(greeting.toLowerCase()).toBe('hello')
-    expect(name.toUpperCase()).toBe('PARCIN')
+    expect(name.toUpperCase()).toBe('INSTACIONE')
   })
 
   it('should work with arrays', () => {

@@ -33,7 +33,7 @@ export const trackPageView = (path: string) => {
   }
 };
 
-// Predefined events for Parcin
+// Predefined events for Instacione
 export const AnalyticsEvents = {
   // Search events
   SEARCH_PERFORMED: 'search_performed',

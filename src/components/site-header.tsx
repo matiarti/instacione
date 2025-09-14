@@ -78,7 +78,7 @@ export function SiteHeader() {
               <div className="flex flex-col space-y-1">
                 <p className="text-sm font-medium leading-none">Operator</p>
                 <p className="text-xs leading-none text-muted-foreground">
-                  operator@parcin.com
+                  operator@instacione.com
                 </p>
               </div>
             </DropdownMenuLabel>

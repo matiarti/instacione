@@ -57,7 +57,7 @@ export function AuthHeader({ className = '' }: AuthHeaderProps) {
           <div className="flex items-center space-x-2">
             <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
               <Car className="h-8 w-8 text-primary" />
-              <h1 className="text-2xl font-bold">Parcin</h1>
+              <h1 className="text-2xl font-bold">Instacione</h1>
             </Link>
           </div>
 

@@ -22,13 +22,13 @@ export interface ReservationEmailData {
 export async function sendReservationConfirmationEmail(data: ReservationEmailData) {
   try {
     const { data: emailData, error } = await resend.emails.send({
-      from: 'Parcin <noreply@parcin.com>',
+      from: 'Instacione <noreply@instacione.com>',
       to: [data.userEmail],
-      subject: 'Reserva Confirmada - Parcin',
+      subject: 'Reserva Confirmada - Instacione',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background-color: #3b82f6; color: white; padding: 20px; text-align: center;">
-            <h1 style="margin: 0;">🚗 Parcin</h1>
+            <h1 style="margin: 0;">🚗 Instacione</h1>
           </div>
           
           <div style="padding: 30px; background-color: #f8fafc;">
@@ -62,12 +62,12 @@ export async function sendReservationConfirmationEmail(data: ReservationEmailDat
             </div>
             
             <p style="color: #4b5563;">
-              Obrigado por usar o Parcin! 🚗
+              Obrigado por usar o Instacione! 🚗
             </p>
           </div>
           
           <div style="background-color: #f3f4f6; padding: 20px; text-align: center; color: #6b7280;">
-            <p style="margin: 0;">© 2024 Parcin. Todos os direitos reservados.</p>
+            <p style="margin: 0;">© 2024 Instacione. Todos os direitos reservados.</p>
           </div>
         </div>
       `,
@@ -89,13 +89,13 @@ export async function sendReservationConfirmationEmail(data: ReservationEmailDat
 export async function sendPaymentFailureEmail(data: ReservationEmailData) {
   try {
     const { data: emailData, error } = await resend.emails.send({
-      from: 'Parcin <noreply@parcin.com>',
+      from: 'Instacione <noreply@instacione.com>',
       to: [data.userEmail],
-      subject: 'Falha no Pagamento - Parcin',
+      subject: 'Falha no Pagamento - Instacione',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background-color: #ef4444; color: white; padding: 20px; text-align: center;">
-            <h1 style="margin: 0;">🚗 Parcin</h1>
+            <h1 style="margin: 0;">🚗 Instacione</h1>
           </div>
           
           <div style="padding: 30px; background-color: #f8fafc;">
@@ -122,12 +122,12 @@ export async function sendPaymentFailureEmail(data: ReservationEmailData) {
             
             <p style="color: #4b5563;">
               Se precisar de ajuda, entre em contato conosco.<br>
-              Equipe Parcin 🚗
+              Equipe Instacione 🚗
             </p>
           </div>
           
           <div style="background-color: #f3f4f6; padding: 20px; text-align: center; color: #6b7280;">
-            <p style="margin: 0;">© 2024 Parcin. Todos os direitos reservados.</p>
+            <p style="margin: 0;">© 2024 Instacione. Todos os direitos reservados.</p>
           </div>
         </div>
       `,

@@ -1,4 +1,4 @@
-# 🚀 Parcin MVP - Sprint Implementation Plan
+# 🚀 Instacione MVP - Sprint Implementation Plan
 
 ## 📊 Sprint Overview
 

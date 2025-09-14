@@ -2,7 +2,7 @@
 
 ## ✅ **Successfully Integrated Modern UI Components**
 
-Your **Parcin** project now features a beautiful, modern interface built with [shadcn/ui components and blocks](https://ui.shadcn.com/blocks)! 🚀
+Your **Instacione** project now features a beautiful, modern interface built with [shadcn/ui components and blocks](https://ui.shadcn.com/blocks)! 🚀
 
 ---
 
@@ -147,6 +147,6 @@ src/
 
 ## 🎉 **Success!**
 
-Your **Parcin** parking hub now has a **professional, modern interface** that rivals the best SaaS applications! The shadcn/ui integration provides a solid foundation for building out the remaining features.
+Your **Instacione** parking hub now has a **professional, modern interface** that rivals the best SaaS applications! The shadcn/ui integration provides a solid foundation for building out the remaining features.
 
 **Ready for Sprint 2 completion!** 🚗✨
