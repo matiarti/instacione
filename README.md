@@ -298,3 +298,4 @@ For support and questions:
 
 **Built with ❤️ for the future of parking**
 # Trigger deployment
+# Trigger deployment after fixing env vars
