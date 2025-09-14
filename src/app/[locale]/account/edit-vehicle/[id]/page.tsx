@@ -71,13 +71,13 @@ export default function EditVehiclePage() {
         if (foundVehicle) {
           setVehicle(foundVehicle);
         } else {
-          setError('Vehicle not found');
+          setError(t('vehicle.notFound'));
         }
       } else {
-        setError('Failed to load vehicle');
+        setError(t('vehicle.loadError'));
       }
     } catch (error) {
-      setError('Failed to load vehicle');
+      setError(t('vehicle.loadError'));
     } finally {
       setLoadingVehicle(false);
     }
@@ -103,11 +103,11 @@ export default function EditVehiclePage() {
           <CardContent className="p-6">
             <Alert variant="destructive">
               <AlertDescription>
-                {error || 'Vehicle not found'}
+                {error || t('vehicle.notFound')}
               </AlertDescription>
             </Alert>
             <Button asChild className="mt-4">
-              <Link href="/account">Back to Account</Link>
+              <Link href="/account">{t('vehicle.backToAccount')}</Link>
             </Button>
           </CardContent>
         </Card>
@@ -140,10 +140,10 @@ export default function EditVehiclePage() {
           router.push('/account');
         }, 2000);
       } else {
-        setError(result.error || 'Error updating vehicle');
+        setError(result.error || t('vehicle.updateError'));
       }
     } catch (error) {
-      setError('Error updating vehicle');
+      setError(t('vehicle.updateError'));
     } finally {
       setLoading(false);
     }
@@ -157,7 +157,7 @@ export default function EditVehiclePage() {
             <Alert className="border-green-200 bg-green-50">
               <CheckCircle className="h-4 w-4 text-green-600" />
               <AlertDescription className="text-green-800">
-                Vehicle updated successfully! Redirecting...
+                {t('vehicle.updatedSuccessfully')}
               </AlertDescription>
             </Alert>
           </CardContent>
@@ -176,12 +176,12 @@ export default function EditVehiclePage() {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href="/account">Account</Link>
+                  <Link href="/account">{t('account.profile')}</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>Edit Vehicle</BreadcrumbPage>
+                <BreadcrumbPage>{t('vehicle.editVehicle')}</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -192,9 +192,9 @@ export default function EditVehiclePage() {
               <Car className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold tracking-tight">Edit Vehicle</h1>
+              <h1 className="text-3xl font-bold tracking-tight">{t('vehicle.editVehicle')}</h1>
               <p className="text-muted-foreground">
-                Update your vehicle information for plate {vehicle.plate}.
+                {t('vehicle.editVehicleDescription', { plate: vehicle.plate })}
               </p>
             </div>
           </div>
@@ -209,7 +209,7 @@ export default function EditVehiclePage() {
             <Button variant="ghost" asChild>
               <Link href="/account">
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Account
+                {t('vehicle.backToAccount')}
               </Link>
             </Button>
           </div>

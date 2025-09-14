@@ -1,7 +1,7 @@
 'use client';
 
 import { useSession, signOut } from 'next-auth/react';
-import { Car, User, LogOut, Settings, CreditCard } from 'lucide-react';
+import { User, LogOut, Settings, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -15,6 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { ModeToggle } from '@/components/mode-toggle';
 import { LanguageSwitcher } from '@/components/language-switcher';
+import { Logo } from '@/components/logo';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
@@ -57,9 +58,8 @@ export function AuthHeader({ className = '' }: AuthHeaderProps) {
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <div className="flex items-center space-x-2">
-            <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-              <Car className="h-8 w-8 text-primary" />
-              <h1 className="text-2xl font-bold">Instacione</h1>
+            <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
+              <Logo width={148} height={24} />
             </Link>
           </div>
 

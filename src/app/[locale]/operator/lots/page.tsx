@@ -99,14 +99,14 @@ export default function OperatorLotsPage() {
               <div className="px-4 lg:px-6">
                 <div className="flex items-center justify-between mb-6">
                   <div>
-                    <h1 className="text-3xl font-bold">Parking Lots</h1>
+                    <h1 className="text-3xl font-bold">{t('operator.lots.title')}</h1>
                     <p className="text-muted-foreground">
-                      Manage your parking lots and monitor their performance
+                      {t('operator.lots.description')}
                     </p>
                   </div>
                   <Button onClick={() => setShowAddForm(true)} className="flex items-center gap-2">
                     <Plus className="h-4 w-4" />
-                    Add New Lot
+                    {t('operator.lots.addNew')}
                   </Button>
                 </div>
 
@@ -147,7 +147,7 @@ export default function OperatorLotsPage() {
                               <Car className="h-4 w-4 text-muted-foreground" />
                               <div>
                                 <div className="font-medium">{lot.availability}/{lot.capacity}</div>
-                                <div className="text-xs text-muted-foreground">Available</div>
+                                <div className="text-xs text-muted-foreground">{t('operator.lots.available')}</div>
                               </div>
                             </div>
                             <div className="flex items-center gap-2">
@@ -162,8 +162,8 @@ export default function OperatorLotsPage() {
                           </div>
 
                           {lot.amenities && lot.amenities.length > 0 && (
-                            <div>
-                              <div className="text-xs text-muted-foreground mb-1">Amenities</div>
+                              <div>
+                                <div className="text-xs text-muted-foreground mb-1">{t('operator.lots.amenities')}</div>
                               <div className="flex flex-wrap gap-1">
                                 {lot.amenities.slice(0, 3).map((amenity) => (
                                   <Badge key={amenity} variant="outline" className="text-xs">
@@ -182,7 +182,7 @@ export default function OperatorLotsPage() {
                           <div className="flex gap-2 pt-2">
                             <Button size="sm" variant="outline" className="flex-1">
                               <Eye className="h-3 w-3 mr-1" />
-                              View
+                              {t('operator.lots.view')}
                             </Button>
                             <Button size="sm" variant="outline">
                               <Edit className="h-3 w-3" />
@@ -199,13 +199,13 @@ export default function OperatorLotsPage() {
                   <Card>
                     <CardContent className="flex flex-col items-center justify-center py-12">
                       <MapPin className="h-12 w-12 text-muted-foreground mb-4" />
-                      <h3 className="text-lg font-semibold mb-2">No parking lots yet</h3>
+                      <h3 className="text-lg font-semibold mb-2">{t('operator.lots.noLots')}</h3>
                       <p className="text-muted-foreground text-center mb-4">
-                        Get started by adding your first parking lot to begin accepting reservations.
+                        {t('operator.lots.noLotsDescription')}
                       </p>
                       <Button onClick={() => setShowAddForm(true)} className="flex items-center gap-2">
                         <Plus className="h-4 w-4" />
-                        Add Your First Lot
+                        {t('operator.lots.addFirst')}
                       </Button>
                     </CardContent>
                   </Card>

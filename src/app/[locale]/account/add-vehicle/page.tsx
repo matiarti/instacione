@@ -69,10 +69,10 @@ export default function AddVehiclePage() {
           router.push('/account');
         }, 2000);
       } else {
-        setError(result.error || 'Erro ao salvar veículo');
+        setError(result.error || t('vehicle.saveError'));
       }
     } catch (error) {
-      setError('Erro ao salvar veículo');
+      setError(t('vehicle.saveError'));
     } finally {
       setLoading(false);
     }
@@ -86,7 +86,7 @@ export default function AddVehiclePage() {
             <Alert className="border-green-200 bg-green-50">
               <CheckCircle className="h-4 w-4 text-green-600" />
               <AlertDescription className="text-green-800">
-                Veículo adicionado com sucesso! Redirecionando...
+                {t('vehicle.addedSuccessfully')}
               </AlertDescription>
             </Alert>
           </CardContent>
@@ -105,12 +105,12 @@ export default function AddVehiclePage() {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href="/account">Conta</Link>
+                  <Link href="/account">{t('account.profile')}</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>Adicionar Veículo</BreadcrumbPage>
+                <BreadcrumbPage>{t('vehicle.addVehicle')}</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -121,9 +121,9 @@ export default function AddVehiclePage() {
               <Car className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold tracking-tight">Adicionar Veículo</h1>
+              <h1 className="text-3xl font-bold tracking-tight">{t('vehicle.addVehicle')}</h1>
               <p className="text-muted-foreground">
-                Adicione as informações do seu veículo para facilitar suas reservas.
+                {t('vehicle.addVehicleDescription')}
               </p>
             </div>
           </div>
@@ -138,7 +138,7 @@ export default function AddVehiclePage() {
             <Button variant="ghost" asChild>
               <Link href="/account">
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Voltar para Conta
+                {t('vehicle.backToAccount')}
               </Link>
             </Button>
           </div>

@@ -1,8 +1,11 @@
 'use client';
 
 import { EnvelopeIcon } from '@heroicons/react/24/outline';
+import { useTranslations } from 'next-intl';
 
 export default function VerifyRequestPage() {
+  const t = useTranslations();
+  
   return (
     <div className="min-h-screen flex items-center justify-center bg-background py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -11,10 +14,10 @@ export default function VerifyRequestPage() {
             <EnvelopeIcon className="h-6 w-6 text-primary" />
           </div>
           <h2 className="mt-6 text-center text-3xl font-extrabold">
-            Check your email
+            {t('auth.verify.checkEmail')}
           </h2>
           <p className="mt-2 text-center text-sm text-muted-foreground">
-            We sent you a magic link to sign in
+            {t('auth.verify.magicLinkSent')}
           </p>
         </div>
 
@@ -22,16 +25,15 @@ export default function VerifyRequestPage() {
           <div className="space-y-6">
             <div className="text-center">
               <p className="text-sm text-muted-foreground">
-                Click the link in your email to complete the sign-in process.
-                The link will expire in 10 minutes.
+                {t('auth.verify.clickLink')}
               </p>
             </div>
 
             <div className="text-center">
               <p className="text-xs text-muted-foreground">
-                Didn&apos;t receive the email? Check your spam folder or{' '}
+                {t('auth.verify.noEmail')}{' '}
                 <a href="/auth/signin" className="font-medium text-primary hover:text-primary/80">
-                  try again
+                  {t('auth.verify.tryAgain')}
                 </a>
               </p>
             </div>

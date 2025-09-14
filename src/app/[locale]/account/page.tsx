@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AuthHeader } from '@/components/auth-header';
+import { useTranslations } from 'next-intl';
 
 interface Vehicle {
   id: string;
@@ -46,6 +47,7 @@ interface Reservation {
 }
 
 export default function AccountPage() {
+  const t = useTranslations();
   const session = useSession();
   const router = useRouter();
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
@@ -152,7 +154,7 @@ export default function AccountPage() {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-4 text-muted-foreground">Loading your account...</p>
+          <p className="mt-4 text-muted-foreground">{t('account.loading')}</p>
         </div>
       </div>
     );
@@ -166,10 +168,10 @@ export default function AccountPage() {
         {/* Welcome Section */}
         <div className="mb-8">
           <h2 className="text-3xl font-bold mb-2">
-            Welcome back, {session.data?.user?.name}!
+            {t('account.welcomeBack')}, {session.data?.user?.name}!
           </h2>
           <p className="text-muted-foreground">
-            Manage your vehicles, view reservation history, and update your preferences.
+            {t('account.description')}
           </p>
         </div>
 
@@ -177,19 +179,19 @@ export default function AccountPage() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Reservations</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('account.totalReservations')}</CardTitle>
               <History className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{reservations.length}</div>
               <p className="text-xs text-muted-foreground">
-                All time reservations
+                {t('account.allTimeReservations')}
               </p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Reservations</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('account.activeReservations')}</CardTitle>
               <Clock className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -197,25 +199,25 @@ export default function AccountPage() {
                 {reservations.filter(r => ['CONFIRMED', 'CHECKED_IN'].includes(r.state)).length}
               </div>
               <p className="text-xs text-muted-foreground">
-                Currently active
+                {t('account.currentlyActive')}
               </p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Registered Vehicles</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('account.registeredVehicles')}</CardTitle>
               <Car className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{vehicles.length}</div>
               <p className="text-xs text-muted-foreground">
-                Vehicles in account
+                {t('account.vehiclesInAccount')}
               </p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Spent</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('account.totalSpent')}</CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -225,7 +227,7 @@ export default function AccountPage() {
                 )}
               </div>
               <p className="text-xs text-muted-foreground">
-                Reservation fees paid
+                {t('account.reservationFeesPaid')}
               </p>
             </CardContent>
           </Card>
@@ -234,30 +236,30 @@ export default function AccountPage() {
         {/* Main Content Tabs */}
         <Tabs defaultValue="reservations" className="space-y-6">
           <TabsList>
-            <TabsTrigger value="reservations">Reservations</TabsTrigger>
-            <TabsTrigger value="vehicles">Vehicles</TabsTrigger>
-            <TabsTrigger value="profile">Profile</TabsTrigger>
+            <TabsTrigger value="reservations">{t('account.reservations')}</TabsTrigger>
+            <TabsTrigger value="vehicles">{t('account.vehicles')}</TabsTrigger>
+            <TabsTrigger value="profile">{t('account.profile')}</TabsTrigger>
           </TabsList>
 
           {/* Reservations Tab */}
           <TabsContent value="reservations" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>Reservation History</CardTitle>
+                <CardTitle>{t('account.reservationHistory')}</CardTitle>
                 <CardDescription>
-                  View and manage your parking reservations
+                  {t('account.reservationHistoryDescription')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 {reservations.length === 0 ? (
                   <div className="text-center py-8">
                     <History className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                    <h3 className="text-lg font-medium mb-2">No reservations yet</h3>
+                    <h3 className="text-lg font-medium mb-2">{t('account.noReservationsYet')}</h3>
                     <p className="text-muted-foreground mb-4">
-                      Start by searching for parking lots near your destination.
+                      {t('account.startSearching')}
                     </p>
                     <Button asChild>
-                      <a href="/search">Find Parking</a>
+                      <a href="/search">{t('common.findParking')}</a>
                     </Button>
                   </div>
                 ) : (
@@ -279,19 +281,19 @@ export default function AccountPage() {
                               </div>
                               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                                 <div>
-                                  <span className="text-muted-foreground">Vehicle:</span>
+                                  <span className="text-muted-foreground">{t('account.vehicle')}:</span>
                                   <p className="font-medium">{reservation.carPlate}</p>
                                 </div>
                                 <div>
-                                  <span className="text-muted-foreground">Arrival:</span>
+                                  <span className="text-muted-foreground">{t('account.arrival')}:</span>
                                   <p className="font-medium">{formatDate(reservation.arrivalWindow.start)}</p>
                                 </div>
                                 <div>
-                                  <span className="text-muted-foreground">Amount:</span>
+                                  <span className="text-muted-foreground">{t('account.amount')}:</span>
                                   <p className="font-medium">{formatCurrency(reservation.fees.reservationFeeAmount)}</p>
                                 </div>
                                 <div>
-                                  <span className="text-muted-foreground">Booked:</span>
+                                  <span className="text-muted-foreground">{t('account.booked')}:</span>
                                   <p className="font-medium">{formatDate(reservation.createdAt)}</p>
                                 </div>
                               </div>
@@ -299,12 +301,12 @@ export default function AccountPage() {
                             <div className="ml-4">
                               {reservation.state === 'CONFIRMED' && (
                                 <Button size="sm" variant="outline">
-                                  View Details
+                                  {t('account.viewDetails')}
                                 </Button>
                               )}
                               {reservation.state === 'CHECKED_OUT' && (
                                 <Button size="sm" variant="outline">
-                                  Rate Experience
+                                  {t('account.rateExperience')}
                                 </Button>
                               )}
                             </div>
@@ -324,15 +326,15 @@ export default function AccountPage() {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle>My Vehicles</CardTitle>
+                    <CardTitle>{t('account.myVehicles')}</CardTitle>
                     <CardDescription>
-                      Manage your registered vehicles for faster reservations
+                      {t('account.manageVehicles')}
                     </CardDescription>
                   </div>
                   <Button asChild>
                     <Link href="/account/add-vehicle">
                       <Plus className="h-4 w-4 mr-2" />
-                      Add Vehicle
+                      {t('account.addVehicle')}
                     </Link>
                   </Button>
                 </div>
@@ -341,14 +343,14 @@ export default function AccountPage() {
                 {vehicles.length === 0 ? (
                   <div className="text-center py-8">
                     <Car className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                    <h3 className="text-lg font-medium mb-2">No vehicles registered</h3>
+                    <h3 className="text-lg font-medium mb-2">{t('account.noVehiclesRegistered')}</h3>
                     <p className="text-muted-foreground mb-4">
-                      Add your vehicles to make reservations faster.
+                      {t('account.addVehiclesDescription')}
                     </p>
                     <Button asChild>
                       <Link href="/account/add-vehicle">
                         <Car className="h-4 w-4 mr-2" />
-                        Add Your First Vehicle
+                        {t('account.addFirstVehicle')}
                       </Link>
                     </Button>
                   </div>
@@ -362,7 +364,7 @@ export default function AccountPage() {
                               <div className="flex items-center gap-2 mb-2">
                                 <h3 className="text-lg font-semibold">{vehicle.plate}</h3>
                                 {vehicle.isDefault && (
-                                  <Badge variant="default">Default</Badge>
+                                  <Badge variant="default">{t('account.default')}</Badge>
                                 )}
                               </div>
                               {vehicle.brand && vehicle.model && (
@@ -377,18 +379,18 @@ export default function AccountPage() {
                               )}
                               <div className="flex items-center gap-4 text-xs text-muted-foreground mt-1">
                                 {vehicle.color && (
-                                  <span>Cor: {vehicle.color}</span>
+                                  <span>{t('account.color')}: {vehicle.color}</span>
                                 )}
                                 {vehicle.modelYear && (
-                                  <span>Ano: {vehicle.modelYear}</span>
+                                  <span>{t('account.year')}: {vehicle.modelYear}</span>
                                 )}
                                 {vehicle.fuelType && (
-                                  <span>Combustível: {vehicle.fuelType}</span>
+                                  <span>{t('account.fuelType')}: {vehicle.fuelType}</span>
                                 )}
                               </div>
                               {vehicle.estimatedValue && (
                                 <p className="text-green-600 text-sm font-medium mt-1">
-                                  Valor estimado: {formatCurrency(vehicle.estimatedValue)}
+                                  {t('account.estimatedValue')}: {formatCurrency(vehicle.estimatedValue)}
                                 </p>
                               )}
                             </div>
@@ -399,7 +401,7 @@ export default function AccountPage() {
                                 asChild
                               >
                                 <Link href={`/account/edit-vehicle/${vehicle.id}`}>
-                                  Edit
+                                  {t('account.edit')}
                                 </Link>
                               </Button>
                               {!vehicle.isDefault && (
@@ -408,7 +410,7 @@ export default function AccountPage() {
                                   variant="outline"
                                   onClick={() => handleSetDefault(vehicle.id)}
                                 >
-                                  Set Default
+                                  {t('account.setDefault')}
                                 </Button>
                               )}
                             </div>
@@ -426,16 +428,16 @@ export default function AccountPage() {
           <TabsContent value="profile" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>Profile Settings</CardTitle>
+                <CardTitle>{t('account.profileSettings')}</CardTitle>
                 <CardDescription>
-                  Manage your account information and preferences
+                  {t('account.profileDescription')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium mb-2">
-                      Full Name
+                      {t('account.fullName')}
                     </label>
                     <input
                       type="text"
@@ -446,7 +448,7 @@ export default function AccountPage() {
                   </div>
                   <div>
                     <label className="block text-sm font-medium mb-2">
-                      Email Address
+                      {t('account.emailAddress')}
                     </label>
                     <input
                       type="email"
@@ -459,7 +461,7 @@ export default function AccountPage() {
                 
                 <div>
                   <label className="block text-sm font-medium mb-2">
-                    Phone Number
+                    {t('account.phoneNumber')}
                   </label>
                   <input
                     type="tel"
@@ -469,26 +471,26 @@ export default function AccountPage() {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-4">Preferences</h3>
+                  <h3 className="text-lg font-medium mb-4">{t('account.preferences')}</h3>
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm font-medium">Email Notifications</p>
-                        <p className="text-sm text-muted-foreground">Receive updates about your reservations</p>
+                        <p className="text-sm font-medium">{t('account.emailNotifications')}</p>
+                        <p className="text-sm text-muted-foreground">{t('account.emailNotificationsDescription')}</p>
                       </div>
                       <input type="checkbox" defaultChecked className="rounded" />
                     </div>
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm font-medium">SMS Notifications</p>
-                        <p className="text-sm text-muted-foreground">Get text messages for important updates</p>
+                        <p className="text-sm font-medium">{t('account.smsNotifications')}</p>
+                        <p className="text-sm text-muted-foreground">{t('account.smsNotificationsDescription')}</p>
                       </div>
                       <input type="checkbox" className="rounded" />
                     </div>
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm font-medium">Auto-select Default Vehicle</p>
-                        <p className="text-sm text-muted-foreground">Automatically use your default vehicle for reservations</p>
+                        <p className="text-sm font-medium">{t('account.autoSelectDefaultVehicle')}</p>
+                        <p className="text-sm text-muted-foreground">{t('account.autoSelectDefaultVehicleDescription')}</p>
                       </div>
                       <input type="checkbox" defaultChecked className="rounded" />
                     </div>
@@ -496,8 +498,8 @@ export default function AccountPage() {
                 </div>
 
                 <div className="flex gap-4">
-                  <Button>Save Changes</Button>
-                  <Button variant="outline">Cancel</Button>
+                  <Button>{t('account.saveChanges')}</Button>
+                  <Button variant="outline">{t('account.cancel')}</Button>
                 </div>
               </CardContent>
             </Card>

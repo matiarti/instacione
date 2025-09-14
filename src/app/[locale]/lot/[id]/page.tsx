@@ -7,6 +7,7 @@ import PaymentFormWrapper from '@/components/payment-form';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { CheckCircle, XCircle } from 'lucide-react';
 import { AuthHeader } from '@/components/auth-header';
+import { useTranslations } from 'next-intl';
 
 interface ParkingLot {
   _id: string;
@@ -29,6 +30,7 @@ interface ParkingLot {
 }
 
 export default function LotDetailsPage() {
+  const t = useTranslations();
   const params = useParams();
   const router = useRouter();
   const [lot, setLot] = useState<ParkingLot | null>(null);
@@ -118,7 +120,7 @@ export default function LotDetailsPage() {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-4 text-muted-foreground">Loading parking lot details...</p>
+          <p className="mt-4 text-muted-foreground">{t('common.loading')}</p>
         </div>
       </div>
     );
@@ -128,9 +130,9 @@ export default function LotDetailsPage() {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <p className="text-destructive mb-4">{error || 'Parking lot not found'}</p>
+          <p className="text-destructive mb-4">{error || t('lot.notFound')}</p>
           <a href="/" className="text-primary hover:text-primary/80">
-            ← Back to search
+            ← {t('lot.backToSearch')}
           </a>
         </div>
       </div>
@@ -146,8 +148,8 @@ export default function LotDetailsPage() {
       <main>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-center mb-6">
-          <a href="/" className="text-primary hover:text-primary/80 mr-4">← Back</a>
-          <h1 className="text-2xl font-bold">Parking Lot Details</h1>
+          <a href="/" className="text-primary hover:text-primary/80 mr-4">← {t('common.back')}</a>
+          <h1 className="text-2xl font-bold">{t('lot.details')}</h1>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Lot Details */}
@@ -159,7 +161,7 @@ export default function LotDetailsPage() {
                 <div className="flex items-start">
                   <MapPinIcon className="h-5 w-5 text-muted-foreground mt-1 mr-3" />
                   <div>
-                    <p className="font-medium">Address</p>
+                    <p className="font-medium">{t('lot.address')}</p>
                     <p className="text-muted-foreground">{lot.location.address}</p>
                   </div>
                 </div>
@@ -167,10 +169,10 @@ export default function LotDetailsPage() {
                 <div className="flex items-start">
                   <CurrencyDollarIcon className="h-5 w-5 text-muted-foreground mt-1 mr-3" />
                   <div>
-                    <p className="font-medium">Pricing</p>
-                    <p className="text-muted-foreground">R$ {lot.pricing.hourly.toFixed(2)} per hour</p>
+                    <p className="font-medium">{t('lot.pricing')}</p>
+                    <p className="text-muted-foreground">R$ {lot.pricing.hourly.toFixed(2)} {t('lot.perHour')}</p>
                     {lot.pricing.dailyMax && (
-                      <p className="text-muted-foreground">Daily max: R$ {lot.pricing.dailyMax.toFixed(2)}</p>
+                      <p className="text-muted-foreground">{t('lot.dailyMax')}: R$ {lot.pricing.dailyMax.toFixed(2)}</p>
                     )}
                   </div>
                 </div>
@@ -178,14 +180,14 @@ export default function LotDetailsPage() {
                 <div className="flex items-start">
                   <CheckCircleIcon className="h-5 w-5 text-muted-foreground mt-1 mr-3" />
                   <div>
-                    <p className="font-medium">Availability</p>
-                    <p className="text-muted-foreground">{lot.availabilityManual} spots available out of {lot.capacity}</p>
+                    <p className="font-medium">{t('lot.availability')}</p>
+                    <p className="text-muted-foreground">{lot.availabilityManual} {t('lot.spotsAvailable')} {t('lot.outOf')} {lot.capacity}</p>
                   </div>
                 </div>
 
                 {lot.amenities && lot.amenities.length > 0 && (
                   <div>
-                    <p className="font-medium mb-2">Amenities</p>
+                    <p className="font-medium mb-2">{t('lot.amenities')}</p>
                     <div className="flex flex-wrap gap-2">
                       {lot.amenities.map((amenity, index) => (
                         <span
@@ -205,14 +207,14 @@ export default function LotDetailsPage() {
           {/* Reservation Panel */}
           <div className="lg:col-span-1">
             <div className="bg-card rounded-lg shadow-lg p-6 sticky top-8">
-              <h3 className="text-xl font-bold mb-4">Reserve Your Spot</h3>
+              <h3 className="text-xl font-bold mb-4">{t('lot.reserveSpot')}</h3>
               
               {/* Payment Success Message */}
               {paymentSuccess && (
                 <Alert className="mb-4 border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950">
                   <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
                   <AlertDescription className="ml-2">
-                    Payment successful! Redirecting to confirmation page...
+                    {t('lot.paymentSuccess')}
                   </AlertDescription>
                 </Alert>
               )}
@@ -230,7 +232,7 @@ export default function LotDetailsPage() {
               {/* Payment Form */}
               {showPaymentForm && reservationId && lot && (
                 <div className="mb-6">
-                  <h4 className="text-lg font-semibold mb-4">Complete Payment</h4>
+                  <h4 className="text-lg font-semibold mb-4">{t('lot.completePayment')}</h4>
                   <PaymentFormWrapper
                     reservationId={reservationId}
                     amount={lot.pricing.hourly * 0.12}
@@ -243,23 +245,23 @@ export default function LotDetailsPage() {
               {!showReservationForm && !showPaymentForm ? (
                 <div>
                   <div className="mb-4">
-                    <p className="text-muted-foreground mb-2">Reservation Fee:</p>
+                    <p className="text-muted-foreground mb-2">{t('lot.reservationFee')}:</p>
                     <p className="text-2xl font-bold text-green-600 dark:text-green-400">R$ {reservationFee.toFixed(2)}</p>
-                    <p className="text-sm text-muted-foreground">(12% of first hour)</p>
+                    <p className="text-sm text-muted-foreground">({t('lot.feeDescription')})</p>
                   </div>
                   
                   <button
                     onClick={() => setShowReservationForm(true)}
                     className="w-full bg-primary text-primary-foreground py-3 px-4 rounded-md hover:bg-primary/90 focus:outline-hidden focus:ring-2 focus:ring-primary font-medium"
                   >
-                    Reserve Now
+                    {t('lot.reserveNow')}
                   </button>
                 </div>
               ) : (
                 <form onSubmit={handleReservationSubmit} className="space-y-4">
                   <div>
                     <label htmlFor="carPlate" className="block text-sm font-medium mb-1">
-                      License Plate
+                      {t('lot.licensePlate')}
                     </label>
                     <input
                       type="text"
@@ -274,7 +276,7 @@ export default function LotDetailsPage() {
 
                   <div>
                     <label htmlFor="expectedHours" className="block text-sm font-medium mb-1">
-                      Expected Hours
+                      {t('lot.expectedHours')}
                     </label>
                     <select
                       id="expectedHours"
@@ -282,17 +284,17 @@ export default function LotDetailsPage() {
                       onChange={(e) => setReservationData({ ...reservationData, expectedHours: parseInt(e.target.value) })}
                       className="w-full px-3 py-2 border border-input rounded-md focus:outline-hidden focus:ring-2 focus:ring-primary bg-background"
                     >
-                      <option value={1}>1 hour</option>
-                      <option value={2}>2 hours</option>
-                      <option value={4}>4 hours</option>
-                      <option value={8}>8 hours</option>
-                      <option value={24}>24 hours</option>
+                      <option value={1}>1 {t('lot.hour')}</option>
+                      <option value={2}>2 {t('lot.hours')}</option>
+                      <option value={4}>4 {t('lot.hours')}</option>
+                      <option value={8}>8 {t('lot.hours')}</option>
+                      <option value={24}>24 {t('lot.hours')}</option>
                     </select>
                   </div>
 
                   <div>
                     <label htmlFor="arrivalTime" className="block text-sm font-medium mb-1">
-                      Arrival Time (optional)
+                      {t('lot.arrivalTime')} ({t('lot.optional')})
                     </label>
                     <input
                       type="datetime-local"
@@ -305,15 +307,15 @@ export default function LotDetailsPage() {
 
                   <div className="pt-4 border-t">
                     <div className="flex justify-between text-sm mb-2">
-                      <span>Reservation Fee:</span>
+                      <span>{t('lot.reservationFee')}:</span>
                       <span>R$ {reservationFee.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between text-sm mb-2">
-                      <span>Est. Total ({reservationData.expectedHours}h):</span>
+                      <span>{t('lot.estimatedTotal')} ({reservationData.expectedHours}h):</span>
                       <span>R$ {(lot.pricing.hourly * reservationData.expectedHours).toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between font-bold text-lg border-t pt-2">
-                      <span>Due Now:</span>
+                      <span>{t('lot.dueNow')}:</span>
                       <span>R$ {reservationFee.toFixed(2)}</span>
                     </div>
                   </div>
@@ -324,14 +326,14 @@ export default function LotDetailsPage() {
                       onClick={() => setShowReservationForm(false)}
                       className="flex-1 bg-secondary text-secondary-foreground py-2 px-4 rounded-md hover:bg-secondary/80 focus:outline-hidden focus:ring-2 focus:ring-secondary"
                     >
-                      Cancel
+                      {t('lot.cancel')}
                     </button>
                     <button
                       type="submit"
                       disabled={reservationLoading}
                       className="flex-1 bg-primary text-primary-foreground py-2 px-4 rounded-md hover:bg-primary/90 focus:outline-hidden focus:ring-2 focus:ring-primary disabled:opacity-50"
                     >
-                      {reservationLoading ? 'Creating...' : 'Confirm'}
+                      {reservationLoading ? t('lot.creating') : t('lot.confirm')}
                     </button>
                   </div>
                 </form>
