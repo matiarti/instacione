@@ -12,7 +12,8 @@
     "myAccount": "My Account",
     "settings": "Settings",
     "logOut": "Log out",
-    "driver": "DRIVER"
+    "driver": "DRIVER",
+    "signOut": "Sign Out"
   },
   "home": {
     "badge": "🚀 Now Available in São Paulo",
@@ -291,6 +292,20 @@
     "reservationId": "Reservation ID",
     "findMoreParking": "Find More Parking",
     "printReservation": "Print Reservation"
+  },
+  "operator": {
+    "dashboard": "Dashboard",
+    "operatorDashboard": "Operator Dashboard",
+    "platform": "Platform",
+    "account": "Account",
+    "parkingLots": "Parking Lots",
+    "allLots": "All Lots",
+    "addNewLot": "Add New Lot",
+    "reservations": "Reservations",
+    "todaysReservations": "Today's Reservations",
+    "allReservations": "All Reservations",
+    "analytics": "Analytics",
+    "customers": "Customers"
   },
   "vehicle": {
     "addVehicle": "Add Vehicle",

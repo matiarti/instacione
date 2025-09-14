@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { Car, Home, Settings, Users, BarChart3, MapPin } from "lucide-react"
+import { useTranslations } from 'next-intl'
 
 import {
   Sidebar,
@@ -20,65 +21,68 @@ import {
 } from "@/components/ui/sidebar"
 
 // This is sample data.
-const data = {
+const getData = (t: any) => ({
   navMain: [
     {
-      title: "Dashboard",
+      title: t('operator.dashboard'),
       url: "/operator",
       icon: Home,
       isActive: true,
     },
     {
-      title: "Parking Lots",
+      title: t('operator.parkingLots'),
       url: "/operator/lots",
       icon: MapPin,
       items: [
         {
-          title: "All Lots",
+          title: t('operator.allLots'),
           url: "/operator/lots",
         },
         {
-          title: "Add New Lot",
+          title: t('operator.addNewLot'),
           url: "/operator/lots/new",
         },
       ],
     },
     {
-      title: "Reservations",
+      title: t('operator.reservations'),
       url: "/operator/reservations",
       icon: Car,
       items: [
         {
-          title: "Today's Reservations",
+          title: t('operator.todaysReservations'),
           url: "/operator/reservations?filter=today",
         },
         {
-          title: "All Reservations",
+          title: t('operator.allReservations'),
           url: "/operator/reservations",
         },
       ],
     },
     {
-      title: "Analytics",
+      title: t('operator.analytics'),
       url: "/operator/analytics",
       icon: BarChart3,
     },
     {
-      title: "Customers",
+      title: t('operator.customers'),
       url: "/operator/customers",
       icon: Users,
     },
   ],
   secondary: [
     {
-      title: "Settings",
+      title: t('common.settings'),
       url: "/operator/settings",
       icon: Settings,
     },
   ],
-}
+})
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const t = useTranslations();
+  const data = getData(t);
+  
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -91,7 +95,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">Instacione</span>
-                  <span className="truncate text-xs">Operator Dashboard</span>
+                  <span className="truncate text-xs">{t('operator.operatorDashboard')}</span>
                 </div>
               </a>
             </SidebarMenuButton>
@@ -100,7 +104,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Platform</SidebarGroupLabel>
+          <SidebarGroupLabel>{t('operator.platform')}</SidebarGroupLabel>
           <SidebarMenu>
             {data.navMain.map((item) => (
               <SidebarMenuItem key={item.title}>
@@ -128,7 +132,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarMenu>
         </SidebarGroup>
         <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-          <SidebarGroupLabel>Account</SidebarGroupLabel>
+          <SidebarGroupLabel>{t('operator.account')}</SidebarGroupLabel>
           <SidebarMenu>
             {data.secondary.map((item) => (
               <SidebarMenuItem key={item.title}>
@@ -149,7 +153,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenuButton asChild>
               <a href="/auth/signin">
                 <Settings />
-                <span>Sign Out</span>
+                <span>{t('common.signOut')}</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>

@@ -12,7 +12,8 @@
     "myAccount": "Minha Conta",
     "settings": "Configurações",
     "logOut": "Sair",
-    "driver": "MOTORISTA"
+    "driver": "MOTORISTA",
+    "signOut": "Sair"
   },
   "home": {
     "badge": "🚀 Agora Disponível em São Paulo",
@@ -291,6 +292,20 @@
     "reservationId": "ID da Reserva",
     "findMoreParking": "Encontrar Mais Estacionamentos",
     "printReservation": "Imprimir Reserva"
+  },
+  "operator": {
+    "dashboard": "Painel",
+    "operatorDashboard": "Painel do Operador",
+    "platform": "Plataforma",
+    "account": "Conta",
+    "parkingLots": "Estacionamentos",
+    "allLots": "Todos os Estacionamentos",
+    "addNewLot": "Adicionar Novo Estacionamento",
+    "reservations": "Reservas",
+    "todaysReservations": "Reservas de Hoje",
+    "allReservations": "Todas as Reservas",
+    "analytics": "Análises",
+    "customers": "Clientes"
   },
   "vehicle": {
     "addVehicle": "Adicionar Veículo",
