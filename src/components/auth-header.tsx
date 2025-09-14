@@ -25,6 +25,7 @@ interface AuthHeaderProps {
 
 export function AuthHeader({ className = '' }: AuthHeaderProps) {
   const { data: session, status } = useSession();
+  const t = useTranslations('common');
 
   const handleSignOut = async () => {
     await signOut({ callbackUrl: '/' });
@@ -120,7 +121,7 @@ export function AuthHeader({ className = '' }: AuthHeaderProps) {
                         </p>
                         {session.user?.role && (
                           <Badge variant={getRoleBadgeVariant(session.user.role)} className="w-fit mt-1">
-                            {session.user.role}
+                            {session.user.role === 'DRIVER' ? t('driver') : session.user.role}
                           </Badge>
                         )}
                       </div>
@@ -129,13 +130,13 @@ export function AuthHeader({ className = '' }: AuthHeaderProps) {
                     <DropdownMenuItem asChild>
                       <Link href="/account" className="flex items-center">
                         <User className="mr-2 h-4 w-4" />
-                        My Account
+                        {t('myAccount')}
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
                       <Link href="/account" className="flex items-center">
                         <Settings className="mr-2 h-4 w-4" />
-                        Settings
+                        {t('settings')}
                       </Link>
                     </DropdownMenuItem>
                     {session.user?.role === 'OPERATOR' && (
@@ -149,7 +150,7 @@ export function AuthHeader({ className = '' }: AuthHeaderProps) {
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={handleSignOut} className="text-red-600">
                       <LogOut className="mr-2 h-4 w-4" />
-                      Log out
+                      {t('logOut')}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>

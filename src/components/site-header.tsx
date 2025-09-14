@@ -1,6 +1,7 @@
 "use client"
 
 import { Bell, Search } from "lucide-react"
+import { useTranslations } from 'next-intl'
 
 import {
   Breadcrumb,
@@ -30,6 +31,8 @@ import { ModeToggle } from "@/components/mode-toggle"
 import { Logo } from "@/components/logo"
 
 export function SiteHeader() {
+  const t = useTranslations('common');
+  
   return (
     <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
       <div className="flex items-center gap-2 px-4">
@@ -92,11 +95,11 @@ export function SiteHeader() {
               Billing
             </DropdownMenuItem>
             <DropdownMenuItem>
-              Settings
+              {t('settings')}
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              Log out
+              {t('logOut')}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

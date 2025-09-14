@@ -8,7 +8,11 @@
     "reserve": "Reservar",
     "reserveSpot": "Reservar Vaga",
     "findParking": "Encontrar Estacionamento",
-    "user": "Usuário"
+    "user": "Usuário",
+    "myAccount": "Minha Conta",
+    "settings": "Configurações",
+    "logOut": "Sair",
+    "driver": "MOTORISTA"
   },
   "home": {
     "badge": "🚀 Agora Disponível em São Paulo",

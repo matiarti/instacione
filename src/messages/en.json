@@ -8,7 +8,11 @@
     "reserve": "Reserve",
     "reserveSpot": "Reserve Spot",
     "findParking": "Find Parking",
-    "user": "User"
+    "user": "User",
+    "myAccount": "My Account",
+    "settings": "Settings",
+    "logOut": "Log out",
+    "driver": "DRIVER"
   },
   "home": {
     "badge": "🚀 Now Available in São Paulo",
