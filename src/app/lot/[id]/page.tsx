@@ -115,10 +115,10 @@ export default function LotDetailsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading parking lot details...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+          <p className="mt-4 text-muted-foreground">Loading parking lot details...</p>
         </div>
       </div>
     );
@@ -126,10 +126,10 @@ export default function LotDetailsPage() {
 
   if (error || !lot) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <p className="text-red-600 mb-4">{error || 'Parking lot not found'}</p>
-          <a href="/" className="text-blue-600 hover:text-blue-800">
+          <p className="text-destructive mb-4">{error || 'Parking lot not found'}</p>
+          <a href="/" className="text-primary hover:text-primary/80">
             ← Back to search
           </a>
         </div>
@@ -140,57 +140,57 @@ export default function LotDetailsPage() {
   const reservationFee = lot.pricing.hourly * 0.12; // 12% reservation fee
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <AuthHeader />
       
       <main>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-center mb-6">
-          <a href="/" className="text-blue-600 hover:text-blue-800 mr-4">← Back</a>
-          <h1 className="text-2xl font-bold text-gray-900">Parking Lot Details</h1>
+          <a href="/" className="text-primary hover:text-primary/80 mr-4">← Back</a>
+          <h1 className="text-2xl font-bold">Parking Lot Details</h1>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Lot Details */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">{lot.name}</h2>
+            <div className="bg-card rounded-lg shadow-lg p-6">
+              <h2 className="text-3xl font-bold mb-4">{lot.name}</h2>
               
               <div className="space-y-4">
                 <div className="flex items-start">
-                  <MapPinIcon className="h-5 w-5 text-gray-400 mt-1 mr-3" />
+                  <MapPinIcon className="h-5 w-5 text-muted-foreground mt-1 mr-3" />
                   <div>
-                    <p className="text-gray-900 font-medium">Address</p>
-                    <p className="text-gray-600">{lot.location.address}</p>
+                    <p className="font-medium">Address</p>
+                    <p className="text-muted-foreground">{lot.location.address}</p>
                   </div>
                 </div>
 
                 <div className="flex items-start">
-                  <CurrencyDollarIcon className="h-5 w-5 text-gray-400 mt-1 mr-3" />
+                  <CurrencyDollarIcon className="h-5 w-5 text-muted-foreground mt-1 mr-3" />
                   <div>
-                    <p className="text-gray-900 font-medium">Pricing</p>
-                    <p className="text-gray-600">R$ {lot.pricing.hourly.toFixed(2)} per hour</p>
+                    <p className="font-medium">Pricing</p>
+                    <p className="text-muted-foreground">R$ {lot.pricing.hourly.toFixed(2)} per hour</p>
                     {lot.pricing.dailyMax && (
-                      <p className="text-gray-600">Daily max: R$ {lot.pricing.dailyMax.toFixed(2)}</p>
+                      <p className="text-muted-foreground">Daily max: R$ {lot.pricing.dailyMax.toFixed(2)}</p>
                     )}
                   </div>
                 </div>
 
                 <div className="flex items-start">
-                  <CheckCircleIcon className="h-5 w-5 text-gray-400 mt-1 mr-3" />
+                  <CheckCircleIcon className="h-5 w-5 text-muted-foreground mt-1 mr-3" />
                   <div>
-                    <p className="text-gray-900 font-medium">Availability</p>
-                    <p className="text-gray-600">{lot.availabilityManual} spots available out of {lot.capacity}</p>
+                    <p className="font-medium">Availability</p>
+                    <p className="text-muted-foreground">{lot.availabilityManual} spots available out of {lot.capacity}</p>
                   </div>
                 </div>
 
                 {lot.amenities && lot.amenities.length > 0 && (
                   <div>
-                    <p className="text-gray-900 font-medium mb-2">Amenities</p>
+                    <p className="font-medium mb-2">Amenities</p>
                     <div className="flex flex-wrap gap-2">
                       {lot.amenities.map((amenity, index) => (
                         <span
                           key={index}
-                          className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800"
+                          className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary"
                         >
                           {amenity}
                         </span>
@@ -204,13 +204,13 @@ export default function LotDetailsPage() {
 
           {/* Reservation Panel */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-lg p-6 sticky top-8">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Reserve Your Spot</h3>
+            <div className="bg-card rounded-lg shadow-lg p-6 sticky top-8">
+              <h3 className="text-xl font-bold mb-4">Reserve Your Spot</h3>
               
               {/* Payment Success Message */}
               {paymentSuccess && (
-                <Alert className="mb-4 border-green-200 bg-green-50">
-                  <CheckCircle className="h-4 w-4 text-green-600" />
+                <Alert className="mb-4 border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950">
+                  <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
                   <AlertDescription className="ml-2">
                     Payment successful! Redirecting to confirmation page...
                   </AlertDescription>
@@ -219,8 +219,8 @@ export default function LotDetailsPage() {
 
               {/* Payment Error Message */}
               {paymentError && (
-                <Alert className="mb-4 border-red-200 bg-red-50">
-                  <XCircle className="h-4 w-4 text-red-600" />
+                <Alert className="mb-4 border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-950">
+                  <XCircle className="h-4 w-4 text-red-600 dark:text-red-400" />
                   <AlertDescription className="ml-2">
                     {paymentError}
                   </AlertDescription>
@@ -230,7 +230,7 @@ export default function LotDetailsPage() {
               {/* Payment Form */}
               {showPaymentForm && reservationId && lot && (
                 <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-gray-900 mb-4">Complete Payment</h4>
+                  <h4 className="text-lg font-semibold mb-4">Complete Payment</h4>
                   <PaymentFormWrapper
                     reservationId={reservationId}
                     amount={lot.pricing.hourly * 0.12}
@@ -243,14 +243,14 @@ export default function LotDetailsPage() {
               {!showReservationForm && !showPaymentForm ? (
                 <div>
                   <div className="mb-4">
-                    <p className="text-gray-600 mb-2">Reservation Fee:</p>
-                    <p className="text-2xl font-bold text-green-600">R$ {reservationFee.toFixed(2)}</p>
-                    <p className="text-sm text-gray-500">(12% of first hour)</p>
+                    <p className="text-muted-foreground mb-2">Reservation Fee:</p>
+                    <p className="text-2xl font-bold text-green-600 dark:text-green-400">R$ {reservationFee.toFixed(2)}</p>
+                    <p className="text-sm text-muted-foreground">(12% of first hour)</p>
                   </div>
                   
                   <button
                     onClick={() => setShowReservationForm(true)}
-                    className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 font-medium"
+                    className="w-full bg-primary text-primary-foreground py-3 px-4 rounded-md hover:bg-primary/90 focus:outline-hidden focus:ring-2 focus:ring-primary font-medium"
                   >
                     Reserve Now
                   </button>
@@ -258,7 +258,7 @@ export default function LotDetailsPage() {
               ) : (
                 <form onSubmit={handleReservationSubmit} className="space-y-4">
                   <div>
-                    <label htmlFor="carPlate" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="carPlate" className="block text-sm font-medium mb-1">
                       License Plate
                     </label>
                     <input
@@ -267,20 +267,20 @@ export default function LotDetailsPage() {
                       value={reservationData.carPlate}
                       onChange={(e) => setReservationData({ ...reservationData, carPlate: e.target.value.toUpperCase() })}
                       placeholder="ABC-1234"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-input rounded-md focus:outline-hidden focus:ring-2 focus:ring-primary bg-background"
                       required
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="expectedHours" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="expectedHours" className="block text-sm font-medium mb-1">
                       Expected Hours
                     </label>
                     <select
                       id="expectedHours"
                       value={reservationData.expectedHours}
                       onChange={(e) => setReservationData({ ...reservationData, expectedHours: parseInt(e.target.value) })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-input rounded-md focus:outline-hidden focus:ring-2 focus:ring-primary bg-background"
                     >
                       <option value={1}>1 hour</option>
                       <option value={2}>2 hours</option>
@@ -291,7 +291,7 @@ export default function LotDetailsPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="arrivalTime" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="arrivalTime" className="block text-sm font-medium mb-1">
                       Arrival Time (optional)
                     </label>
                     <input
@@ -299,7 +299,7 @@ export default function LotDetailsPage() {
                       id="arrivalTime"
                       value={reservationData.arrivalTime}
                       onChange={(e) => setReservationData({ ...reservationData, arrivalTime: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-input rounded-md focus:outline-hidden focus:ring-2 focus:ring-primary bg-background"
                     />
                   </div>
 
@@ -322,14 +322,14 @@ export default function LotDetailsPage() {
                     <button
                       type="button"
                       onClick={() => setShowReservationForm(false)}
-                      className="flex-1 bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400 focus:outline-hidden focus:ring-2 focus:ring-gray-500"
+                      className="flex-1 bg-secondary text-secondary-foreground py-2 px-4 rounded-md hover:bg-secondary/80 focus:outline-hidden focus:ring-2 focus:ring-secondary"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
                       disabled={reservationLoading}
-                      className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+                      className="flex-1 bg-primary text-primary-foreground py-2 px-4 rounded-md hover:bg-primary/90 focus:outline-hidden focus:ring-2 focus:ring-primary disabled:opacity-50"
                     >
                       {reservationLoading ? 'Creating...' : 'Confirm'}
                     </button>

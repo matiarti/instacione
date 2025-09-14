@@ -159,7 +159,7 @@ export default function SearchPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <AuthHeader />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -184,7 +184,7 @@ export default function SearchPage() {
             <form onSubmit={handleSearch} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="relative">
-                  <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                  <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                   <Input
                     placeholder="Where are you going?"
                     value={searchQuery}
@@ -193,7 +193,7 @@ export default function SearchPage() {
                   />
                 </div>
                 <div className="relative">
-                  <Navigation className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                  <Navigation className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                   <Input
                     placeholder={userLocation ? "Location detected" : "Current location"}
                     value={userLocation ? "📍 Current location detected" : ""}
@@ -220,7 +220,7 @@ export default function SearchPage() {
                 <div className="border-t pt-4">
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium mb-2">
                         Max Distance: {filters.maxDistance}km
                       </label>
                       <Slider
@@ -233,7 +233,7 @@ export default function SearchPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium mb-2">
                         Max Price: {formatCurrency(filters.maxPrice)}
                       </label>
                       <Slider
@@ -246,7 +246,7 @@ export default function SearchPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium mb-2">
                         Min Availability: {filters.minAvailability}
                       </label>
                       <Slider
@@ -259,7 +259,7 @@ export default function SearchPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium mb-2">
                         Amenities
                       </label>
                       <div className="space-y-2">
@@ -287,10 +287,10 @@ export default function SearchPage() {
         {/* Results Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">
+            <h2 className="text-2xl font-bold">
               {filteredLots.length} Parking Lots Found
             </h2>
-            <p className="text-gray-600">
+            <p className="text-muted-foreground">
               {userLocation ? 'Sorted by distance from your location' : 'Showing all available lots'}
             </p>
           </div>
@@ -344,7 +344,7 @@ export default function SearchPage() {
                       </div>
                     </CardHeader>
                     <CardContent className="pt-0">
-                      <div className="flex items-center justify-between text-sm text-gray-600">
+                      <div className="flex items-center justify-between text-sm text-muted-foreground">
                         <div className="flex items-center gap-4">
                           {lot.distance && (
                             <span className="flex items-center gap-1">
@@ -358,7 +358,7 @@ export default function SearchPage() {
                           </span>
                         </div>
                         <div className={`font-medium ${
-                          lot.availability > 0 ? 'text-green-600' : 'text-red-600'
+                          lot.availability > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
                         }`}>
                           {lot.availability > 0 ? 'Available' : 'Full'}
                         </div>
@@ -405,25 +405,25 @@ export default function SearchPage() {
                 </CardHeader>
                 <CardContent className="pt-0">
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between text-sm">
-                      <div className="flex items-center gap-4">
-                        {lot.distance && (
-                          <span className="flex items-center gap-1 text-gray-600">
-                            <Navigation className="h-3 w-3" />
-                            {formatDistance(lot.distance)}
+                      <div className="flex items-center justify-between text-sm">
+                        <div className="flex items-center gap-4">
+                          {lot.distance && (
+                            <span className="flex items-center gap-1 text-muted-foreground">
+                              <Navigation className="h-3 w-3" />
+                              {formatDistance(lot.distance)}
+                            </span>
+                          )}
+                          <span className="flex items-center gap-1 text-muted-foreground">
+                            <Users className="h-3 w-3" />
+                            {lot.availability}/{lot.capacity}
                           </span>
-                        )}
-                        <span className="flex items-center gap-1 text-gray-600">
-                          <Users className="h-3 w-3" />
-                          {lot.availability}/{lot.capacity}
-                        </span>
+                        </div>
+                        <div className={`font-medium ${
+                          lot.availability > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
+                        }`}>
+                          {lot.availability > 0 ? 'Available' : 'Full'}
+                        </div>
                       </div>
-                      <div className={`font-medium ${
-                        lot.availability > 0 ? 'text-green-600' : 'text-red-600'
-                      }`}>
-                        {lot.availability > 0 ? 'Available' : 'Full'}
-                      </div>
-                    </div>
                     
                     {lot.amenities && lot.amenities.length > 0 && (
                       <div className="flex flex-wrap gap-1">

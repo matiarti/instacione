@@ -117,26 +117,26 @@ export default function AccountPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading your account...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+          <p className="mt-4 text-muted-foreground">Loading your account...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <AuthHeader />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
         <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
+          <h2 className="text-3xl font-bold mb-2">
             Welcome back, {session.data?.user?.name}!
           </h2>
-          <p className="text-gray-600">
+          <p className="text-muted-foreground">
             Manage your vehicles, view reservation history, and update your preferences.
           </p>
         </div>
@@ -219,9 +219,9 @@ export default function AccountPage() {
               <CardContent>
                 {reservations.length === 0 ? (
                   <div className="text-center py-8">
-                    <History className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">No reservations yet</h3>
-                    <p className="text-gray-600 mb-4">
+                    <History className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                    <h3 className="text-lg font-medium mb-2">No reservations yet</h3>
+                    <p className="text-muted-foreground mb-4">
                       Start by searching for parking lots near your destination.
                     </p>
                     <Button asChild>
@@ -241,25 +241,25 @@ export default function AccountPage() {
                                   {reservation.state.replace('_', ' ')}
                                 </Badge>
                               </div>
-                              <div className="flex items-center text-gray-600 mb-2">
+                              <div className="flex items-center text-muted-foreground mb-2">
                                 <MapPin className="h-4 w-4 mr-2" />
                                 <span className="text-sm">{reservation.lotAddress}</span>
                               </div>
                               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                                 <div>
-                                  <span className="text-gray-500">Vehicle:</span>
+                                  <span className="text-muted-foreground">Vehicle:</span>
                                   <p className="font-medium">{reservation.carPlate}</p>
                                 </div>
                                 <div>
-                                  <span className="text-gray-500">Arrival:</span>
+                                  <span className="text-muted-foreground">Arrival:</span>
                                   <p className="font-medium">{formatDate(reservation.arrivalWindow.start)}</p>
                                 </div>
                                 <div>
-                                  <span className="text-gray-500">Amount:</span>
+                                  <span className="text-muted-foreground">Amount:</span>
                                   <p className="font-medium">{formatCurrency(reservation.fees.reservationFeeAmount)}</p>
                                 </div>
                                 <div>
-                                  <span className="text-gray-500">Booked:</span>
+                                  <span className="text-muted-foreground">Booked:</span>
                                   <p className="font-medium">{formatDate(reservation.createdAt)}</p>
                                 </div>
                               </div>
@@ -306,9 +306,9 @@ export default function AccountPage() {
               <CardContent>
                 {vehicles.length === 0 ? (
                   <div className="text-center py-8">
-                    <Car className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">No vehicles registered</h3>
-                    <p className="text-gray-600 mb-4">
+                    <Car className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                    <h3 className="text-lg font-medium mb-2">No vehicles registered</h3>
+                    <p className="text-muted-foreground mb-4">
                       Add your vehicles to make reservations faster.
                     </p>
                     <Button>
@@ -330,10 +330,10 @@ export default function AccountPage() {
                                 )}
                               </div>
                               {vehicle.model && (
-                                <p className="text-gray-600 text-sm">{vehicle.model}</p>
+                                <p className="text-muted-foreground text-sm">{vehicle.model}</p>
                               )}
                               {vehicle.color && (
-                                <p className="text-gray-500 text-xs">{vehicle.color}</p>
+                                <p className="text-muted-foreground text-xs">{vehicle.color}</p>
                               )}
                             </div>
                             <div className="flex gap-2">
@@ -368,61 +368,61 @@ export default function AccountPage() {
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium mb-2">
                       Full Name
                     </label>
                     <input
                       type="text"
                       value={session.data?.user?.name || ''}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-input rounded-md focus:outline-hidden focus:ring-2 focus:ring-primary bg-background"
                       readOnly
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium mb-2">
                       Email Address
                     </label>
                     <input
                       type="email"
                       value={session.data?.user?.email || ''}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-input rounded-md focus:outline-hidden focus:ring-2 focus:ring-primary bg-background"
                       readOnly
                     />
                   </div>
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium mb-2">
                     Phone Number
                   </label>
                   <input
                     type="tel"
                     placeholder="+55 11 99999-9999"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-input rounded-md focus:outline-hidden focus:ring-2 focus:ring-primary bg-background"
                   />
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">Preferences</h3>
+                  <h3 className="text-lg font-medium mb-4">Preferences</h3>
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-sm font-medium">Email Notifications</p>
-                        <p className="text-sm text-gray-500">Receive updates about your reservations</p>
+                        <p className="text-sm text-muted-foreground">Receive updates about your reservations</p>
                       </div>
                       <input type="checkbox" defaultChecked className="rounded" />
                     </div>
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-sm font-medium">SMS Notifications</p>
-                        <p className="text-sm text-gray-500">Get text messages for important updates</p>
+                        <p className="text-sm text-muted-foreground">Get text messages for important updates</p>
                       </div>
                       <input type="checkbox" className="rounded" />
                     </div>
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-sm font-medium">Auto-select Default Vehicle</p>
-                        <p className="text-sm text-gray-500">Automatically use your default vehicle for reservations</p>
+                        <p className="text-sm text-muted-foreground">Automatically use your default vehicle for reservations</p>
                       </div>
                       <input type="checkbox" defaultChecked className="rounded" />
                     </div>

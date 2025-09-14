@@ -75,10 +75,10 @@ function ReservationSuccessContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading reservation details...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+          <p className="mt-4 text-muted-foreground">Loading reservation details...</p>
         </div>
       </div>
     );
@@ -86,9 +86,9 @@ function ReservationSuccessContent() {
 
   if (error || !reservation) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <p className="text-red-600 mb-4">{error || 'Reservation not found'}</p>
+          <p className="text-destructive mb-4">{error || 'Reservation not found'}</p>
           <Button onClick={() => router.push('/')}>
             Back to Home
           </Button>
@@ -98,13 +98,13 @@ function ReservationSuccessContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="bg-white shadow-xs">
+      <header className="bg-card shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-gray-900">🚗 Parcin</h1>
+              <h1 className="text-2xl font-bold">🚗 Parcin</h1>
             </div>
             <Button variant="outline" onClick={() => router.push('/')}>
               Back to Search
@@ -116,11 +116,11 @@ function ReservationSuccessContent() {
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Success Message */}
         <div className="text-center mb-8">
-          <div className="flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mx-auto mb-4">
-            <CheckCircle className="w-8 h-8 text-green-600" />
+          <div className="flex items-center justify-center w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full mx-auto mb-4">
+            <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Reservation Confirmed!</h1>
-          <p className="text-gray-600">Your parking spot has been reserved successfully.</p>
+          <h1 className="text-3xl font-bold mb-2">Reservation Confirmed!</h1>
+          <p className="text-muted-foreground">Your parking spot has been reserved successfully.</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -134,29 +134,29 @@ function ReservationSuccessContent() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex justify-between">
-                <span className="text-gray-600">Parking Lot:</span>
+                <span className="text-muted-foreground">Parking Lot:</span>
                 <span className="font-medium">{reservation.lotId.name}</span>
               </div>
               
               <div className="flex justify-between">
-                <span className="text-gray-600">Address:</span>
+                <span className="text-muted-foreground">Address:</span>
                 <span className="font-medium text-right max-w-xs">{reservation.lotId.location.address}</span>
               </div>
               
               <div className="flex justify-between">
-                <span className="text-gray-600">License Plate:</span>
+                <span className="text-muted-foreground">License Plate:</span>
                 <span className="font-medium">{reservation.car.plate}</span>
               </div>
               
               <div className="flex justify-between">
-                <span className="text-gray-600">Status:</span>
-                <Badge variant="secondary" className="bg-green-100 text-green-800">
+                <span className="text-muted-foreground">Status:</span>
+                <Badge variant="secondary" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
                   {reservation.state}
                 </Badge>
               </div>
               
               <div className="flex justify-between">
-                <span className="text-gray-600">Reservation Fee:</span>
+                <span className="text-muted-foreground">Reservation Fee:</span>
                 <span className="font-medium">R$ {reservation.fees.reservationFeeAmount.toFixed(2)}</span>
               </div>
             </CardContent>
@@ -172,20 +172,20 @@ function ReservationSuccessContent() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <p className="text-gray-600 mb-2">Arrive between:</p>
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <p className="font-medium text-blue-900">
+                <p className="text-muted-foreground mb-2">Arrive between:</p>
+                <div className="bg-blue-50 dark:bg-blue-950 p-4 rounded-lg">
+                  <p className="font-medium text-blue-900 dark:text-blue-100">
                     {formatDateTime(reservation.arrivalWindow.start)}
                   </p>
-                  <p className="text-blue-700 text-sm">and</p>
-                  <p className="font-medium text-blue-900">
+                  <p className="text-blue-700 dark:text-blue-300 text-sm">and</p>
+                  <p className="font-medium text-blue-900 dark:text-blue-100">
                     {formatDateTime(reservation.arrivalWindow.end)}
                   </p>
                 </div>
               </div>
               
-              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                <p className="text-yellow-800 text-sm">
+              <div className="bg-yellow-50 dark:bg-yellow-950 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+                <p className="text-yellow-800 dark:text-yellow-200 text-sm">
                   <strong>Important:</strong> Please arrive within this time window to avoid your reservation being marked as no-show.
                 </p>
               </div>
@@ -203,13 +203,13 @@ function ReservationSuccessContent() {
           </CardHeader>
           <CardContent>
             <div className="text-center">
-              <div className="bg-gray-100 p-8 rounded-lg inline-block mb-4">
-                <QrCode className="w-24 h-24 text-gray-400" />
+              <div className="bg-muted p-8 rounded-lg inline-block mb-4">
+                <QrCode className="w-24 h-24 text-muted-foreground" />
               </div>
-              <p className="text-gray-600 mb-4">
+              <p className="text-muted-foreground mb-4">
                 Show this QR code to the parking operator when you arrive.
               </p>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-muted-foreground">
                 Reservation ID: {reservation._id}
               </p>
             </div>
@@ -233,10 +233,10 @@ function ReservationSuccessContent() {
 export default function ReservationSuccessPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+          <p className="mt-4 text-muted-foreground">Loading...</p>
         </div>
       </div>
     }>
