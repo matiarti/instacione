@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { AuthHeader } from '@/components/auth-header';
 
 interface Vehicle {
   id: string;
@@ -127,20 +128,7 @@ export default function AccountPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div className="flex items-center space-x-2">
-              <User className="h-8 w-8 text-primary" />
-              <h1 className="text-2xl font-bold">My Account</h1>
-            </div>
-            <Button variant="outline" asChild>
-              <a href="/">Back to Search</a>
-            </Button>
-          </div>
-        </div>
-      </header>
+      <AuthHeader />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}

@@ -6,6 +6,7 @@ import { MapPinIcon, ClockIcon, CurrencyDollarIcon, CheckCircleIcon } from '@her
 import PaymentFormWrapper from '@/components/payment-form';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { CheckCircle, XCircle } from 'lucide-react';
+import { AuthHeader } from '@/components/auth-header';
 
 interface ParkingLot {
   _id: string;
@@ -140,24 +141,14 @@ export default function LotDetailsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div className="flex items-center">
-              <a href="/" className="text-blue-600 hover:text-blue-800 mr-4">← Back</a>
-              <h1 className="text-2xl font-bold text-gray-900">🚗 Parcin</h1>
-            </div>
-            <nav className="flex space-x-8">
-              <a href="/auth/signin" className="text-gray-500 hover:text-gray-900">
-                Sign In
-              </a>
-            </nav>
-          </div>
+      <AuthHeader />
+      
+      <main>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="flex items-center mb-6">
+          <a href="/" className="text-blue-600 hover:text-blue-800 mr-4">← Back</a>
+          <h1 className="text-2xl font-bold text-gray-900">Parking Lot Details</h1>
         </div>
-      </header>
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Lot Details */}
           <div className="lg:col-span-2">
@@ -347,6 +338,7 @@ export default function LotDetailsPage() {
               )}
             </div>
           </div>
+        </div>
         </div>
       </main>
     </div>

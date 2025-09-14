@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Slider } from '@/components/ui/slider';
 import { Checkbox } from '@/components/ui/checkbox';
 import Map from '@/components/map';
+import { AuthHeader } from '@/components/auth-header';
 import { 
   type ParkingLotMarker, 
   type Location,
@@ -159,35 +160,18 @@ export default function SearchPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div className="flex items-center">
-              <Button variant="ghost" size="sm" asChild className="mr-4">
-                <a href="/">
-                  <ArrowLeft className="h-4 w-4 mr-2" />
-                  Back
-                </a>
-              </Button>
-              <div className="flex items-center space-x-2">
-                <Car className="h-8 w-8 text-primary" />
-                <h1 className="text-2xl font-bold">Parcin</h1>
-              </div>
-            </div>
-            <nav className="flex items-center space-x-4">
-              <Button variant="ghost" asChild>
-                <a href="/operator">Operator Dashboard</a>
-              </Button>
-              <Button asChild>
-                <a href="/auth/signin">Sign In</a>
-              </Button>
-            </nav>
-          </div>
+      <AuthHeader />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="flex items-center mb-6">
+          <Button variant="ghost" size="sm" asChild className="mr-4">
+            <a href="/">
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back
+            </a>
+          </Button>
+          <h1 className="text-2xl font-bold">Find Parking</h1>
         </div>
-      </header>
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Search Form */}
         <Card className="mb-8">
           <CardHeader>
@@ -460,7 +444,7 @@ export default function SearchPage() {
             ))}
           </div>
         )}
-      </main>
+      </div>
     </div>
   );
 }

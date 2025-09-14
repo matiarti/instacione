@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
+import { ModeToggle } from "@/components/mode-toggle"
 
 export function SiteHeader() {
   return (
@@ -62,6 +63,7 @@ export function SiteHeader() {
         <Button variant="outline" size="icon">
           <Bell className="h-4 w-4" />
         </Button>
+        <ModeToggle />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="relative h-8 w-8 rounded-full">

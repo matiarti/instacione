@@ -20,10 +20,13 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState<'success' | 'error'>('error');
-  const [authMethod, setAuthMethod] = useState<'magic' | 'password'>('magic');
+  const [authMethod, setAuthMethod] = useState<'magic' | 'password'>('password');
+  const [isSignUp, setIsSignUp] = useState(false);
 
   const handleMagicLinkSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -79,17 +82,58 @@ export function LoginForm({
     }
   };
 
-  const handleGoogleSignIn = async () => {
+  // Google sign in temporarily disabled
+  // const handleGoogleSignIn = async () => {
+  //   setIsLoading(true);
+  //   setMessage('');
+  //   
+  //   try {
+  //     await signIn('google', {
+  //       callbackUrl: '/'
+  //     });
+  //   } catch (error) {
+  //     setMessage('Error signing in with Google. Please try again.');
+  //     setMessageType('error');
+  //     setIsLoading(false);
+  //   }
+  // };
+
+  const handleSignUp = async (e: React.FormEvent) => {
+    e.preventDefault();
     setIsLoading(true);
     setMessage('');
-    
+
     try {
-      await signIn('google', {
-        callbackUrl: '/'
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          phone: phone || undefined,
+        }),
       });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setMessage(data.error || 'Failed to create account');
+        setMessageType('error');
+      } else {
+        setMessage('Account created successfully! You can now sign in.');
+        setMessageType('success');
+        setIsSignUp(false);
+        setPassword('');
+        setName('');
+        setPhone('');
+      }
     } catch (error) {
-      setMessage('Error signing in with Google. Please try again.');
+      setMessage('An error occurred. Please try again.');
       setMessageType('error');
+    } finally {
       setIsLoading(false);
     }
   };
@@ -98,17 +142,31 @@ export function LoginForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
+          <CardTitle>{isSignUp ? 'Create your account' : 'Login to your account'}</CardTitle>
           <CardDescription>
-            {authMethod === 'magic' 
-              ? 'Enter your email below to receive a magic link'
+            {isSignUp 
+              ? 'Enter your details below to create your account'
               : 'Enter your email and password to login to your account'
             }
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={authMethod === 'magic' ? handleMagicLinkSignIn : handleCredentialsSignIn}>
+          <form onSubmit={isSignUp ? handleSignUp : handleCredentialsSignIn}>
             <div className="flex flex-col gap-6">
+              {isSignUp && (
+                <div className="grid gap-3">
+                  <Label htmlFor="name">Full Name</Label>
+                  <Input
+                    id="name"
+                    type="text"
+                    placeholder="John Doe"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
+                </div>
+              )}
+              
               <div className="grid gap-3">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -121,23 +179,36 @@ export function LoginForm({
                 />
               </div>
               
-              {authMethod === 'password' && (
-                <div className="grid gap-3">
-                  <div className="flex items-center">
-                    <Label htmlFor="password">Password</Label>
+              <div className="grid gap-3">
+                <div className="flex items-center">
+                  <Label htmlFor="password">Password</Label>
+                  {!isSignUp && (
                     <a
                       href="#"
                       className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                     >
                       Forgot your password?
                     </a>
-                  </div>
-                  <Input 
-                    id="password" 
-                    type="password" 
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required 
+                  )}
+                </div>
+                <Input 
+                  id="password" 
+                  type="password" 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required 
+                />
+              </div>
+
+              {isSignUp && (
+                <div className="grid gap-3">
+                  <Label htmlFor="phone">Phone Number (Optional)</Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    placeholder="+1 (555) 123-4567"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
                   />
                 </div>
               )}
@@ -145,53 +216,51 @@ export function LoginForm({
               <div className="flex flex-col gap-3">
                 <Button type="submit" className="w-full" disabled={isLoading}>
                   {isLoading 
-                    ? (authMethod === 'magic' ? 'Sending...' : 'Signing in...') 
-                    : (authMethod === 'magic' ? 'Send Magic Link' : 'Login')
+                    ? (isSignUp ? 'Creating account...' : 'Signing in...') 
+                    : (isSignUp ? 'Create Account' : 'Login')
                   }
                 </Button>
-                <Button 
-                  type="button" 
-                  variant="outline" 
-                  className="w-full"
-                  onClick={handleGoogleSignIn}
-                  disabled={isLoading}
-                >
-                  Login with Google
-                </Button>
+                {/* Google sign in temporarily disabled */}
+                {/* {!isSignUp && (
+                  <Button 
+                    type="button" 
+                    variant="outline" 
+                    className="w-full"
+                    onClick={handleGoogleSignIn}
+                    disabled={isLoading}
+                  >
+                    Login with Google
+                  </Button>
+                )} */}
               </div>
             </div>
             
+            {/* Magic link functionality temporarily disabled */}
+            
             <div className="mt-4 text-center text-sm">
-              {authMethod === 'magic' ? (
+              {isSignUp ? (
                 <>
-                  Prefer to use a password?{" "}
+                  Already have an account?{" "}
                   <button
                     type="button"
-                    onClick={() => setAuthMethod('password')}
+                    onClick={() => setIsSignUp(false)}
                     className="underline underline-offset-4 hover:text-primary"
                   >
-                    Sign in with password
+                    Sign in
                   </button>
                 </>
               ) : (
                 <>
-                  Prefer a magic link?{" "}
+                  Don&apos;t have an account?{" "}
                   <button
                     type="button"
-                    onClick={() => setAuthMethod('magic')}
+                    onClick={() => setIsSignUp(true)}
                     className="underline underline-offset-4 hover:text-primary"
                   >
-                    Send magic link
+                    Sign up
                   </button>
                 </>
               )}
-            </div>
-            
-            <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{" "}
-              <a href="#" className="underline underline-offset-4 hover:text-primary">
-                Sign up
-              </a>
             </div>
           </form>
           

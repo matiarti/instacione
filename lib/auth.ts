@@ -8,21 +8,21 @@ import User from '../models/User';
 
 export const authOptions: NextAuthOptions = {
   providers: [
-    EmailProvider({
-      server: {
-        host: process.env.EMAIL_SERVER_HOST,
-        port: process.env.EMAIL_SERVER_PORT,
-        auth: {
-          user: process.env.EMAIL_SERVER_USER,
-          pass: process.env.EMAIL_SERVER_PASSWORD,
-        },
-      },
-      from: process.env.EMAIL_FROM,
-    }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
+    // EmailProvider({
+    //   server: {
+    //     host: process.env.EMAIL_SERVER_HOST,
+    //     port: process.env.EMAIL_SERVER_PORT,
+    //     auth: {
+    //       user: process.env.EMAIL_SERVER_USER,
+    //       pass: process.env.EMAIL_SERVER_PASSWORD,
+    //     },
+    //   },
+    //   from: process.env.EMAIL_FROM,
+    // }),
+    // GoogleProvider({
+    //   clientId: process.env.GOOGLE_CLIENT_ID!,
+    //   clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    // }),
     CredentialsProvider({
       name: 'credentials',
       credentials: {
@@ -60,29 +60,7 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async signIn({ user, account, profile }) {
-      if (account?.provider === 'google') {
-        await connectDB();
-        
-        // Check if user exists
-        let existingUser = await User.findOne({ email: user.email });
-        
-        if (!existingUser) {
-          // Create new user for Google OAuth
-          existingUser = new User({
-            email: user.email,
-            name: user.name,
-            role: 'DRIVER', // Default role
-            provider: 'google',
-            providerId: user.id,
-          });
-          await existingUser.save();
-        }
-        
-        // Update user ID for the session
-        user.id = existingUser._id.toString();
-        user.role = existingUser.role;
-      }
-      
+      // For credentials provider, user is already authenticated
       return true;
     },
     async jwt({ token, user }) {

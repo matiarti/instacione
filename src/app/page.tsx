@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { AuthHeader } from '@/components/auth-header';
 
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -19,25 +20,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div className="flex items-center space-x-2">
-              <Car className="h-8 w-8 text-primary" />
-              <h1 className="text-2xl font-bold">Parcin</h1>
-            </div>
-            <nav className="flex items-center space-x-4">
-              <Button variant="ghost" asChild>
-                <a href="/operator">Operator Dashboard</a>
-              </Button>
-              <Button asChild>
-                <a href="/auth/signin">Sign In</a>
-              </Button>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <AuthHeader />
 
       {/* Hero Section */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
