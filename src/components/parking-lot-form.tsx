@@ -9,6 +9,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Checkbox } from '@/components/ui/checkbox';
 import { MapPin, DollarSign, Car, Wifi, Shield, Zap, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 
 interface ParkingLotFormProps {
   className?: string;
@@ -16,12 +17,12 @@ interface ParkingLotFormProps {
   onCancel?: () => void;
 }
 
-const AMENITIES = [
-  { id: '24/7', label: '24/7 Access', icon: Clock },
-  { id: 'covered', label: 'Covered Parking', icon: Shield },
-  { id: 'security', label: 'Security', icon: Shield },
-  { id: 'evCharging', label: 'EV Charging', icon: Zap },
-  { id: 'wifi', label: 'WiFi', icon: Wifi },
+const getAmenities = (t: any) => [
+  { id: '24/7', label: t('operator.addLot.amenity24_7'), icon: Clock },
+  { id: 'covered', label: t('operator.addLot.amenityCovered'), icon: Shield },
+  { id: 'security', label: t('operator.addLot.amenitySecurity'), icon: Shield },
+  { id: 'evCharging', label: t('operator.addLot.amenityEvCharging'), icon: Zap },
+  { id: 'wifi', label: t('operator.addLot.amenityWifi'), icon: Wifi },
 ];
 
 export function ParkingLotForm({
@@ -29,6 +30,8 @@ export function ParkingLotForm({
   onSuccess,
   onCancel,
 }: ParkingLotFormProps) {
+  const t = useTranslations();
+  const amenities = getAmenities(t);
   const [formData, setFormData] = useState({
     name: '',
     address: '',
@@ -161,22 +164,22 @@ export function ParkingLotForm({
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <MapPin className="h-5 w-5" />
-          Add New Parking Lot
+          {t('operator.addLot.title')}
         </CardTitle>
         <CardDescription>
-          Register a new parking lot to start accepting reservations
+          {t('operator.addLot.description')}
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Parking Lot Name</Label>
+              <Label htmlFor="name">{t('operator.addLot.name')}</Label>
               <Input
                 id="name"
                 name="name"
                 type="text"
-                placeholder="e.g., Downtown Plaza Parking"
+                placeholder={t('operator.addLot.namePlaceholder')}
                 value={formData.name}
                 onChange={handleInputChange}
                 required
@@ -184,12 +187,12 @@ export function ParkingLotForm({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="capacity">Total Capacity</Label>
+              <Label htmlFor="capacity">{t('operator.addLot.capacity')}</Label>
               <Input
                 id="capacity"
                 name="capacity"
                 type="number"
-                placeholder="50"
+                placeholder={t('operator.addLot.capacityPlaceholder')}
                 value={formData.capacity}
                 onChange={handleInputChange}
                 required
@@ -199,12 +202,12 @@ export function ParkingLotForm({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="address">Address</Label>
+            <Label htmlFor="address">{t('operator.addLot.address')}</Label>
             <Input
               id="address"
               name="address"
               type="text"
-              placeholder="123 Main St, City, State 12345"
+              placeholder={t('operator.addLot.addressPlaceholder')}
               value={formData.address}
               onChange={handleInputChange}
               required
@@ -213,7 +216,7 @@ export function ParkingLotForm({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="latitude">Latitude</Label>
+              <Label htmlFor="latitude">{t('operator.addLot.latitude')}</Label>
               <Input
                 id="latitude"
                 name="latitude"
@@ -226,11 +229,11 @@ export function ParkingLotForm({
                 min="-90"
                 max="90"
               />
-              <p className="text-xs text-muted-foreground">Enter latitude between -90 and 90</p>
+              <p className="text-xs text-muted-foreground">{t('operator.addLot.latitudeHint')}</p>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="longitude">Longitude</Label>
+              <Label htmlFor="longitude">{t('operator.addLot.longitude')}</Label>
               <Input
                 id="longitude"
                 name="longitude"
@@ -243,19 +246,19 @@ export function ParkingLotForm({
                 min="-180"
                 max="180"
               />
-              <p className="text-xs text-muted-foreground">Enter longitude between -180 and 180</p>
+              <p className="text-xs text-muted-foreground">{t('operator.addLot.longitudeHint')}</p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="hourlyRate">Hourly Rate ($)</Label>
+              <Label htmlFor="hourlyRate">{t('operator.addLot.hourlyRate')}</Label>
               <Input
                 id="hourlyRate"
                 name="hourlyRate"
                 type="number"
                 step="0.01"
-                placeholder="5.00"
+                placeholder={t('operator.addLot.hourlyRatePlaceholder')}
                 value={formData.hourlyRate}
                 onChange={handleInputChange}
                 required
@@ -264,13 +267,13 @@ export function ParkingLotForm({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="dailyMax">Daily Maximum ($)</Label>
+              <Label htmlFor="dailyMax">{t('operator.addLot.dailyMax')}</Label>
               <Input
                 id="dailyMax"
                 name="dailyMax"
                 type="number"
                 step="0.01"
-                placeholder="25.00"
+                placeholder={t('operator.addLot.dailyMaxPlaceholder')}
                 value={formData.dailyMax}
                 onChange={handleInputChange}
                 min="0.01"
@@ -279,9 +282,9 @@ export function ParkingLotForm({
           </div>
 
           <div className="space-y-3">
-            <Label>Amenities</Label>
+            <Label>{t('operator.addLot.amenities')}</Label>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-              {AMENITIES.map((amenity) => {
+              {amenities.map((amenity) => {
                 const Icon = amenity.icon;
                 return (
                   <div key={amenity.id} className="flex items-center space-x-2">
@@ -313,11 +316,11 @@ export function ParkingLotForm({
 
           <div className="flex gap-3">
             <Button type="submit" disabled={isLoading} className="flex-1">
-              {isLoading ? 'Creating...' : 'Create Parking Lot'}
+              {isLoading ? t('operator.addLot.creating') : t('operator.addLot.create')}
             </Button>
             {onCancel && (
               <Button type="button" variant="outline" onClick={onCancel}>
-                Cancel
+                {t('operator.addLot.cancel')}
               </Button>
             )}
           </div>
